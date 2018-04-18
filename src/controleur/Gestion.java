@@ -6,6 +6,7 @@
 package controleur;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import vue.Graphique;
 
@@ -54,8 +55,7 @@ public class Gestion {
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
                         requete = "SELECT * FROM service WHERE code LIKE" +tab[0] + "AND nom LIKE "+ tab[1] + "AND batiment LIKE" + tab[2] + "AND directeur LIKE" + tab[3];
-                        
-                
+                        C.executeUpdate(requete);
                 
                 }
                 
