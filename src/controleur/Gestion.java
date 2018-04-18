@@ -53,7 +53,8 @@ public class Gestion {
                         tab[2]=sc.next();
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
-                        requete = "SELECT * FROM service WHERE code LIKE ";
+                        requete = "SELECT * FROM service WHERE code LIKE" +tab[0] + "AND nom LIKE "+ tab[1] + "AND batiment LIKE" + tab[2] + "AND directeur LIKE" + tab[3];
+                        
                 
                 
                 }
