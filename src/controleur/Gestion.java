@@ -7,6 +7,7 @@ package controleur;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+import vue.Graphique;
 
 /**
  *
@@ -20,6 +21,8 @@ public class Gestion {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Graphique graphique=new Graphique();
+        graphique.afficher();
         System.out.println("Veuillez entrer votre identifiant");
         Scanner sc = new Scanner(System.in);
         String id=sc.next();
