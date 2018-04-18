@@ -52,7 +52,7 @@ public class Connexion {
         // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
         String urlDatabase = "jdbc:mysql://localhost/" + nameDatabase;
 
-        //création d'une connexion JDBC Ã  la base 
+        //création d'une connexion JDBC à la base 
         conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
 
         // création d'un ordre SQL (statement)
@@ -60,7 +60,7 @@ public class Connexion {
     }
 
     /**
-     * Constructeur avec 4 paramêtres : username et password ECE, login et
+     * Constructeur avec 4 paramètres : username et password ECE, login et
      * password de la BDD à distance sur le serveur de l'ECE
      * @param usernameECE
      * @param passwordECE
@@ -121,7 +121,7 @@ public class Connexion {
     }
 
     /**
-     * MÃéhode qui retourne l'ArrayList des champs de la table en parametre
+     * Méhode qui retourne l'ArrayList des champs de la table en parametre
      *
      * @param table
      * @return
@@ -163,7 +163,7 @@ public class Connexion {
      * @throws java.sql.SQLException
      */
     public ArrayList remplirChampsRequete(String requete) throws SQLException {
-        // rÃ©cupÃ©ration de l'ordre de la requete
+        // récupération de l'ordre de la requete
         rset = stmt.executeQuery(requete);
 
         // rÃ©cupÃ©ration du rÃ©sultat de l'ordre
@@ -198,7 +198,7 @@ public class Connexion {
     }
 
     /**
-     * MÃ©thode qui execute une requete de MAJ en parametre
+     * Méthode qui execute une requete de MAJ en parametre
      * @param requeteMaj
      * @throws java.sql.SQLException
      */
