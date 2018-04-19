@@ -22,13 +22,20 @@ public class Gestion {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Graphique graphique=new Graphique();
-        graphique.afficher();
+  //    Graphique connexion=new Graphique(300,400);
+//      connexion.ConnexionBDD();
+        Graphique graphique=new Graphique(800,600);
+        graphique.Menu();
         System.out.println("Veuillez entrer votre identifiant");
         Scanner sc = new Scanner(System.in);
         String id=sc.next();
         System.out.println("Veuillez entrer votre mot de passe");
         String password= sc.next();
+        if(password == "0") 
+        {  
+            password = null;
+        }
+        System.out.println(password);
         System.out.println("Veuillez entrer le nom de la base de donnée");
         String db = sc.next();
         Connexion C = new Connexion(db, id, password);
@@ -45,17 +52,18 @@ public class Gestion {
                 
                 switch(menu2){
                     case 1 :
-                        String tab[] = new String[3];
+                        String tab[] = new String[4];
                         System.out.println("Code ?");
                         tab[0]=sc.next();
+                        if(tab[0] == "0") {
+                            tab[0]="";
+                        }
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
-                        requete = "SELECT * FROM service WHERE code LIKE" +tab[0] + "AND nom LIKE "+ tab[1] + "AND batiment LIKE" + tab[2] + "AND directeur LIKE" + tab[3];
-                        C.executeUpdate(requete);
                 
                 }
                 
@@ -63,6 +71,9 @@ public class Gestion {
         
         
         }
+        
     }
+    
+    
     
 }
