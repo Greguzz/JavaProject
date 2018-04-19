@@ -26,20 +26,10 @@ public class Gestion {
 //      connexion.ConnexionBDD();
         Graphique graphique=new Graphique(800,600);
         graphique.Menu();
-        System.out.println("Veuillez entrer votre identifiant");
         Scanner sc = new Scanner(System.in);
-        String id=sc.next();
-        System.out.println("Veuillez entrer votre mot de passe");
-        String password= sc.next();
-        if(password.equals("0")) 
-        {  
-            password = "";
-        }
-        //System.out.println(password);
-        System.out.println("Veuillez entrer le nom de la base de donnée");
-        String db = sc.next();
-        Connexion C = new Connexion(db, id, password);
+        Connexion C = new Connexion("hopital", "root", "1234");
         String requete;
+        ArrayList<String> liste = new ArrayList<String>();
         
         System.out.println("1 recherche, 2 supprimer, 3 ajouter, 4 modifier");
         int menu = sc.nextInt();
@@ -65,9 +55,9 @@ public class Gestion {
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
                         ligne[1] = "Nom";
-                        if(tab[1].equals("0")) {
-                            tab[1]="";
-                        }
+                       /* if(tab[1].equals("0")) {
+                            tab[1]=null;
+                        }*/
                         
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
@@ -86,8 +76,14 @@ public class Gestion {
                         Requetes R = new Requetes(tab, tab.length);
                         String fullreq = R.concatrequete(tab, "Service", ligne);
                         System.out.println(fullreq);
-                        C.remplirChampsRequete(fullreq);
-                
+                        liste = C.remplirChampsRequete(fullreq);
+                        for(int i=0; i<liste.size(); i++){
+                            System.out.println(liste.get(i));
+                        }
+                        break;
+                        
+                    //case 2:
+                        
                 }
                 
         

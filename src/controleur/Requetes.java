@@ -25,15 +25,15 @@ public class Requetes {
             }
             System.out.println(pnn);
         }
-        condition[pnn] = ligne[pnn] + " LIKE " + condition[pnn];
+        condition[pnn] ="'" + ligne[pnn] + "'" + " LIKE " + "'" + condition[pnn] + "'";
         for (int i = pnn+1; i<nbbtrequete; i++) {
             System.out.println("");
-            if(condition[i].equals(" ")){
+            if(condition[i] == "0"){
                 //nothing to do
                 System.out.println("blabla");
             }
             else {
-                condition[i] = " AND " + ligne[i] + " LIKE " + condition[i] + " ";
+                condition[i] = " AND " + "'" + ligne[i] + "'" + " LIKE " + "'" + condition[i] + "'" + " ";
             }
         }
         for(int i = pnn; i<nbbtrequete; i++){
