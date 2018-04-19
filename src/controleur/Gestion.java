@@ -31,11 +31,11 @@ public class Gestion {
         String id=sc.next();
         System.out.println("Veuillez entrer votre mot de passe");
         String password= sc.next();
-        if(password == "0") 
+        if(password.equals("0")) 
         {  
-            password = null;
+            password = "";
         }
-        System.out.println(password);
+        //System.out.println(password);
         System.out.println("Veuillez entrer le nom de la base de donnée");
         String db = sc.next();
         Connexion C = new Connexion(db, id, password);
@@ -52,27 +52,29 @@ public class Gestion {
                 
                 switch(menu2){
                     case 1 :
-                        String tab[] = new String[4];
+                        String tab[] = new String[3];
                         System.out.println("Code ?");
                         tab[0]=sc.next();
-                        if(tab[0] == "0") {
+                        if(tab[0].equals("0")) {
                             tab[0]="";
                         }
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
-                        if(tab[1] == "0") {
+                        if(tab[1].equals("0")) {
                             tab[1]="";
                         }
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
-                        if(tab[2] == "0") {
+                        if(tab[2].equals("0")) {
                             tab[2]="";
                         }
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
-                        if(tab[3] == "0") {
+                        if(tab[3].equals("0")) {
                             tab[3]="";
                         }
+                        Requetes R = new Requetes(tab, tab.length);
+                        
                 
                 }
                 

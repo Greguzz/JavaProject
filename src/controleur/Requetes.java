@@ -6,7 +6,7 @@ package controleur;
  * @author Grégoire
  */
 public class Requetes {
-    private String[] boutrequete;
+    private String boutrequete[];
     private int nbbtrequete;
     
     Requetes(String[] pboutrequete, int pnbbtrequete)
@@ -15,21 +15,18 @@ public class Requetes {
         this.nbbtrequete = pnbbtrequete;
     }
     
-    public String[] creationrequete(int a, String condition, String table, int nbcondition) {
-        String requete[] = new String[nbcondition];
-        if(boutrequete == null){
-            requete[a] = null;
+
+    public String concatrequete(String condition[], int nbbtrequete, String table, String[] ligne){
+        String fullrequete = "SELECT * FROM " + table + "WHERE " ;
+        for(int i = 0; i<nbbtrequete; i++) {
+            
         }
-        else {
-            requete[a] = table + "AND" + "LIKE" + condition + " ";
-            nbcondition ++;
+        condition[0] = ligne[0] + "LIKE" + condition[0];
+        for (int i = 1; i<nbbtrequete; i++) {
+            condition[i] = "AND" + ligne[i] + "LIKE" + condition[i] + " ";
         }
-        return requete;
-    }
-    public String concatrequete(String requete[], int nbcondition){
-        String fullrequete = "";
-        for(int i = 0; i<nbcondition; i++){
-            fullrequete = fullrequete + requete[i];
+        for(int i = 0; i<nbbtrequete; i++){
+            fullrequete = fullrequete + condition[i];
         }
         return fullrequete;
     }
