@@ -26,7 +26,12 @@ public class Requetes {
         }
         condition[pnn] = ligne[pnn] + " LIKE " + condition[pnn];
         for (int i = pnn+1; i<nbbtrequete; i++) {
+            if(condition[i].equals("")){
+                //nothing to do
+            }
+            else {
             condition[i] = " AND " + ligne[i] + " LIKE " + condition[i] + " ";
+            }
         }
         for(int i = pnn; i<nbbtrequete; i++){
             fullrequete = fullrequete + condition[i];
