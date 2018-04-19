@@ -60,10 +60,19 @@ public class Gestion {
                         }
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
+                        if(tab[1] == "0") {
+                            tab[1]="";
+                        }
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
+                        if(tab[2] == "0") {
+                            tab[2]="";
+                        }
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
+                        if(tab[3] == "0") {
+                            tab[3]="";
+                        }
                 
                 }
                 

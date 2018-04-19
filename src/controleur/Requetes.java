@@ -7,13 +7,11 @@ package controleur;
  */
 public class Requetes {
     private String[] boutrequete;
-    private String requetecomplete;
     private int nbbtrequete;
     
-    Requetes(String[] pboutrequete, String prequetecomplete, int pnbbtrequete)
+    Requetes(String[] pboutrequete, int pnbbtrequete)
     {
         this.boutrequete = pboutrequete.clone();
-        this.requetecomplete = prequetecomplete;
         this.nbbtrequete = pnbbtrequete;
     }
     
@@ -29,7 +27,7 @@ public class Requetes {
         return requete;
     }
     public String concatrequete(String requete[], int nbcondition){
-        String fullrequete = null;
+        String fullrequete = "";
         for(int i = 0; i<nbcondition; i++){
             fullrequete = fullrequete + requete[i];
         }
