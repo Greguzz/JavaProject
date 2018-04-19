@@ -52,35 +52,41 @@ public class Gestion {
                 
                 switch(menu2){
                     case 1 :
-                        String ligne[] = new String[3];
-                        String tab[] = new String[3];
+                        String ligne[] = new String[4];
+                        String tab[] = new String[4];
                         System.out.println("Code ?");
                         tab[0]=sc.next();
                         ligne[0]="Code";
+                        
                         if(tab[0].equals("0")) {
                             tab[0]="";
                         }
+                        
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
                         ligne[1] = "Nom";
                         if(tab[1].equals("0")) {
                             tab[1]="";
                         }
+                        
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
                         ligne[2]="Batiment";
                         if(tab[2].equals("0")) {
                             tab[2]="";
                         }
+                        
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
                         ligne[3]="Directeur";
                         if(tab[3].equals("0")) {
                             tab[3]="";
                         }
+                        
                         Requetes R = new Requetes(tab, tab.length);
                         String fullreq = R.concatrequete(tab, "Service", ligne);
                         System.out.println(fullreq);
+                        C.executeUpdate(fullreq);
                 
                 }
                 

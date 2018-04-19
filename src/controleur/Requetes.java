@@ -18,17 +18,17 @@ public class Requetes {
 
     public String concatrequete(String condition[], String table, String[] ligne){
         int pnn=0;
-        String fullrequete = "SELECT * FROM " + table + "WHERE " ;
+        String fullrequete = "SELECT * FROM " + table + " WHERE " ;
         for(int i = 0; i<nbbtrequete; i++) {
-            if(!"".equals(condition[i]) ){
-                pnn = i;
+            if(condition[i].equals("")){
+                pnn ++;
             }
         }
-        condition[pnn] = ligne[pnn] + "LIKE" + condition[pnn];
-        for (int i = pnn; i<nbbtrequete; i++) {
-            condition[i] = "AND" + ligne[i] + "LIKE" + condition[i] + " ";
+        condition[pnn] = ligne[pnn] + " LIKE " + condition[pnn];
+        for (int i = pnn+1; i<nbbtrequete; i++) {
+            condition[i] = " AND " + ligne[i] + " LIKE " + condition[i] + " ";
         }
-        for(int i = 0; i<nbbtrequete; i++){
+        for(int i = pnn; i<nbbtrequete; i++){
             fullrequete = fullrequete + condition[i];
         }
         return fullrequete;
