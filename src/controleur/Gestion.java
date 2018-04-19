@@ -86,7 +86,7 @@ public class Gestion {
                         Requetes R = new Requetes(tab, tab.length);
                         String fullreq = R.concatrequete(tab, "Service", ligne);
                         System.out.println(fullreq);
-                        C.executeUpdate(fullreq);
+                        C.remplirChampsRequete(fullreq);
                 
                 }
                 
