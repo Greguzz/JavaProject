@@ -11,7 +11,7 @@ package controleur;
  */
 public class ReqAjout {
     
-    public String concatrequete(String table,  String var[], String ajout[]){
+    public static String concatrequete(String table,  String var[], String ajout[]){
     String fullrequete = "INSERT INTO " + table + " (" ;
     for(int i=0; i<ajout.length; i++){
         fullrequete = fullrequete + var[i];
