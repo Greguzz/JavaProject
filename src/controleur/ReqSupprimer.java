@@ -10,7 +10,7 @@ package controleur;
  * @author Aurelio
  */
 public class ReqSupprimer {
-    public String concatrequete(String table, String var[], String supp[]){
+    public static String concatrequete(String table, String var[], String supp[]){
         String fullrequete = "DELETE FROM " + table + " WHERE ";
         for(int i=0; i<supp.length; i++){
             fullrequete = fullrequete + var[i] + " = " + supp[i];

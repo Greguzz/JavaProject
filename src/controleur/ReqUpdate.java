@@ -12,7 +12,7 @@ package controleur;
 public class ReqUpdate {
     //"UPDATE chambre SET surveillant = sur WHERE no_chambre = n_c"
 
-    public String concatrequete(String table, String col, String var[], String modif, String val[]){
+    public static String concatrequete(String table, String col, String var[], String modif, String val[]){
     String fullrequete = "UPDATE " + table + " SET " + col + " = " + modif + " WHERE ";
     for(int i=0; i<var.length; i++){
         fullrequete = fullrequete + var[i] + " = " + val[i];
