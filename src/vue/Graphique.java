@@ -8,6 +8,7 @@ package vue;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import controleur.*;
 
 /**
  * Classe GRAPHIQUE qui hérite de JFrame et implémente ActionListener
@@ -36,7 +37,7 @@ public class Graphique extends JFrame implements ActionListener {
     private final JTextField numero_t, nom2_t, prenom_t, adresse_t, tel_t; ///JTextField du formulaire de recherche Employé
     private final JTextField numero2_t, specialité_t; ///JTextField du formulaire de recherche Docteur
     private final JTextField numero3_t, code_service2_t, rotation_t, salaire_t; ///JTextField du formulaire de recherche Infirmier
-    private final JTextField numero4_t, nom3_t, prenom2_t, adresse2_t, tel2_t, mutuelle_t; ///JTextField du formulaire de recherche Infirmier
+    private final JTextField numero4_t, nom3_t, prenom2_t, adresse2_t, tel2_t, mutuelle_t; ///JTextField du formulaire de recherche Malade
     private final JTextField no_malade_t, code_service3_t, no_chambre2_t, lit_t; ///JTextField du formulaire de recherche Hospitalisation
     private final JTextField no_docteur_t, no_malade2_t; ///JTextField du formulaire de recherche Soignage
 
@@ -59,7 +60,7 @@ public class Graphique extends JFrame implements ActionListener {
     private final JButton Hospitalisation, Hospitalisation2;
     private final JButton Soignage, Soignage2;
     private final JButton Rechercher;
-    private final JButton Ajouter;
+    private final JButton Ajouter_Service, Ajouter_Chambre, Ajouter_Employé, Ajouter_Docteur, Ajouter_Infirmier, Ajouter_Malade, Ajouter_Hospitalisation, Ajouter_Soignage;
     private final JSplitPane split;
     private final Dimension d, e;    ///Pour la dimension des boutons
     private Font font1, font2;
@@ -197,8 +198,22 @@ public class Graphique extends JFrame implements ActionListener {
         Soignage2.addActionListener(this);
         Rechercher = new JButton("Rechercher");
         Rechercher.addActionListener(this);
-        Ajouter = new JButton("Ajouter");
-        Ajouter.addActionListener(this);
+        Ajouter_Service = new JButton("Ajouter");
+        Ajouter_Service.addActionListener(this);
+        Ajouter_Chambre = new JButton("Ajouter");
+        Ajouter_Chambre.addActionListener(this);
+        Ajouter_Employé = new JButton("Ajouter");
+        Ajouter_Employé.addActionListener(this);
+        Ajouter_Docteur = new JButton("Ajouter");
+        Ajouter_Docteur.addActionListener(this);
+        Ajouter_Infirmier = new JButton("Ajouter");
+        Ajouter_Infirmier.addActionListener(this);
+        Ajouter_Malade = new JButton("Ajouter");
+        Ajouter_Malade.addActionListener(this);
+        Ajouter_Hospitalisation = new JButton("Ajouter");
+        Ajouter_Hospitalisation.addActionListener(this);
+        Ajouter_Soignage = new JButton("Ajouter");
+        Ajouter_Soignage.addActionListener(this);
 
         d = new Dimension(190, 30);
         e = new Dimension(500, 40);
@@ -221,7 +236,7 @@ public class Graphique extends JFrame implements ActionListener {
         }
         if (e.getSource() == choix1) {
             System.out.println("lol1");
-            ChoixSecteur(1,false);
+            ChoixSecteur(1, false);
         }
         if (e.getSource() == choix2) {
             System.out.println("lol2");
@@ -231,7 +246,7 @@ public class Graphique extends JFrame implements ActionListener {
         }
         if (e.getSource() == choix4) {
             System.out.println("lol4");
-            ChoixSecteur(4,true);
+            ChoixSecteur(4, true);
         }
 
         if (e.getSource() == Service) {
@@ -312,27 +327,196 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("lol12");
 
         }
-        
-        
-        /////Créer plusieurs boutons pour chaque section avec les IF adaptés en fonction
-        if (e.getSource() == Ajouter) {
+
+
+        if (e.getSource() == Ajouter_Service) {
             System.out.println("lol13");
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (code_service_t.getText().equals("") || no_chambre_t.getText().equals("") || surveillant_t.getText().equals("") || nb_lits_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (numero_t.getText().equals("") || nom2_t.getText().equals("") || prenom_t.getText().equals("") || adresse_t.getText().equals("") || tel_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals(""))
-//                System.out.println("Il manque un champ à ajouter");
+            String[] tab_valeurs1 = new String[4];
+            String[] tab_colonnes1 = new String[4];
+            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs1[0] = code_t.getText();
+                tab_valeurs1[1] = nom_t.getText();
+                tab_valeurs1[2] = batiment_t.getText();
+                tab_valeurs1[3] = directeur_t.getText();
+                tab_colonnes1[0] = "code";
+                tab_colonnes1[1] = "nom";
+                tab_colonnes1[2] = "batiment";
+                tab_colonnes1[3] = "directeur";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("service", tab_colonnes1, tab_valeurs1);
+
+                for (int i = 0; i < tab_valeurs1.length; i++) {
+                    System.out.println("" + tab_valeurs1[i] + "" + tab_colonnes1[i]);
+                }
+            }
+        }
+
+        if (e.getSource() == Ajouter_Chambre) {
+            System.out.println("lol13");
+            String[] tab_valeurs2 = new String[4];
+            String[] tab_colonnes2 = new String[4];
+            if (code_service_t.getText().equals("") || no_chambre_t.getText().equals("") || surveillant_t.getText().equals("") || nb_lits_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs2[0] = code_service_t.getText();
+                tab_valeurs2[1] = no_chambre_t.getText();
+                tab_valeurs2[2] = surveillant_t.getText();
+                tab_valeurs2[3] = nb_lits_t.getText();
+                tab_colonnes2[0] = "code_service";
+                tab_colonnes2[1] = "no_chambre";
+                tab_colonnes2[2] = "surveillant";
+                tab_colonnes2[3] = "nb_lits";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
+
+                for (int i = 0; i < tab_valeurs2.length; i++) {
+                    System.out.println("" + tab_valeurs2[i] + "" + tab_colonnes2[i]);
+                }
+            }
+        }
+
+        if (e.getSource() == Ajouter_Employé) {
+            System.out.println("lol13");
+            String[] tab_valeurs3 = new String[5];
+            String[] tab_colonnes3 = new String[5];
+            if (numero_t.getText().equals("") || nom2_t.getText().equals("") || prenom_t.getText().equals("") || adresse_t.getText().equals("") || tel_t.getText().equals("")) {
+                System.out.println("Un ou plusieurs de vos champs sont vides");
+            } else {
+                tab_valeurs3[0] = numero_t.getText();
+                tab_valeurs3[1] = nom2_t.getText();
+                tab_valeurs3[2] = prenom_t.getText();
+                tab_valeurs3[3] = adresse_t.getText();
+                tab_valeurs3[4] = tel_t.getText();
+                tab_colonnes3[0] = "numero";
+                tab_colonnes3[1] = "nom";
+                tab_colonnes3[2] = "prenom";
+                tab_colonnes3[3] = "adresse";
+                tab_colonnes3[4] = "tel";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
+
+                for (int i = 0; i < tab_valeurs3.length; i++) {
+                    System.out.println("" + tab_valeurs3[i] + "" + tab_colonnes3[i]);
+                }
+            }
+        }
+        
+        if (e.getSource() == Ajouter_Docteur) {
+            System.out.println("lol13");
+            String[] tab_valeurs4 = new String[2];
+            String[] tab_colonnes4 = new String[2];
+            if (numero2_t.getText().equals("") || specialité_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs4[0] = code_t.getText();
+                tab_valeurs4[1] = nom_t.getText();
+                tab_colonnes4[0] = "code";
+                tab_colonnes4[1] = "nom";
+                
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
+
+                for (int i = 0; i < tab_valeurs4.length; i++) {
+                    System.out.println("" + tab_valeurs4[i] + "" + tab_colonnes4[i]);
+                }
+            }
+        }
+        
+        if (e.getSource() == Ajouter_Infirmier) {
+            System.out.println("lol13");
+            String[] tab_valeurs5 = new String[4];
+            String[] tab_colonnes5 = new String[4];
+            if (numero3_t.getText().equals("") || code_service2_t.getText().equals("") || rotation_t.getText().equals("") || salaire_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs5[0] = numero3_t.getText();
+                tab_valeurs5[1] = code_service2_t.getText();
+                tab_valeurs5[2] = rotation_t.getText();
+                tab_valeurs5[3] = salaire_t.getText();
+                tab_colonnes5[0] = "numero";
+                tab_colonnes5[1] = "code_service";
+                tab_colonnes5[2] = "rotation";
+                tab_colonnes5[3] = "salaire";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
+
+                for (int i = 0; i < tab_valeurs5.length; i++) {
+                    System.out.println("" + tab_valeurs5[i] + "" + tab_colonnes5[i]);
+                }
+            }
+        }
+        
+        if (e.getSource() == Ajouter_Malade) {
+            System.out.println("lol13");
+            String[] tab_valeurs6 = new String[6];
+            String[] tab_colonnes6 = new String[6];
+            if (numero4_t.getText().equals("") || nom3_t.getText().equals("") || prenom2_t.getText().equals("") || adresse2_t.getText().equals("") || tel2_t.getText().equals("") || mutuelle_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs6[0] = numero4_t.getText();
+                tab_valeurs6[1] = nom3_t.getText();
+                tab_valeurs6[2] = prenom2_t.getText();
+                tab_valeurs6[3] = adresse2_t.getText();
+                tab_valeurs6[4] = tel2_t.getText();
+                tab_valeurs6[5] = mutuelle_t.getText();
+                tab_colonnes6[0] = "numero";
+                tab_colonnes6[1] = "nom";
+                tab_colonnes6[2] = "prenom";
+                tab_colonnes6[3] = "adresse";
+                tab_colonnes6[4] = "tel";
+                tab_colonnes6[5] = "mutuelle";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
+
+                for (int i = 0; i < tab_valeurs6.length; i++) {
+                    System.out.println("" + tab_valeurs6[i] + "" + tab_colonnes6[i]);
+                }
+            }
+        }
+        
+        if (e.getSource() == Ajouter_Hospitalisation) {
+            System.out.println("lol13");
+            String[] tab_valeurs7 = new String[4];
+            String[] tab_colonnes7 = new String[4];
+            if (no_malade_t.getText().equals("") || code_service3_t.getText().equals("") || no_chambre2_t.getText().equals("") || lit_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs7[0] = no_malade_t.getText();
+                tab_valeurs7[1] = code_service3_t.getText();
+                tab_valeurs7[2] = no_chambre2_t.getText();
+                tab_valeurs7[3] = lit_t.getText();
+                tab_colonnes7[0] = "no_malade";
+                tab_colonnes7[1] = "code_service";
+                tab_colonnes7[2] = "no_chambre";
+                tab_colonnes7[3] = "lit";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
+
+                for (int i = 0; i < tab_valeurs7.length; i++) {
+                    System.out.println("" + tab_valeurs7[i] + "" + tab_colonnes7[i]);
+                }
+            }
+        }
+        if (e.getSource() == Ajouter_Soignage) {
+            System.out.println("lol13");
+            String[] tab_valeurs8 = new String[2];
+            String[] tab_colonnes8 = new String[2];
+            if (no_docteur_t.getText().equals("") || no_malade2_t.getText().equals("")) {
+                System.out.println("Un de vos champs est vide");
+            } else {
+                tab_valeurs8[0] = no_docteur_t.getText();
+                tab_valeurs8[1] = no_malade2_t.getText();
+                tab_colonnes8[0] = "no_docteur";
+                tab_colonnes8[1] = "no_malade";
+                ReqAjout requete_ajout = new ReqAjout();
+                requete_ajout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
+
+                for (int i = 0; i < tab_valeurs8.length; i++) {
+                    System.out.println("" + tab_valeurs8[i] + "" + tab_colonnes8[i]);
+                }
+            }
         }
 
     }
@@ -422,8 +606,7 @@ public class Graphique extends JFrame implements ActionListener {
             pan2.add(Malade);
             pan2.add(Hospitalisation);
             pan2.add(Soignage);
-        }
-        else {
+        } else {
             pan2.add(Service2);
             pan2.add(Chambre2);
             pan2.add(Employé2);
@@ -477,7 +660,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Service);
                 }
                 break;
 
@@ -505,7 +688,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Chambre);
                 }
                 break;
 
@@ -538,7 +721,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Employé);
                 }
                 break;
 
@@ -556,7 +739,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Docteur);
                 }
                 break;
 
@@ -584,7 +767,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Infirmier);
                 }
                 break;
 
@@ -622,7 +805,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Malade);
                 }
                 break;
 
@@ -650,7 +833,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Hospitalisation);
                 }
                 break;
 
@@ -668,7 +851,7 @@ public class Graphique extends JFrame implements ActionListener {
                 if (a == true) {
                     pan4.add(Rechercher);
                 } else {
-                    pan4.add(Ajouter);
+                    pan4.add(Ajouter_Soignage);
                 }
                 break;
 
