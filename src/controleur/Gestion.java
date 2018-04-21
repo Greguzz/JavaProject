@@ -55,9 +55,9 @@ public class Gestion {
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
                         ligne[1] = "Nom";
-                       /* if(tab[1].equals("0")) {
-                            tab[1]=null;
-                        }*/
+                        if(tab[1].equals("0")) {
+                            tab[1]="";
+                        }
                         
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
@@ -74,7 +74,7 @@ public class Gestion {
                         }
                         
                         Requetes R = new Requetes(tab, tab.length);
-                        String fullreq = R.concatrequete(tab, "Service", ligne);
+                        String fullreq = R.concatrequete(tab, "service", ligne);
                         System.out.println(fullreq);
                         liste = C.remplirChampsRequete(fullreq);
                         System.out.println(liste);
