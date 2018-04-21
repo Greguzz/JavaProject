@@ -59,7 +59,9 @@ public class Graphique extends JFrame implements ActionListener {
     private final JButton Malade, Malade2;
     private final JButton Hospitalisation, Hospitalisation2;
     private final JButton Soignage, Soignage2;
-    private final JButton Rechercher;
+    private final JButton Rechercher_parametre;
+    private final JButton Rechercher_tout_Service, Rechercher_tout_Chambre, Rechercher_tout_Employé, Rechercher_tout_Docteur, Rechercher_tout_Infirmier, Rechercher_tout_Malade, Rechercher_tout_Hospitalisation, Rechercher_tout_Soignage;
+
     private final JButton Ajouter_Service, Ajouter_Chambre, Ajouter_Employé, Ajouter_Docteur, Ajouter_Infirmier, Ajouter_Malade, Ajouter_Hospitalisation, Ajouter_Soignage;
     private final JSplitPane split;
     private final Dimension d, e;    ///Pour la dimension des boutons
@@ -196,8 +198,24 @@ public class Graphique extends JFrame implements ActionListener {
         Hospitalisation2.addActionListener(this);
         Soignage2 = new JButton("Soignage");
         Soignage2.addActionListener(this);
-        Rechercher = new JButton("Rechercher");
-        Rechercher.addActionListener(this);
+        Rechercher_parametre = new JButton("Rechercher Par Paramètre");
+        Rechercher_parametre.addActionListener(this);
+        Rechercher_tout_Service = new JButton("Afficher tout");
+        Rechercher_tout_Service.addActionListener(this);
+        Rechercher_tout_Chambre = new JButton("Afficher tout");
+        Rechercher_tout_Chambre.addActionListener(this);
+        Rechercher_tout_Employé = new JButton("Afficher tout");
+        Rechercher_tout_Employé.addActionListener(this);
+        Rechercher_tout_Docteur = new JButton("Afficher tout");
+        Rechercher_tout_Docteur.addActionListener(this);
+        Rechercher_tout_Infirmier = new JButton("Afficher tout");
+        Rechercher_tout_Infirmier.addActionListener(this);
+        Rechercher_tout_Malade = new JButton("Afficher tout");
+        Rechercher_tout_Malade.addActionListener(this);
+        Rechercher_tout_Hospitalisation = new JButton("Afficher tout");
+        Rechercher_tout_Hospitalisation.addActionListener(this);
+        Rechercher_tout_Soignage = new JButton("Afficher tout");
+        Rechercher_tout_Soignage.addActionListener(this);
         Ajouter_Service = new JButton("Ajouter");
         Ajouter_Service.addActionListener(this);
         Ajouter_Chambre = new JButton("Ajouter");
@@ -217,6 +235,7 @@ public class Graphique extends JFrame implements ActionListener {
 
         d = new Dimension(190, 30);
         e = new Dimension(500, 40);
+
 //        
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pan1, pan2); ///Pour séparer les deux panneaux 
         split.setDividerSize(10);  ///Taille du JSplitPane
@@ -323,11 +342,112 @@ public class Graphique extends JFrame implements ActionListener {
             FormulaireRecherche(8, false);
         }
 
-        if (e.getSource() == Rechercher) {
-            System.out.println("lol12");
-
+        if (e.getSource() == Rechercher_tout_Service) {
+            System.out.println("lol1");
+            String[] tab_colonnes1 = new String[4];
+            tab_colonnes1[0] = "code";
+            tab_colonnes1[1] = "nom";
+            tab_colonnes1[2] = "batiment";
+            tab_colonnes1[3] = "directeur";
+            //ReqLectureTable requete_lecture_table = new ReqLectureTable();
+            ReqLectureTable.concatrequete("service", tab_colonnes1);
+//            System.out.println(""+ReqLectureTable.concatrequete("service", tab_colonnes1));
         }
 
+        if (e.getSource() == Rechercher_tout_Chambre) {
+            System.out.println("lol2");
+            String[] tab_colonnes2 = new String[4];
+            tab_colonnes2[0] = "code_service";
+            tab_colonnes2[1] = "no_chambre";
+            tab_colonnes2[2] = "surveillant";
+            tab_colonnes2[3] = "nb_lits";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("chambre", tab_colonnes2);
+        }
+
+        if (e.getSource() == Rechercher_tout_Employé) {
+            System.out.println("lol3");
+            String[] tab_colonnes3 = new String[5];
+            tab_colonnes3[0] = "numero";
+            tab_colonnes3[1] = "nom";
+            tab_colonnes3[2] = "prenom";
+            tab_colonnes3[3] = "adresse";
+            tab_colonnes3[4] = "tel";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("employe", tab_colonnes3);
+        }
+
+        if (e.getSource() == Rechercher_tout_Docteur) {
+            System.out.println("lol4");
+            String[] tab_colonnes4 = new String[2];
+            tab_colonnes4[0] = "code";
+            tab_colonnes4[1] = "nom";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("docteur", tab_colonnes4);
+        }
+
+        if (e.getSource() == Rechercher_tout_Infirmier) {
+            System.out.println("lol5");
+            String[] tab_colonnes5 = new String[4];
+            tab_colonnes5[0] = "numero";
+            tab_colonnes5[1] = "code_service";
+            tab_colonnes5[2] = "rotation";
+            tab_colonnes5[3] = "salaire";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("infirmier", tab_colonnes5);
+        }
+
+        if (e.getSource() == Rechercher_tout_Malade) {
+            System.out.println("lol6");
+            String[] tab_colonnes6 = new String[6];
+            tab_colonnes6[0] = "numero";
+            tab_colonnes6[1] = "nom";
+            tab_colonnes6[2] = "prenom";
+            tab_colonnes6[3] = "adresse";
+            tab_colonnes6[4] = "tel";
+            tab_colonnes6[5] = "mutuelle";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("malade", tab_colonnes6);
+        }
+
+        if (e.getSource() == Rechercher_tout_Hospitalisation) {
+            System.out.println("lol7");
+            String[] tab_colonnes7 = new String[4];
+            tab_colonnes7[0] = "no_malade";
+            tab_colonnes7[1] = "code_service";
+            tab_colonnes7[2] = "no_chambre";
+            tab_colonnes7[3] = "lit";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("hospitalisation", tab_colonnes7);
+        }
+
+        if (e.getSource() == Rechercher_tout_Soignage) {
+            System.out.println("lol8");
+            String[] tab_colonnes8 = new String[2];
+            tab_colonnes8[0] = "no_docteur";
+            tab_colonnes8[1] = "no_malade";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqLectureTable.concatrequete("soigne", tab_colonnes8);
+        }
+
+        if (e.getSource() == Rechercher_parametre) {
+            System.out.println("lol12");
+//            String[] tab_colonnes1 = new String[4];
+//            String[] tab_valeurs1 = new String[4];
+//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals("")) {
+//                System.out.println("Un de vos champs est vide");
+//            } else {
+//                tab_valeurs1[0] = code_t.getText();
+//                tab_valeurs1[1] = nom_t.getText();
+//                tab_valeurs1[2] = batiment_t.getText();
+//                tab_valeurs1[3] = directeur_t.getText();
+//                tab_colonnes1[0] = "code";
+//                tab_colonnes1[1] = "nom";
+//                tab_colonnes1[2] = "batiment";
+//                tab_colonnes1[3] = "directeur";
+//            }
+
+        }
 
         if (e.getSource() == Ajouter_Service) {
             System.out.println("lol13");
@@ -344,12 +464,8 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes1[1] = "nom";
                 tab_colonnes1[2] = "batiment";
                 tab_colonnes1[3] = "directeur";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("service", tab_colonnes1, tab_valeurs1);
-
-                for (int i = 0; i < tab_valeurs1.length; i++) {
-                    System.out.println("" + tab_valeurs1[i] + "" + tab_colonnes1[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1);
             }
         }
 
@@ -368,12 +484,9 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes2[1] = "no_chambre";
                 tab_colonnes2[2] = "surveillant";
                 tab_colonnes2[3] = "nb_lits";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
-
-                for (int i = 0; i < tab_valeurs2.length; i++) {
-                    System.out.println("" + tab_valeurs2[i] + "" + tab_colonnes2[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
+                System.out.println(""+ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
             }
         }
 
@@ -394,15 +507,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes3[2] = "prenom";
                 tab_colonnes3[3] = "adresse";
                 tab_colonnes3[4] = "tel";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
-
-                for (int i = 0; i < tab_valeurs3.length; i++) {
-                    System.out.println("" + tab_valeurs3[i] + "" + tab_colonnes3[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
             }
         }
-        
+
         if (e.getSource() == Ajouter_Docteur) {
             System.out.println("lol13");
             String[] tab_valeurs4 = new String[2];
@@ -414,16 +523,12 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_valeurs4[1] = nom_t.getText();
                 tab_colonnes4[0] = "code";
                 tab_colonnes4[1] = "nom";
-                
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
 
-                for (int i = 0; i < tab_valeurs4.length; i++) {
-                    System.out.println("" + tab_valeurs4[i] + "" + tab_colonnes4[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
             }
         }
-        
+
         if (e.getSource() == Ajouter_Infirmier) {
             System.out.println("lol13");
             String[] tab_valeurs5 = new String[4];
@@ -439,15 +544,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes5[1] = "code_service";
                 tab_colonnes5[2] = "rotation";
                 tab_colonnes5[3] = "salaire";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
-
-                for (int i = 0; i < tab_valeurs5.length; i++) {
-                    System.out.println("" + tab_valeurs5[i] + "" + tab_colonnes5[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
             }
         }
-        
+
         if (e.getSource() == Ajouter_Malade) {
             System.out.println("lol13");
             String[] tab_valeurs6 = new String[6];
@@ -467,15 +568,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes6[3] = "adresse";
                 tab_colonnes6[4] = "tel";
                 tab_colonnes6[5] = "mutuelle";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
-
-                for (int i = 0; i < tab_valeurs6.length; i++) {
-                    System.out.println("" + tab_valeurs6[i] + "" + tab_colonnes6[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
             }
         }
-        
+
         if (e.getSource() == Ajouter_Hospitalisation) {
             System.out.println("lol13");
             String[] tab_valeurs7 = new String[4];
@@ -491,12 +588,8 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes7[1] = "code_service";
                 tab_colonnes7[2] = "no_chambre";
                 tab_colonnes7[3] = "lit";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
-
-                for (int i = 0; i < tab_valeurs7.length; i++) {
-                    System.out.println("" + tab_valeurs7[i] + "" + tab_colonnes7[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
             }
         }
         if (e.getSource() == Ajouter_Soignage) {
@@ -510,12 +603,8 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_valeurs8[1] = no_malade2_t.getText();
                 tab_colonnes8[0] = "no_docteur";
                 tab_colonnes8[1] = "no_malade";
-                ReqAjout requete_ajout = new ReqAjout();
-                requete_ajout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
-
-                for (int i = 0; i < tab_valeurs8.length; i++) {
-                    System.out.println("" + tab_valeurs8[i] + "" + tab_colonnes8[i]);
-                }
+//                ReqAjout requete_ajout = new ReqAjout();
+                ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
             }
         }
 
@@ -563,6 +652,7 @@ public class Graphique extends JFrame implements ActionListener {
      * fenêtre visible à la fin
      *
      * @param menu
+     * @param a
      */
     public void ChoixSecteur(int menu, boolean a) {
         pan2.removeAll();
@@ -641,6 +731,7 @@ public class Graphique extends JFrame implements ActionListener {
                 nom.setFont(font2);
                 batiment.setFont(font2);
                 directeur.setFont(font2);
+
                 pan3.add(code);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(nom);
@@ -648,20 +739,32 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(batiment);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(directeur);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(code_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(nom_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(batiment_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(directeur_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(code_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nom_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(batiment_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(directeur_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Service);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(code_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nom_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(batiment_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(directeur_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Service);
                 }
+
                 break;
 
             case 2:
@@ -676,20 +779,32 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(surveillant);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(nb_lits);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(code_service_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(no_chambre_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(surveillant_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(nb_lits_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(code_service_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(no_chambre_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(surveillant_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nb_lits_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Chambre);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(code_service_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(no_chambre_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(surveillant_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nb_lits_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Chambre);
                 }
+
                 break;
 
             case 3:
@@ -707,22 +822,36 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(adresse);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(tel);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(numero_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(nom2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(prenom_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(adresse_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(tel_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(numero_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nom2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(prenom_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(adresse_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(tel_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Employé);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(numero_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nom2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(prenom_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(adresse_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(tel_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Employé);
                 }
+
                 break;
 
             case 4:
@@ -731,16 +860,24 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(numero2);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(specialité);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(numero2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(specialité_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(numero2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(specialité_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Docteur);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(numero2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(specialité_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Docteur);
                 }
+
                 break;
 
             case 5:
@@ -755,20 +892,32 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(rotation);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(salaire);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(numero3_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(code_service2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(rotation_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(salaire_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(numero3_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(code_service2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(rotation_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(salaire_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Infirmier);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(numero3_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(code_service2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(rotation_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(salaire_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Infirmier);
                 }
+
                 break;
 
             case 6:
@@ -789,24 +938,40 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(tel2);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(mutuelle);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(numero4_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(nom3_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(prenom2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(adresse2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(tel2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(mutuelle_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(numero4_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nom3_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(prenom2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(adresse2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(tel2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(mutuelle_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Malade);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(numero4_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(nom3_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(prenom2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(adresse2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(tel2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(mutuelle_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Malade);
                 }
+
                 break;
 
             case 7:
@@ -821,20 +986,32 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(no_chambre2);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(lit);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(no_malade_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(code_service3_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(no_chambre2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(lit_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(no_malade_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(code_service3_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(no_chambre2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(lit_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Hospitalisation);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(no_malade_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(code_service3_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(no_chambre2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(lit_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Hospitalisation);
                 }
+
                 break;
 
             case 8:
@@ -843,16 +1020,24 @@ public class Graphique extends JFrame implements ActionListener {
                 pan3.add(no_docteur);
                 pan3.add(Box.createRigidArea(new Dimension(0, 10)));
                 pan3.add(no_malade2);
-                pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                pan4.add(no_docteur_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                pan4.add(no_malade2_t);
-                pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                 if (a == true) {
-                    pan4.add(Rechercher);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 80)));
+                    pan4.add(no_docteur_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(no_malade2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_tout_Soignage);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(Rechercher_parametre);
                 } else {
+                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(no_docteur_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan4.add(no_malade2_t);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Ajouter_Soignage);
                 }
+
                 break;
 
         }

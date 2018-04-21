@@ -11,7 +11,7 @@ package controleur;
  */
 public class ReqLectureTable {
     
-    public static String concatrequete(String table, String var[], String val[]){
+    public static String concatrequete(String table, String var[]){
     String fullrequete = "SELECT ";
     for(int i=0; i<var.length; i++){
         fullrequete = fullrequete + var[i] + " ";
