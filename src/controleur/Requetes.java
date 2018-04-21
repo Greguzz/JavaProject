@@ -28,7 +28,7 @@ public class Requetes {
         condition[pnn] ="'" + ligne[pnn] + "'" + " LIKE " + "'" + condition[pnn] + "'";
         for (int i = pnn+1; i<nbbtrequete; i++) {
             System.out.println("");
-            if(condition[i] == "0"){
+            if(condition[i] == ""){
                 //nothing to do
                 System.out.println("blabla");
             }

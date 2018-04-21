@@ -77,9 +77,7 @@ public class Gestion {
                         String fullreq = R.concatrequete(tab, "Service", ligne);
                         System.out.println(fullreq);
                         liste = C.remplirChampsRequete(fullreq);
-                        for(int i=0; i<liste.size(); i++){
-                            System.out.println(liste.get(i));
-                        }
+                        System.out.println(liste);
                         break;
                         
                     //case 2:
