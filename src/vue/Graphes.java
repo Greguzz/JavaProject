@@ -43,4 +43,15 @@ public class Graphes {
         frame.pack();
         frame.setVisible(true);
     }
+
+    public static void salaireGraphe (String service[], float moyenne[]) {
+        DefaultCategoryDataset data = new DefaultCategoryDataset();
+        for (int i=0; i<service.length; i++){
+            data.addValue(moyenne[i], service[i], "");
+        }
+        JFreeChart chart = ChartFactory.createBarChart("Nombre de patient par service", "Service", "Nombre de Patient", data, PlotOrientation.VERTICAL, true, true, false);
+        ChartFrame frame = new ChartFrame("Fenetre", chart);//je savais pas trop quoi mettre a la place de fenetre
+        frame.pack();
+        frame.setVisible(true);
+    }
 }
