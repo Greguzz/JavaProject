@@ -10,7 +10,14 @@ package controleur;
  * @author Aurelio
  */
 public class ReqAjout {
-    
+    /**
+     * Une méthode qui renvoie juste le string de requête SQL d'ajout de donnée à une des tables
+     *
+     * @param table le nom de la table
+     * @param var les colonnes de la table
+     * @param ajout les données à ajouter
+     * @return fullrequete la requête finis
+     */
     public static String concatrequete(String table,  String var[], String ajout[]){
     String fullrequete = "INSERT INTO " + table + " (" ;
     for(int i=0; i<ajout.length; i++){
