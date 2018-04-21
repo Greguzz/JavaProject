@@ -24,7 +24,7 @@ public class Requetes {
         while(condition[pnn].equals("")) {
             pnn++;
             System.out.println("blblb" + pnn);
-            if(pnn>nbbtrequete)
+            if(pnn==nbbtrequete)
             {
                 System.out.println("ttt");
                 tn = 1;
