@@ -46,7 +46,7 @@ public class Gestion {
                         String tab[] = new String[4];
                         System.out.println("Code ?");
                         tab[0]=sc.next();
-                        ligne[0]="Code";
+                        ligne[0]="code";
                         
                         if(tab[0].equals("0")) {
                             tab[0]="";
@@ -54,32 +54,30 @@ public class Gestion {
                         
                         System.out.println("Nom ?");
                         tab[1]=sc.next();
-                        ligne[1] = "Nom";
-                       /* if(tab[1].equals("0")) {
-                            tab[1]=null;
-                        }*/
+                        ligne[1] = "nom";
+                        if(tab[1].equals("0")) {
+                            tab[1]="";
+                        }
                         
                         System.out.println("Batiment ?");
                         tab[2]=sc.next();
-                        ligne[2]="Batiment";
+                        ligne[2]="batiment";
                         if(tab[2].equals("0")) {
                             tab[2]="";
                         }
                         
                         System.out.println("Directeur ?");
                         tab[3]=sc.next();
-                        ligne[3]="Directeur";
+                        ligne[3]="directeur";
                         if(tab[3].equals("0")) {
                             tab[3]="";
                         }
                         
                         Requetes R = new Requetes(tab, tab.length);
-                        String fullreq = R.concatrequete(tab, "Service", ligne);
+                        String fullreq = R.concatrequete(tab, "service", ligne);
                         System.out.println(fullreq);
                         liste = C.remplirChampsRequete(fullreq);
-                        for(int i=0; i<liste.size(); i++){
-                            System.out.println(liste.get(i));
-                        }
+                        System.out.println(liste);
                         break;
                         
                     //case 2:
