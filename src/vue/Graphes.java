@@ -37,7 +37,7 @@ public class Graphes {
     }
     
     /**
-     * Une méthode qui fait un graphes en barre pour montrer la répartition des malades par services
+     * Une méthode qui fait un graphes en barre pour montrer la répartition des docteurs par services
      *
      *  service le nom des services
      *  nbDocteur le nombre de docteurs

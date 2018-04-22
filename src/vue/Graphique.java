@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Classe GRAPHIQUE qui hérite de JFrame et implémente ActionListener.
- * Ouvre la fenêtre principale de la gestion du personnel de l'hopital.
+ * Classe GRAPHIQUE qui hérite de JFrame et implémente ActionListener. Ouvre la
+ * fenêtre principale de la gestion du personnel de l'hopital.
  *
  * @author Manu
  */
@@ -53,14 +53,13 @@ public class Graphique extends JFrame implements ActionListener {
     private final JTextField no_malade_old, code_service3_old, no_chambre2_old, lit_old; ///JTextField du formulaire de recherche Hospitalisation
     private final JTextField no_docteur_old, no_malade2_old; ///JTextField du formulaire de recherche Soignage
 
-    
     ///JPANEL
-    private final JPanel pan1; 
+    private final JPanel pan1;
     private final JPanel pan2;
     private final JPanel pan3;
     private final JPanel pan4;
     private final JPanel pan5;
-    
+
     ///JBUTTON
     ///Boutons principaux de gauche (choix 1=ajout, choix 2=supression, choix3=MAJ, choix4=Recherche, Statistiques=JFreeChart
     private final JButton choix1;
@@ -85,14 +84,14 @@ public class Graphique extends JFrame implements ActionListener {
     private final JButton Ajouter_Service, Ajouter_Chambre, Ajouter_Employé, Ajouter_Docteur, Ajouter_Infirmier, Ajouter_Malade, Ajouter_Hospitalisation, Ajouter_Soignage;
     private final JButton Supprimer_Service, Supprimer_Chambre, Supprimer_Employé, Supprimer_Docteur, Supprimer_Infirmier, Supprimer_Malade, Supprimer_Hospitalisation, Supprimer_Soignage;
     private final JButton Modifier_Service, Modifier_Chambre, Modifier_Employé, Modifier_Docteur, Modifier_Infirmier, Modifier_Malade, Modifier_Hospitalisation, Modifier_Soignage;
-    
+    private final JButton Répartition_des_malades_par_chambre, Répartition_des_docteurs_par_service, Salaires;
     ///JSPLITPANE
     //Pour séparer l'écran des actions de gauche et l'affichage de droite
     private final JSplitPane split;
-    
+
     ///DIMENSIONS (pour les boutons)
-    private final Dimension d, e;    
-    
+    private final Dimension d, e;
+
     ///STYLE (pour les écritures)
     private Font font1, font2;
 
@@ -108,7 +107,6 @@ public class Graphique extends JFrame implements ActionListener {
         setLocationRelativeTo(null); //On centre la fenêtre sur l'écran
         setResizable(false); ///Redimensionnement impossible
 
-        
         ///INITIALISATION DES JLABEL
         question1 = new JLabel("Dans quelle section souhaitez-vous ajouter ?");
         question2 = new JLabel("Dans quelle section souhaitez-vous supprimer ?");
@@ -148,7 +146,6 @@ public class Graphique extends JFrame implements ActionListener {
         critères_de_recherche = new JLabel("Critère de recherche : ");
         modification = new JLabel("Modification : ");
 
-        
         ///INITIALISATION DES JTEXTFIELD
         code_t = new JTextField(15);
         nom_t = new JTextField(15);
@@ -227,7 +224,6 @@ public class Graphique extends JFrame implements ActionListener {
         pan5 = new JPanel();
         pan5.setSize(100, 100);
 
-    
         ///INITIALISATION DES JBUTTON + AJOUT DES ECOUTEURS
         choix1 = new JButton("Ajout ");
         choix1.addActionListener(this);
@@ -383,8 +379,13 @@ public class Graphique extends JFrame implements ActionListener {
         Modifier_Soignage.addActionListener(this);
         Statistiques = new JButton("Statistiques");
         Statistiques.addActionListener(this);
+        Répartition_des_malades_par_chambre = new JButton("Répartition des malades par chambre du premier étage");
+        Répartition_des_malades_par_chambre.addActionListener(this);
+        Répartition_des_docteurs_par_service = new JButton("Répartiton des docteurs par service");
+        Répartition_des_docteurs_par_service.addActionListener(this);
+        Salaires = new JButton("Moyenne des salaires des infirmiers selon l'horaire");
+        Salaires.addActionListener(this);
 
-        
         ///INITIALISATION DES DIMENSIONS DES JBUTTONS
         d = new Dimension(190, 30);
         e = new Dimension(500, 40);
@@ -400,7 +401,7 @@ public class Graphique extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         Connexion C;
         try {
             C = new Connexion("hopital", "root", "1234"); ///Connexion à la base de données grâce à la classe Connexion.java
@@ -418,11 +419,22 @@ public class Graphique extends JFrame implements ActionListener {
             }
 
             if (e.getSource() == Statistiques) { ///=JFREECHART
-                System.out.println("lol4");
+                Camembert();
             }
             
-            ///////////////////////////////////////////////////
+            if (e.getSource() == Répartition_des_malades_par_chambre) { ///=JFREECHART
+                Graphes.chambreGraphe();                   
+            }
             
+            if (e.getSource() == Répartition_des_docteurs_par_service) { ///=JFREECHART
+                Graphes.docteurGraphe();
+            }
+            
+            if (e.getSource() == Salaires) { ///=JFREECHART
+                Graphes.salaireGraphe();
+            }
+
+            ///////////////////////////////////////////////////
             if (e.getSource() == Service1) {
                 FormulaireRecherche(1, 1);
             }
@@ -473,9 +485,8 @@ public class Graphique extends JFrame implements ActionListener {
             if (e.getSource() == Soignage2) {
                 FormulaireRecherche(8, 2);
             }
-            
+
             ////////////////////////////////////////////////
-            
             if (e.getSource() == Service3) {
                 FormulaireRecherche(1, 3);
             }
@@ -500,9 +511,8 @@ public class Graphique extends JFrame implements ActionListener {
             if (e.getSource() == Soignage3) {
                 FormulaireRecherche(8, 3);
             }
-            
+
             /////////////////////////////////////////////
-            
             if (e.getSource() == Service4) {
                 FormulaireRecherche(1, 4);
             }
@@ -527,9 +537,8 @@ public class Graphique extends JFrame implements ActionListener {
             if (e.getSource() == Soignage4) {
                 FormulaireRecherche(8, 4);
             }
-            
-            //////////////////////////////////////////////////////
 
+            //////////////////////////////////////////////////////
             if (e.getSource() == Ajouter_Service) {
                 String[] tab_valeurs1 = new String[4];
                 String[] tab_colonnes1 = new String[4];
@@ -687,7 +696,6 @@ public class Graphique extends JFrame implements ActionListener {
                     ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
                     C.executeUpdate(ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
                 }
-                
 
             }
 
@@ -1268,8 +1276,7 @@ public class Graphique extends JFrame implements ActionListener {
                 C.executeUpdate(ReqUpdate.concatrequete("malade", colonne, tab_colonnes1, modification, tab_valeurs1_old));
 
             }
-            
-            
+
             if (e.getSource() == Modifier_Hospitalisation) {
                 String[] tab_valeurs1 = new String[4];
                 String[] tab_colonnes1 = new String[4];
@@ -1835,18 +1842,18 @@ public class Graphique extends JFrame implements ActionListener {
     }
 
     /**
-     * Méthode ChoixSecteur : Sert à afficher les différents secteurs pour effectuer une action.
-     * Rend la fenêtre visible à la fin
+     * Méthode ChoixSecteur : Sert à afficher les différents secteurs pour
+     * effectuer une action. Rend la fenêtre visible à la fin
      *
-     * @param action en fonction de l'action demandée : 1 ajout, 2 supprimer, 3 mise à
-     * jour, 4 rechercher
+     * @param action en fonction de l'action demandée : 1 ajout, 2 supprimer, 3
+     * mise à jour, 4 rechercher
      */
     public void ChoixSecteur(int action) {
         ///Effacement du panel 2 pour l'actualisation
         pan2.removeAll();
-        pan2.repaint(); 
+        pan2.repaint();
         ///Redessine le panel 2
-        
+
         pan2.setLayout(new FlowLayout());
         font1 = new Font("Times New Roman", Font.BOLD, 18);
         question1.setFont(font1);
@@ -2628,8 +2635,7 @@ public class Graphique extends JFrame implements ActionListener {
 
     /**
      * Méthode affiche pour afficher les informations de la base de données
-     * récupérées. Très inspiré du code de l'upmf de Grenoble :
-     * https://imss-www.upmf-grenoble.fr/prevert/Prog/Java/swing/JTextPane.html
+     * récupérées.
      *
      * @param affichage
      */
@@ -2639,23 +2645,30 @@ public class Graphique extends JFrame implements ActionListener {
         JTextArea panneau = new JTextArea(affichage);
         JScrollPane paneTextArea1 = new JScrollPane(panneau); ///Bug
         paneTextArea1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-// définition des styles
-//        StyleContext okay = StyleContext.getDefaultStyleContext();
-//        Style defaut = okay.getStyle(StyleContext.DEFAULT_STYLE);
-//        Style style1 = panneau.addStyle("style1", defaut);
-//        StyleConstants.setFontFamily(style1, "Comic MS");
-//        StyledDocument sDoc = (StyledDocument) panneau.getDocument();
         panneau.setBackground(pan2.getBackground());
-//        panneau.setSize(1000,1000);
-//        try {
-//            int pos=0;
-//            sDoc.insertString(pos, affichage, style1);
-//            
-//        } catch (BadLocationException l) {
-//        }
-        pan2.add(paneTextArea1);
-        //pan2.add(panneau);
 
+        pan2.add(paneTextArea1);
+        this.setVisible(true);
+    }
+    
+    /** Méthode Camembert() appelée lorsqu'on appuie sur le bouton statistique.
+     *  Permet d'afficher le menu secondaire avec 3 boutons, pour afficher les graphes JFreeChart.
+     *  Rend la fenêtre visible à la fin
+     */
+
+    public void Camembert() {
+        pan2.removeAll();
+        pan2.repaint();
+        pan2.setLayout(new FlowLayout());
+        Dimension v = new Dimension (500, 100);
+        Répartition_des_malades_par_chambre.setPreferredSize(v);
+        Répartition_des_docteurs_par_service.setPreferredSize(v);
+        Salaires.setPreferredSize(v);
+        pan2.add(Répartition_des_malades_par_chambre);
+        pan2.add(Répartition_des_docteurs_par_service);
+        pan2.add(Salaires);
+        
+        
         this.setVisible(true);
     }
 
