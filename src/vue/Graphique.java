@@ -75,6 +75,8 @@ public class Graphique extends JFrame implements ActionListener {
     private final JSplitPane split;
     private final Dimension d, e;    ///Pour la dimension des boutons
     private Font font1, font2;
+    
+    private static int connexion_bdd_reussie=0;
 
     /**
      * Constructeur de la classe Graphique : Initialise tous les attributs
@@ -342,8 +344,20 @@ public class Graphique extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == connect) {
-            if ((login.getText().equals("root")) && (mdp.getText().equals("0"))) {
-                System.out.println("lol");
+            if (login.getText().equals("root") && (mdp.getText().equals("1234"))) {
+                System.out.println("réussi.");
+                connexion_bdd_reussie=1;
+                try {
+                    Connexion C = new Connexion("hopital", "root", "1234");
+                    
+                    
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                        
+                
+            } else {
+                System.out.println("Vous ne pouvez pas vous connecter à la base de données");
             }
         }
         if (e.getSource() == choix1) {
@@ -365,7 +379,8 @@ public class Graphique extends JFrame implements ActionListener {
 
         if (e.getSource() == Statistiques) {
             System.out.println("lol4");
-
+//            Graphes graphe= new Graphes();
+//            graphe.
         }
 
         if (e.getSource() == Service1) {
@@ -515,7 +530,7 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("lol12");
             FormulaireRecherche(8, 4);
         }
-        
+
         if (e.getSource() == Ajouter_Service) {
             System.out.println("lol13");
             String[] tab_valeurs1 = new String[4];
@@ -535,7 +550,7 @@ public class Graphique extends JFrame implements ActionListener {
                 System.out.println("" + ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -565,7 +580,7 @@ public class Graphique extends JFrame implements ActionListener {
                 System.out.println("" + ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -595,7 +610,7 @@ public class Graphique extends JFrame implements ActionListener {
                 ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -619,7 +634,7 @@ public class Graphique extends JFrame implements ActionListener {
                 ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -647,7 +662,7 @@ public class Graphique extends JFrame implements ActionListener {
                 ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -678,7 +693,7 @@ public class Graphique extends JFrame implements ActionListener {
                 ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -705,7 +720,7 @@ public class Graphique extends JFrame implements ActionListener {
                 ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -728,17 +743,18 @@ public class Graphique extends JFrame implements ActionListener {
             }
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 C.executeUpdate(ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         if (e.getSource() == Supprimer_Service) {
             System.out.println("lol13");
             String[] tab_valeurs1 = new String[4];
             String[] tab_colonnes1 = new String[4];
+            int nombre_champs = 4;
             if (code_t.getText().equals("") && nom_t.getText().equals("") && batiment_t.getText().equals("") && directeur_t.getText().equals("")) {
                 System.out.println("Vos champs sont vides");
             } else {
@@ -754,7 +770,7 @@ public class Graphique extends JFrame implements ActionListener {
                 System.out.println("" + ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
+                    C = new Connexion("hopital", "root", "1234");
                     C.executeUpdate(ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
@@ -780,12 +796,12 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes2[2] = "surveillant";
                 tab_colonnes2[3] = "nb_lits";
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
-                System.out.println("" + ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
+                ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
+                System.out.println("" + ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
-                    C.executeUpdate(ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
+                    C = new Connexion("hopital", "root", "1234");
+                    C.executeUpdate(ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -811,11 +827,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes3[3] = "adresse";
                 tab_colonnes3[4] = "tel";
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
+                ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
-                    C.executeUpdate(ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3));
+                    C = new Connexion("hopital", "root", "1234");
+                    C.executeUpdate(ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -835,11 +851,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes4[1] = "nom";
 
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
+                ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
-                    C.executeUpdate(ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
+                    C = new Connexion("hopital", "root", "1234");
+                    C.executeUpdate(ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -863,11 +879,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes5[2] = "rotation";
                 tab_colonnes5[3] = "salaire";
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
+                ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
-                    C.executeUpdate(ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
+                    C = new Connexion("hopital", "root", "1234");
+                    C.executeUpdate(ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -894,11 +910,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes6[4] = "tel";
                 tab_colonnes6[5] = "mutuelle";
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
+                ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
-                    C.executeUpdate(ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6));
+                    C = new Connexion("hopital", "root", "1234");
+                    C.executeUpdate(ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -921,11 +937,11 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes7[2] = "no_chambre";
                 tab_colonnes7[3] = "lit";
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
+                ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
                 Connexion C;
                 try {
-                    C = new Connexion("hopital", "root", "");
-                    C.executeUpdate(ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
+                    C = new Connexion("hopital", "root", "1234");
+                    C.executeUpdate(ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -943,17 +959,44 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes8[0] = "no_docteur";
                 tab_colonnes8[1] = "no_malade";
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
+                ReqSupprimer.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
             }
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
-                C.executeUpdate(ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
+//        if (e.getSource() == Modifier_Service) {
+//            System.out.println("lol13");
+//            String[] tab_valeurs1 = new String[4];
+//            String[] tab_colonnes1 = new String[4];
+//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals("")) {
+//                System.out.println("Un de vos champs est vide");
+//            } else {
+//                tab_valeurs1[0] = code_t.getText();
+//                tab_valeurs1[1] = nom_t.getText();
+//                tab_valeurs1[2] = batiment_t.getText();
+//                tab_valeurs1[3] = directeur_t.getText();
+//                tab_colonnes1[0] = "code";
+//                tab_colonnes1[1] = "nom";
+//                tab_colonnes1[2] = "batiment";
+//                tab_colonnes1[3] = "directeur";
+//                ReqUpdate.concatrequete("service", tab_colonnes1, tab_valeurs1);
+//                System.out.println("" + ReqUpdate.concatrequete("service", tab_colonnes1, tab_valeurs1));
+//                Connexion C;
+//                try {
+//                    C = new Connexion("hopital", "root", "");
+//                    C.executeUpdate(ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
+//                } catch (SQLException | ClassNotFoundException ex) {
+//                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//
+//            }
+//        }
         if (e.getSource() == Rechercher_tout_Service) {
             JTextArea lol;
             System.out.println("lol1");
@@ -964,7 +1007,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes1[3] = "directeur";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 String affichage = "";
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("service", tab_colonnes1));
@@ -988,7 +1031,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes2[3] = "nb_lits";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
 
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("chambre", tab_colonnes2));
@@ -1014,7 +1057,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes3[4] = "tel";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("employe", tab_colonnes3));
                 String affichage = "";
@@ -1035,7 +1078,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes4[1] = "specialite";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("docteur", tab_colonnes4));
                 String affichage = "";
@@ -1059,7 +1102,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes5[3] = "salaire";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("infirmier", tab_colonnes5));
                 String affichage = "";
@@ -1084,7 +1127,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes6[5] = "mutuelle";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("malade", tab_colonnes6));
                 String affichage = "";
@@ -1107,7 +1150,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes7[3] = "lit";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("hospitalisation", tab_colonnes7));
                 String affichage = "";
@@ -1128,7 +1171,7 @@ public class Graphique extends JFrame implements ActionListener {
             tab_colonnes8[1] = "no_malade";
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("soigne", tab_colonnes8));
                 String affichage = "";
@@ -1146,7 +1189,9 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("lol12");
             String[] tab_colonnes1 = new String[4];
             String[] tab_valeurs1 = new String[4];
-
+//            if (code_t.getText().equals("")){
+//                tab_valeurs1[0] = ;
+//            }
             tab_valeurs1[0] = code_t.getText();
             tab_valeurs1[1] = nom_t.getText();
             tab_valeurs1[2] = batiment_t.getText();
@@ -1160,7 +1205,7 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("" + requete.concatrequete(tab_valeurs1, "service", tab_colonnes1));
             Connexion C;
             try {
-                C = new Connexion("hopital", "root", "");
+                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs1, "service", tab_colonnes1));
                 for (int i = 0; i < liste.size(); i++) {
@@ -1172,8 +1217,6 @@ public class Graphique extends JFrame implements ActionListener {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        
 
     }
 
@@ -1188,6 +1231,7 @@ public class Graphique extends JFrame implements ActionListener {
         connexion.add(login);
         connexion.add(mdp);
         connexion.add(connect);
+            
         this.setVisible(true);
     }
 
@@ -1881,6 +1925,10 @@ public class Graphique extends JFrame implements ActionListener {
         //pan2.add(panneau);
 
         this.setVisible(true);
+    }
+    
+    public int getconnexion() {
+        return connexion_bdd_reussie;
     }
 
 }
