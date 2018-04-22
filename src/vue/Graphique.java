@@ -75,8 +75,8 @@ public class Graphique extends JFrame implements ActionListener {
     private final JSplitPane split;
     private final Dimension d, e;    ///Pour la dimension des boutons
     private Font font1, font2;
-    
-    private static int connexion_bdd_reussie=0;
+
+    private static int connexion_bdd_reussie = 0;
 
     /**
      * Constructeur de la classe Graphique : Initialise tous les attributs
@@ -346,16 +346,14 @@ public class Graphique extends JFrame implements ActionListener {
         if (e.getSource() == connect) {
             if (login.getText().equals("root") && (mdp.getText().equals("1234"))) {
                 System.out.println("réussi.");
-                connexion_bdd_reussie=1;
+                connexion_bdd_reussie = 1;
                 try {
                     Connexion C = new Connexion("hopital", "root", "1234");
-                    
-                    
+
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                        
-                
+
             } else {
                 System.out.println("Vous ne pouvez pas vous connecter à la base de données");
             }
@@ -625,10 +623,10 @@ public class Graphique extends JFrame implements ActionListener {
             if (numero2_t.getText().equals("") || specialité_t.getText().equals("")) {
                 System.out.println("Un de vos champs est vide");
             } else {
-                tab_valeurs4[0] = code_t.getText();
-                tab_valeurs4[1] = nom_t.getText();
-                tab_colonnes4[0] = "code";
-                tab_colonnes4[1] = "nom";
+                tab_valeurs4[0] = numero2_t.getText();
+                tab_valeurs4[1] = specialité_t.getText();
+                tab_colonnes4[0] = "numero";
+                tab_colonnes4[1] = "specialite";
 
 //                ReqAjout requete_ajout = new ReqAjout();
                 ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
@@ -845,10 +843,10 @@ public class Graphique extends JFrame implements ActionListener {
             if (numero2_t.getText().equals("") || specialité_t.getText().equals("")) {
                 System.out.println("Un de vos champs est vide");
             } else {
-                tab_valeurs4[0] = code_t.getText();
-                tab_valeurs4[1] = nom_t.getText();
-                tab_colonnes4[0] = "code";
-                tab_colonnes4[1] = "nom";
+                tab_valeurs4[0] = numero2_t.getText();
+                tab_valeurs4[1] = specialité_t.getText();
+                tab_colonnes4[0] = "numero";
+                tab_colonnes4[1] = "specialite";
 
 //                ReqAjout requete_ajout = new ReqAjout();
                 ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
@@ -1189,20 +1187,34 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("lol12");
             String[] tab_colonnes1 = new String[4];
             String[] tab_valeurs1 = new String[4];
-//            if (code_t.getText().equals("")){
-//                tab_valeurs1[0] = ;
-//            }
-            tab_valeurs1[0] = code_t.getText();
-            tab_valeurs1[1] = nom_t.getText();
-            tab_valeurs1[2] = batiment_t.getText();
-            tab_valeurs1[3] = directeur_t.getText();
+            if (code_t.getText().equals("")) {
+                tab_valeurs1[0] = "";
+            } else {
+                tab_valeurs1[0] = code_t.getText();
+            }
+            if (nom_t.getText().equals("")) {
+                tab_valeurs1[1] = "";
+            } else {
+                tab_valeurs1[1] = nom_t.getText();
+            }
+
+            if (batiment_t.getText().equals("")) {
+                tab_valeurs1[2] = "";
+            } else {
+                tab_valeurs1[2] = batiment_t.getText();
+            }
+
+            if (directeur_t.getText().equals("")) {
+                tab_valeurs1[3] = "";
+            } else {
+                tab_valeurs1[3] = directeur_t.getText();
+            }
+
             tab_colonnes1[0] = "code";
             tab_colonnes1[1] = "nom";
             tab_colonnes1[2] = "batiment";
             tab_colonnes1[3] = "directeur";
             Requetes requete = new Requetes(tab_valeurs1, tab_valeurs1.length);
-            requete.concatrequete(tab_valeurs1, "service", tab_colonnes1);
-            System.out.println("" + requete.concatrequete(tab_valeurs1, "service", tab_colonnes1));
             Connexion C;
             try {
                 C = new Connexion("hopital", "root", "1234");
@@ -1216,7 +1228,308 @@ public class Graphique extends JFrame implements ActionListener {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
+
+        if (e.getSource() == Rechercher_parametre_Chambre) {
+            System.out.println("lol13");
+            String[] tab_valeurs2 = new String[4];
+            String[] tab_colonnes2 = new String[4];
+            if (code_service_t.getText().equals("")) {
+                tab_valeurs2[0] = "";
+            } else {
+                tab_valeurs2[0] = code_service_t.getText();
+            }
+            if (no_chambre_t.getText().equals("")) {
+                tab_valeurs2[1] = "";
+            } else {
+                tab_valeurs2[1] = no_chambre_t.getText();
+            }
+
+            if (surveillant_t.getText().equals("")) {
+                tab_valeurs2[2] = "";
+            } else {
+                tab_valeurs2[2] = surveillant_t.getText();
+            }
+
+            if (nb_lits_t.getText().equals("")) {
+                tab_valeurs2[3] = "";
+            } else {
+                tab_valeurs2[3] = nb_lits_t.getText();
+            }
+            tab_colonnes2[0] = "code_service";
+            tab_colonnes2[1] = "no_chambre";
+            tab_colonnes2[2] = "surveillant";
+            tab_colonnes2[3] = "nb_lits";
+            Requetes requete = new Requetes(tab_valeurs2, tab_valeurs2.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs2, "chambre", tab_colonnes2));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        if (e.getSource() == Rechercher_parametre_Employé) {
+            System.out.println("lol13");
+            String[] tab_valeurs3 = new String[5];
+            String[] tab_colonnes3 = new String[5];
+            if (numero_t.getText().equals("")) {
+                tab_valeurs3[0] = "";
+            } else {
+                tab_valeurs3[0] = numero_t.getText();
+            }
+            if (nom2_t.getText().equals("")) {
+                tab_valeurs3[1] = "";
+            } else {
+                tab_valeurs3[1] = nom2_t.getText();
+            }
+
+            if (prenom_t.getText().equals("")) {
+                tab_valeurs3[2] = "";
+            } else {
+                tab_valeurs3[2] = prenom_t.getText();
+            }
+
+            if (adresse_t.getText().equals("")) {
+                tab_valeurs3[3] = "";
+            } else {
+                tab_valeurs3[3] = adresse_t.getText();
+            }
+            if (tel_t.getText().equals("")) {
+                tab_valeurs3[4] = "";
+            } else {
+                tab_valeurs3[4] = tel_t.getText();
+            }
+            tab_colonnes3[0] = "numero";
+            tab_colonnes3[1] = "nom";
+            tab_colonnes3[2] = "prenom";
+            tab_colonnes3[3] = "adresse";
+            tab_colonnes3[4] = "tel";
+            Requetes requete = new Requetes(tab_valeurs3, tab_valeurs3.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs3, "employe", tab_colonnes3));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        if (e.getSource() == Rechercher_parametre_Docteur) {
+            System.out.println("lol13");
+            String[] tab_valeurs4 = new String[2];
+            String[] tab_colonnes4 = new String[2];
+            if (numero2_t.getText().equals("")) {
+                tab_valeurs4[0] = "";
+            } else {
+                tab_valeurs4[0] = numero2_t.getText();
+            }
+            if (specialité_t.getText().equals("")) {
+                tab_valeurs4[1] = "";
+            } else {
+                tab_valeurs4[1] = specialité_t.getText();
+            }
+            tab_colonnes4[0] = "numero";
+            tab_colonnes4[1] = "specialité";
+            Requetes requete = new Requetes(tab_valeurs4, tab_valeurs4.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs4, "docteur", tab_colonnes4));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        if (e.getSource() == Rechercher_parametre_Infirmier) {
+            System.out.println("lol13");
+            String[] tab_valeurs5 = new String[4];
+            String[] tab_colonnes5 = new String[4];
+            if (numero3_t.getText().equals("")) {
+                tab_valeurs5[0] = "";
+            } else {
+                tab_valeurs5[0] = numero3_t.getText();
+            }
+            if (code_service2_t.getText().equals("")) {
+                tab_valeurs5[1] = "";
+            } else {
+                tab_valeurs5[1] = code_service2_t.getText();
+            }
+            if (rotation_t.getText().equals("")) {
+                tab_valeurs5[2] = "";
+            } else {
+                tab_valeurs5[2] = rotation_t.getText();
+            }
+            if (salaire_t.getText().equals("")) {
+                tab_valeurs5[3] = "";
+            } else {
+                tab_valeurs5[3] = salaire_t.getText();
+            }
+            tab_colonnes5[0] = "numero";
+            tab_colonnes5[1] = "code_service";
+            tab_colonnes5[2] = "rotation";
+            tab_colonnes5[3] = "salaire";
+            Requetes requete = new Requetes(tab_valeurs5, tab_valeurs5.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs5, "infirmier", tab_colonnes5));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        if (e.getSource() == Rechercher_parametre_Malade) {
+            System.out.println("lol13");
+            String[] tab_valeurs6 = new String[6];
+            String[] tab_colonnes6 = new String[6];
+            if (numero4_t.getText().equals("")) {
+                tab_valeurs6[0] = "";
+            } else {
+                tab_valeurs6[0] = numero4_t.getText();
+            }
+            if (nom3_t.getText().equals("")) {
+                tab_valeurs6[1] = "";
+            } else {
+                tab_valeurs6[1] = nom3_t.getText();
+            }
+            if (prenom2_t.getText().equals("")) {
+                tab_valeurs6[2] = "";
+            } else {
+                tab_valeurs6[2] = prenom2_t.getText();
+            }
+            if (adresse2_t.getText().equals("")) {
+                tab_valeurs6[3] = "";
+            } else {
+                tab_valeurs6[3] = adresse2_t.getText();
+            }
+            if (tel2_t.getText().equals("")) {
+                tab_valeurs6[4] = "";
+            } else {
+                tab_valeurs6[4] = tel2_t.getText();
+            }
+            if (mutuelle_t.getText().equals("")) {
+                tab_valeurs6[5] = "";
+            } else {
+                tab_valeurs6[5] = mutuelle_t.getText();
+            }
+            tab_colonnes6[0] = "numero";
+            tab_colonnes6[1] = "nom";
+            tab_colonnes6[2] = "prenom";
+            tab_colonnes6[3] = "adresse";
+            tab_colonnes6[4] = "tel";
+            tab_colonnes6[5] = "mutuelle";
+            Requetes requete = new Requetes(tab_valeurs6, tab_valeurs6.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs6, "malade", tab_colonnes6));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        if (e.getSource() == Rechercher_parametre_Hospitalisation) {
+            System.out.println("lol13");
+            String[] tab_valeurs7 = new String[4];
+            String[] tab_colonnes7 = new String[4];
+            if (no_malade_t.getText().equals("")) {
+                tab_valeurs7[0] = "";
+            } else {
+                tab_valeurs7[0] = no_malade_t.getText();
+            }
+            if (code_service3_t.getText().equals("")) {
+                tab_valeurs7[1] = "";
+            } else {
+                tab_valeurs7[1] = code_service3_t.getText();
+            }
+            if (no_chambre2_t.getText().equals("")) {
+                tab_valeurs7[2] = "";
+            } else {
+                tab_valeurs7[2] = no_chambre2_t.getText();
+            }
+            if (lit_t.getText().equals("")) {
+                tab_valeurs7[3] = "";
+            } else {
+                tab_valeurs7[3] = lit_t.getText();
+            }
+            tab_colonnes7[0] = "no_malade";
+            tab_colonnes7[1] = "code_service";
+            tab_colonnes7[2] = "no_chambre";
+            tab_colonnes7[3] = "lit";
+            Requetes requete = new Requetes(tab_valeurs7, tab_valeurs7.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs7, "hospitalisation", tab_colonnes7));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (e.getSource() == Rechercher_parametre_Soignage) {
+            System.out.println("lol13");
+            String[] tab_valeurs8 = new String[2];
+            String[] tab_colonnes8 = new String[2];
+            if (no_docteur_t.getText().equals("")) {
+                tab_valeurs8[0] = "";
+            } else {
+                tab_valeurs8[0] = no_docteur_t.getText();
+            }
+            if (no_malade2_t.getText().equals("")) {
+                tab_valeurs8[1] = "";
+            } else {
+                tab_valeurs8[1] = no_malade2_t.getText();
+            }
+            tab_colonnes8[0] = "no_docteur";
+            tab_colonnes8[1] = "no_malade";
+            Requetes requete = new Requetes(tab_valeurs8, tab_valeurs8.length);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                ArrayList<String> liste = new ArrayList<String>();
+                liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs8, "soigne", tab_colonnes8));
+                for (int i = 0; i < liste.size(); i++) {
+                    System.out.println(liste.get(i));
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
 
     }
 
@@ -1231,7 +1544,7 @@ public class Graphique extends JFrame implements ActionListener {
         connexion.add(login);
         connexion.add(mdp);
         connexion.add(connect);
-            
+
         this.setVisible(true);
     }
 
@@ -1926,7 +2239,7 @@ public class Graphique extends JFrame implements ActionListener {
 
         this.setVisible(true);
     }
-    
+
     public int getconnexion() {
         return connexion_bdd_reussie;
     }
