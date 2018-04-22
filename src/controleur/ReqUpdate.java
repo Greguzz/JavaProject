@@ -22,13 +22,30 @@ public class ReqUpdate {
      * @return fullrequete la requête finis
      */
     public static String concatrequete(String table, String col, String var[], String modif, String val[]){
-    String fullrequete = "UPDATE " + table + " SET " + col + " = " + modif + " WHERE ";
-    for(int i=0; i<var.length; i++){
-        fullrequete = fullrequete + var[i] + " = " + val[i];
-        if(i<var.length-1){
-            fullrequete = fullrequete + " AND ";
+        int size = 0;
+        for(int j = 0; j<var.length; j++){
+            if (val[j]!=""){
+                size++;
+            }
         }
-    }
-    return fullrequete;
+        String newvar[] = new String[size];
+        String newval[] = new String[size];
+        int a = 0;
+        for(int k = 0; k<var.length; k++){
+            if (val[k]!=""){
+                newvar[a]=var[k];
+                newval[a]=val[k];
+                a++;
+            }
+        }
+        
+        String fullrequete = "UPDATE " + table + " SET " + col + " = " + modif + " WHERE ";
+        for(int i=0; i<newvar.length; i++){
+            fullrequete = fullrequete + newvar[i] + " = " + newval[i];
+            if(i<newvar.length-1){
+                fullrequete = fullrequete + " AND ";
+            }
+        }
+        return fullrequete;
     } 
 }
