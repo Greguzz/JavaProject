@@ -40,7 +40,7 @@ public class ReqSupprimer {
         String fullrequete = "DELETE FROM " + table + " WHERE ";
         for(int i=0; i<newsupp.length; i++){
             fullrequete = fullrequete + newvar[i] + " = " + "'" + newsupp[i] + "'";
-            if(i<supp.length-1){
+            if(i<newsupp.length-1){
                 fullrequete = fullrequete + " AND ";
             }
             else {
