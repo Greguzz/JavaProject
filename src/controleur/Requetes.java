@@ -6,16 +6,27 @@ package controleur;
  * @author Grégoire
  */
 public class Requetes {
-    private String boutrequete[];
-    private int nbbtrequete;
+    private final String boutrequete[];
+    private final int nbbtrequete;
     
+    /**
+     * Constructeur par défaut prenant en paramètres un tableau de string et la longueur de ce tableau
+     * @param pboutrequete
+     * @param pnbbtrequete
+     */
     public Requetes(String[] pboutrequete, int pnbbtrequete)
     {
         this.boutrequete = pboutrequete.clone();
         this.nbbtrequete = pnbbtrequete;
     }
     
-
+    /**
+     * Methode qui retourne un string contenant une requète complète de SELECT
+     * @param condition
+     * @param table
+     * @param ligne
+     * @return 
+     */
     public String concatrequete(String condition[], String table, String[] ligne){
         int pnn=0;
         int tn=0;
