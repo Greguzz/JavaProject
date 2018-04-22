@@ -840,183 +840,280 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("lol13");
             String[] tab_valeurs2 = new String[4];
             String[] tab_colonnes2 = new String[4];
-            if (code_service_t.getText().equals("") || no_chambre_t.getText().equals("") || surveillant_t.getText().equals("") || nb_lits_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
+            if (code_service_t.getText().equals("")) {
+                tab_valeurs2[0] = "";
             } else {
                 tab_valeurs2[0] = code_service_t.getText();
-                tab_valeurs2[1] = no_chambre_t.getText();
-                tab_valeurs2[2] = surveillant_t.getText();
-                tab_valeurs2[3] = nb_lits_t.getText();
-                tab_colonnes2[0] = "code_service";
-                tab_colonnes2[1] = "no_chambre";
-                tab_colonnes2[2] = "surveillant";
-                tab_colonnes2[3] = "nb_lits";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
-                System.out.println("" + ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
             }
+            if (no_chambre_t.getText().equals("")) {
+                tab_valeurs2[1] = "";
+            } else {
+                tab_valeurs2[1] = no_chambre_t.getText();
+            }
+
+            if (surveillant_t.getText().equals("")) {
+                tab_valeurs2[2] = "";
+            } else {
+                tab_valeurs2[2] = surveillant_t.getText();
+            }
+
+            if (nb_lits_t.getText().equals("")) {
+                tab_valeurs2[3] = "";
+            } else {
+                tab_valeurs2[3] = nb_lits_t.getText();
+            }
+            tab_colonnes2[0] = "code_service";
+            tab_colonnes2[1] = "no_chambre";
+            tab_colonnes2[2] = "surveillant";
+            tab_colonnes2[3] = "nb_lits";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
+            System.out.println("" + ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
         if (e.getSource() == Supprimer_Employé) {
             System.out.println("lol13");
             String[] tab_valeurs3 = new String[5];
             String[] tab_colonnes3 = new String[5];
-            if (numero_t.getText().equals("") || nom2_t.getText().equals("") || prenom_t.getText().equals("") || adresse_t.getText().equals("") || tel_t.getText().equals("")) {
-                System.out.println("Un ou plusieurs de vos champs sont vides");
+            if (numero_t.getText().equals("")) {
+                tab_valeurs3[0] = "";
             } else {
                 tab_valeurs3[0] = numero_t.getText();
-                tab_valeurs3[1] = nom2_t.getText();
-                tab_valeurs3[2] = prenom_t.getText();
-                tab_valeurs3[3] = adresse_t.getText();
-                tab_valeurs3[4] = tel_t.getText();
-                tab_colonnes3[0] = "numero";
-                tab_colonnes3[1] = "nom";
-                tab_colonnes3[2] = "prenom";
-                tab_colonnes3[3] = "adresse";
-                tab_colonnes3[4] = "tel";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
+            if (nom2_t.getText().equals("")) {
+                tab_valeurs3[1] = "";
+            } else {
+                tab_valeurs3[1] = nom2_t.getText();
+            }
+
+            if (prenom_t.getText().equals("")) {
+                tab_valeurs3[2] = "";
+            } else {
+                tab_valeurs3[2] = prenom_t.getText();
+            }
+
+            if (adresse_t.getText().equals("")) {
+                tab_valeurs3[3] = "";
+            } else {
+                tab_valeurs3[3] = adresse_t.getText();
+            }
+            if (tel_t.getText().equals("")) {
+                tab_valeurs3[4] = "";
+            } else {
+                tab_valeurs3[4] = tel_t.getText();
+            }
+
+            tab_colonnes3[0] = "numero";
+            tab_colonnes3[1] = "nom";
+            tab_colonnes3[2] = "prenom";
+            tab_colonnes3[3] = "adresse";
+            tab_colonnes3[4] = "tel";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
         if (e.getSource() == Supprimer_Docteur) {
             System.out.println("lol13");
             String[] tab_valeurs4 = new String[2];
             String[] tab_colonnes4 = new String[2];
-            if (numero2_t.getText().equals("") || specialité_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
+            if (numero2_t.getText().equals("")) {
+                tab_valeurs4[0] = "";
             } else {
                 tab_valeurs4[0] = numero2_t.getText();
+            }
+            if (specialité_t.getText().equals("")) {
+                tab_valeurs4[1] = "";
+            } else {
                 tab_valeurs4[1] = specialité_t.getText();
-                tab_colonnes4[0] = "numero";
-                tab_colonnes4[1] = "specialite";
+            }
+            tab_colonnes4[0] = "numero";
+            tab_colonnes4[1] = "specialite";
 
 //                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+            ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
 
         if (e.getSource() == Supprimer_Infirmier) {
             System.out.println("lol13");
             String[] tab_valeurs5 = new String[4];
             String[] tab_colonnes5 = new String[4];
-            if (numero3_t.getText().equals("") || code_service2_t.getText().equals("") || rotation_t.getText().equals("") || salaire_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
+            if (numero3_t.getText().equals("")) {
+                tab_valeurs5[0] = "";
             } else {
                 tab_valeurs5[0] = numero3_t.getText();
-                tab_valeurs5[1] = code_service2_t.getText();
-                tab_valeurs5[2] = rotation_t.getText();
-                tab_valeurs5[3] = salaire_t.getText();
-                tab_colonnes5[0] = "numero";
-                tab_colonnes5[1] = "code_service";
-                tab_colonnes5[2] = "rotation";
-                tab_colonnes5[3] = "salaire";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
+            if (code_service2_t.getText().equals("")) {
+                tab_valeurs5[1] = "";
+            } else {
+                tab_valeurs5[1] = code_service2_t.getText();
+            }
+            if (rotation_t.getText().equals("")) {
+                tab_valeurs5[2] = "";
+            } else {
+                tab_valeurs5[2] = rotation_t.getText();
+            }
+            if (salaire_t.getText().equals("")) {
+                tab_valeurs5[3] = "";
+            } else {
+                tab_valeurs5[3] = salaire_t.getText();
+            }
+            tab_colonnes5[0] = "numero";
+            tab_colonnes5[1] = "code_service";
+            tab_colonnes5[2] = "rotation";
+            tab_colonnes5[3] = "salaire";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
         if (e.getSource() == Supprimer_Malade) {
             System.out.println("lol13");
             String[] tab_valeurs6 = new String[6];
             String[] tab_colonnes6 = new String[6];
-            if (numero4_t.getText().equals("") || nom3_t.getText().equals("") || prenom2_t.getText().equals("") || adresse2_t.getText().equals("") || tel2_t.getText().equals("") || mutuelle_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
+            if (numero4_t.getText().equals("")) {
+                tab_valeurs6[0] = "";
             } else {
                 tab_valeurs6[0] = numero4_t.getText();
-                tab_valeurs6[1] = nom3_t.getText();
-                tab_valeurs6[2] = prenom2_t.getText();
-                tab_valeurs6[3] = adresse2_t.getText();
-                tab_valeurs6[4] = tel2_t.getText();
-                tab_valeurs6[5] = mutuelle_t.getText();
-                tab_colonnes6[0] = "numero";
-                tab_colonnes6[1] = "nom";
-                tab_colonnes6[2] = "prenom";
-                tab_colonnes6[3] = "adresse";
-                tab_colonnes6[4] = "tel";
-                tab_colonnes6[5] = "mutuelle";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
+            if (nom3_t.getText().equals("")) {
+                tab_valeurs6[1] = "";
+            } else {
+                tab_valeurs6[1] = nom3_t.getText();
+            }
+            if (prenom2_t.getText().equals("")) {
+                tab_valeurs6[2] = "";
+            } else {
+                tab_valeurs6[2] = prenom2_t.getText();
+            }
+            if (adresse2_t.getText().equals("")) {
+                tab_valeurs6[3] = "";
+            } else {
+                tab_valeurs6[3] = adresse2_t.getText();
+            }
+            if (tel2_t.getText().equals("")) {
+                tab_valeurs6[4] = "";
+            } else {
+                tab_valeurs6[4] = tel2_t.getText();
+            }
+            if (mutuelle_t.getText().equals("")) {
+                tab_valeurs6[5] = "";
+            } else {
+                tab_valeurs6[5] = mutuelle_t.getText();
+            }
+
+            tab_valeurs6[0] = numero4_t.getText();
+            tab_valeurs6[1] = nom3_t.getText();
+            tab_valeurs6[2] = prenom2_t.getText();
+            tab_valeurs6[3] = adresse2_t.getText();
+            tab_valeurs6[4] = tel2_t.getText();
+            tab_valeurs6[5] = mutuelle_t.getText();
+            tab_colonnes6[0] = "numero";
+            tab_colonnes6[1] = "nom";
+            tab_colonnes6[2] = "prenom";
+            tab_colonnes6[3] = "adresse";
+            tab_colonnes6[4] = "tel";
+            tab_colonnes6[5] = "mutuelle";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
         if (e.getSource() == Supprimer_Hospitalisation) {
             System.out.println("lol13");
             String[] tab_valeurs7 = new String[4];
             String[] tab_colonnes7 = new String[4];
-            if (no_malade_t.getText().equals("") || code_service3_t.getText().equals("") || no_chambre2_t.getText().equals("") || lit_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
+            if (no_malade_t.getText().equals("")) {
+                tab_valeurs7[0] = "";
             } else {
                 tab_valeurs7[0] = no_malade_t.getText();
-                tab_valeurs7[1] = code_service3_t.getText();
-                tab_valeurs7[2] = no_chambre2_t.getText();
-                tab_valeurs7[3] = lit_t.getText();
-                tab_colonnes7[0] = "no_malade";
-                tab_colonnes7[1] = "code_service";
-                tab_colonnes7[2] = "no_chambre";
-                tab_colonnes7[3] = "lit";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
+            if (code_service3_t.getText().equals("")) {
+                tab_valeurs7[1] = "";
+            } else {
+                tab_valeurs7[1] = code_service3_t.getText();
+            }
+            if (no_chambre2_t.getText().equals("")) {
+                tab_valeurs7[2] = "";
+            } else {
+                tab_valeurs7[2] = no_chambre2_t.getText();
+            }
+            if (lit_t.getText().equals("")) {
+                tab_valeurs7[3] = "";
+            } else {
+                tab_valeurs7[3] = lit_t.getText();
+            }
+            tab_colonnes7[0] = "no_malade";
+            tab_colonnes7[1] = "code_service";
+            tab_colonnes7[2] = "no_chambre";
+            tab_colonnes7[3] = "lit";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
         if (e.getSource() == Supprimer_Soignage) {
             System.out.println("lol13");
             String[] tab_valeurs8 = new String[2];
             String[] tab_colonnes8 = new String[2];
-            if (no_docteur_t.getText().equals("") || no_malade2_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
+            if (no_docteur_t.getText().equals("")) {
+                tab_valeurs8[0] = "";
             } else {
                 tab_valeurs8[0] = no_docteur_t.getText();
-                tab_valeurs8[1] = no_malade2_t.getText();
-                tab_colonnes8[0] = "no_docteur";
-                tab_colonnes8[1] = "no_malade";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqSupprimer.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
             }
+            if (no_malade2_t.getText().equals("")) {
+                tab_valeurs8[1] = "";
+            } else {
+                tab_valeurs8[1] = no_malade2_t.getText();
+            }
+            tab_colonnes8[0] = "no_docteur";
+            tab_colonnes8[1] = "no_malade";
+//                ReqAjout requete_ajout = new ReqAjout();
+            ReqSupprimer.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
+
             Connexion C;
             try {
                 C = new Connexion("hopital", "root", "1234");
@@ -2041,7 +2138,7 @@ public class Graphique extends JFrame implements ActionListener {
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan5.add(specialité_t);
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
-                    
+
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -2285,7 +2382,7 @@ public class Graphique extends JFrame implements ActionListener {
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan5.add(lit_t);
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
-                    
+
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -2337,7 +2434,7 @@ public class Graphique extends JFrame implements ActionListener {
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan5.add(no_malade2_t);
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
-                   
+
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
