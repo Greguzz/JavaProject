@@ -29,7 +29,7 @@ public class ReqSupprimer {
         String newvar[] = new String[size];
         String newsupp[] = new String[size];
         int a = 0;
-        for(int k = 0; k<size; k++){
+        for(int k = 0; k<var.length; k++){
             if (var[k]!=""){
                 newvar[a]=var[k];
                 newsupp[a]=supp[k];
@@ -38,8 +38,8 @@ public class ReqSupprimer {
         }
         
         String fullrequete = "DELETE FROM " + table + " WHERE ";
-        for(int i=0; i<supp.length; i++){
-            fullrequete = fullrequete + var[i] + " = " + "'" + supp[i] + "'";
+        for(int i=0; i<newsupp.length; i++){
+            fullrequete = fullrequete + newvar[i] + " = " + "'" + newsupp[i] + "'";
             if(i<supp.length-1){
                 fullrequete = fullrequete + " AND ";
             }
