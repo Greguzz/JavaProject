@@ -34,60 +34,6 @@ public class Gestion {
         System.out.println("1 recherche, 2 supprimer, 3 ajouter, 4 modifier");
         int menu = sc.nextInt();
         
-        switch(menu){
-            
-            case 1:
-                System.out.println("Vous recherchez ? 1 Service, 2 Chambre, 3 Employé, 4 Docteur, 5 Infirmier, 6 Malade, 7 Une hospitalisation, 8 Un soignage ?");
-                int menu2 = sc.nextInt();
-                
-                switch(menu2){
-                    case 1 :
-                        String ligne[] = new String[4];
-                        String tab[] = new String[4];
-                        System.out.println("Code ?");
-                        tab[0]=sc.nextLine();
-                        ligne[0]="code";
-                        
-                        if(tab[0].equals("0")) {
-                            tab[0]="";
-                        }
-                        
-                        System.out.println("Nom ?");
-                        tab[1]=sc.nextLine();
-                        ligne[1] = "nom";
-                        if(tab[1].equals("0")) {
-                            tab[1]="";
-                        }
-                        
-                        System.out.println("Batiment ?");
-                        tab[2]=sc.nextLine();
-                        ligne[2]="batiment";
-                        if(tab[2].equals("0")) {
-                            tab[2]="";
-                        }
-                        
-                        System.out.println("Directeur ?");
-                        tab[3]=sc.nextLine();
-                        ligne[3]="directeur";
-                        if(tab[3].equals("0")) {
-                            tab[3]="";
-                        }
-                        
-                        Requetes R = new Requetes(tab, tab.length);
-                        String fullreq = R.concatrequete(tab, "service", ligne);
-                        System.out.println(fullreq);
-                        liste = C.remplirChampsRequete(fullreq);
-                        System.out.println(liste);
-                        break;
-                        
-                    //case 2:
-                        
-                }
-                
-        
-        
-        
-        }
         
     }
     

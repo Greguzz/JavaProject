@@ -39,9 +39,9 @@ public class ReqUpdate {
             }
         }
         
-        String fullrequete = "UPDATE " + table + " SET " + col + " = " + modif + " WHERE ";
+        String fullrequete = "UPDATE " + table + " SET " + col + " = " + "'" + modif + "'" + " WHERE ";
         for(int i=0; i<newvar.length; i++){
-            fullrequete = fullrequete + newvar[i] + " = " + newval[i];
+            fullrequete = fullrequete + newvar[i] + " = "  + "'" + newval[i] +  "'";
             if(i<newvar.length-1){
                 fullrequete = fullrequete + " AND ";
             }
