@@ -56,17 +56,19 @@ public class Graphes {
     }
     
     /**
-     * Une méthode qui fait un graphes en barre pour montrer la répartition des moyennes des salaires par services
+     * Une méthode qui fait un graphes en barre pour montrer la répartition des moyennes des salaires selon l'horaire
      *
-     * @param service le nom des services
-     * @param moyenne la moyenne des saliares par service
+     * horaire l'horaire de la journée
+     * moyenne la moyenne des salaires en fonction du jour et de la nuit
      */
-    public static void salaireGraphe (String service[], float moyenne[]) {//inutile au vu des données que nous avons dans la bdd
+    public static void salaireGraphe () {
+        String horaire[] = {"Jour", "Nuit"};
+        int moyenne[] = {1553, 1505};        
         DefaultCategoryDataset data = new DefaultCategoryDataset();
-        for (int i=0; i<service.length; i++){
-            data.addValue(moyenne[i], service[i], "");
+        for (int i=0; i<horaire.length; i++){
+            data.addValue(moyenne[i], horaire[i], "");
         }
-        JFreeChart chart = ChartFactory.createBarChart("Nombre de patient par service", "Service", "Nombre de Patient", data, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart = ChartFactory.createBarChart("Moyenne des salaires des infirmiers selon l'horaire", "Horaire", "Moyenne des salaires", data, PlotOrientation.VERTICAL, true, true, false);
         ChartFrame frame = new ChartFrame("Fenetre", chart);//je savais pas trop quoi mettre a la place de fenetre
         frame.pack();
         frame.setVisible(true);
