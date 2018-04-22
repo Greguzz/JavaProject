@@ -19,6 +19,24 @@ public class ReqSupprimer {
      * @return fullrequete la requête finis
      */
     public static String concatrequete(String table, String var[], String supp[]){
+        
+        int size = 0;
+        for(int j = 0; j<var.length; j++){
+            if (var[j]!=""){
+                size++;
+            }
+        }
+        String newvar[] = new String[size];
+        String newsupp[] = new String[size];
+        int a = 0;
+        for(int k = 0; k<size; k++){
+            if (var[k]!=""){
+                newvar[a]=var[k];
+                newsupp[a]=supp[k];
+                a++;
+            }
+        }
+        
         String fullrequete = "DELETE FROM " + table + " WHERE ";
         for(int i=0; i<supp.length; i++){
             fullrequete = fullrequete + var[i] + " = " + "'" + supp[i] + "'";
