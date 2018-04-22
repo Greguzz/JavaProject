@@ -13,19 +13,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.text.*;
 
 /**
- * Classe GRAPHIQUE qui hérite de JFrame et implémente ActionListener
- *
+ * Classe GRAPHIQUE qui hérite de JFrame et implémente ActionListener.
+ * Ouvre la fenêtre principale de la gestion du personnel de l'hopital.
  *
  * @author Manu
  */
 public class Graphique extends JFrame implements ActionListener {
 
-    private final JPanel connexion;
-
-    private final JLabel question1, question2, question3, question4;
+    ///JLABEL
+    private final JLabel question1, question2, question3, question4; ///Question dépendant de l'action : 1. Ajout 2. Supression 3. MAJ 4.Recherche
     private final JLabel code, nom, batiment, directeur; ///JLabel du formulaire de recherche Service
     private final JLabel code_service, no_chambre, surveillant, nb_lits; ///JLabel du formulaire de recherche Chambre
     private final JLabel numero, nom2, prenom, adresse, tel; ///JLabel du formulaire de recherche Employé
@@ -34,9 +32,9 @@ public class Graphique extends JFrame implements ActionListener {
     private final JLabel numero4, nom3, prenom2, adresse2, tel2, mutuelle; ///JLabel du formulaire de recherche Malade
     private final JLabel no_malade, code_service3, no_chambre2, lit; ///JLabel du formulaire de recherche Hospitalisation
     private final JLabel no_docteur, no_malade2; ///JLabel du formulaire de recherche Soignage
+    private final JLabel critères_de_recherche, modification; ///JLabel pour indiquer quels sont les JLabel à compléter
 
-    private final JTextField login;
-    private final JTextField mdp;
+    ///JTEXTFIELD
     private final JTextField code_t, nom_t, batiment_t, directeur_t; ///JTextField du formulaire de recherche Service
     private final JTextField code_service_t, no_chambre_t, surveillant_t, nb_lits_t; ///JTextField du formulaire de recherche Chambre
     private final JTextField numero_t, nom2_t, prenom_t, adresse_t, tel_t; ///JTextField du formulaire de recherche Employé
@@ -45,8 +43,7 @@ public class Graphique extends JFrame implements ActionListener {
     private final JTextField numero4_t, nom3_t, prenom2_t, adresse2_t, tel2_t, mutuelle_t; ///JTextField du formulaire de recherche Malade
     private final JTextField no_malade_t, code_service3_t, no_chambre2_t, lit_t; ///JTextField du formulaire de recherche Hospitalisation
     private final JTextField no_docteur_t, no_malade2_t; ///JTextField du formulaire de recherche Soignage
-
-    ///Pour la modification, on a besoin de l'ancien champ
+    ///Pour la modification, on a besoin d'un critère de recherche
     private final JTextField code_old, nom_old, batiment_old, directeur_old; ///JTextField du formulaire de recherche Service
     private final JTextField code_service_old, no_chambre_old, surveillant_old, nb_lits_old; ///JTextField du formulaire de recherche Chambre
     private final JTextField numero_old, nom2_old, prenom_old, adresse_old, tel_old; ///JTextField du formulaire de recherche Employé
@@ -56,18 +53,24 @@ public class Graphique extends JFrame implements ActionListener {
     private final JTextField no_malade_old, code_service3_old, no_chambre2_old, lit_old; ///JTextField du formulaire de recherche Hospitalisation
     private final JTextField no_docteur_old, no_malade2_old; ///JTextField du formulaire de recherche Soignage
 
-    //private final JTextArea service;
-    private final JButton connect;
-    private final JPanel pan1;
+    
+    ///JPANEL
+    private final JPanel pan1; 
     private final JPanel pan2;
     private final JPanel pan3;
     private final JPanel pan4;
     private final JPanel pan5;
+    
+    ///JBUTTON
+    ///Boutons principaux de gauche (choix 1=ajout, choix 2=supression, choix3=MAJ, choix4=Recherche, Statistiques=JFreeChart
     private final JButton choix1;
     private final JButton choix2;
     private final JButton choix3;
     private final JButton choix4;
+    private final JButton Statistiques;
 
+    ///Boutons secondaires des menus secondaires
+    //Pour les secteurs
     private final JButton Service1, Service2, Service3, Service4;
     private final JButton Chambre1, Chambre2, Chambre3, Chambre4;
     private final JButton Employé1, Employé2, Employé3, Employé4;
@@ -76,18 +79,22 @@ public class Graphique extends JFrame implements ActionListener {
     private final JButton Malade1, Malade2, Malade3, Malade4;
     private final JButton Hospitalisation1, Hospitalisation2, Hospitalisation3, Hospitalisation4;
     private final JButton Soignage1, Soignage2, Soignage3, Soignage4;
+    //Pour les actions
     private final JButton Rechercher_parametre_Service, Rechercher_parametre_Chambre, Rechercher_parametre_Employé, Rechercher_parametre_Docteur, Rechercher_parametre_Infirmier, Rechercher_parametre_Malade, Rechercher_parametre_Hospitalisation, Rechercher_parametre_Soignage;
     private final JButton Rechercher_tout_Service, Rechercher_tout_Chambre, Rechercher_tout_Employé, Rechercher_tout_Docteur, Rechercher_tout_Infirmier, Rechercher_tout_Malade, Rechercher_tout_Hospitalisation, Rechercher_tout_Soignage;
     private final JButton Ajouter_Service, Ajouter_Chambre, Ajouter_Employé, Ajouter_Docteur, Ajouter_Infirmier, Ajouter_Malade, Ajouter_Hospitalisation, Ajouter_Soignage;
     private final JButton Supprimer_Service, Supprimer_Chambre, Supprimer_Employé, Supprimer_Docteur, Supprimer_Infirmier, Supprimer_Malade, Supprimer_Hospitalisation, Supprimer_Soignage;
     private final JButton Modifier_Service, Modifier_Chambre, Modifier_Employé, Modifier_Docteur, Modifier_Infirmier, Modifier_Malade, Modifier_Hospitalisation, Modifier_Soignage;
-    private final JButton Statistiques;
-
+    
+    ///JSPLITPANE
+    //Pour séparer l'écran des actions de gauche et l'affichage de droite
     private final JSplitPane split;
-    private final Dimension d, e;    ///Pour la dimension des boutons
+    
+    ///DIMENSIONS (pour les boutons)
+    private final Dimension d, e;    
+    
+    ///STYLE (pour les écritures)
     private Font font1, font2;
-
-    private static int connexion_bdd_reussie = 0;
 
     /**
      * Constructeur de la classe Graphique : Initialise tous les attributs
@@ -98,8 +105,11 @@ public class Graphique extends JFrame implements ActionListener {
     public Graphique(int a, int b) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ///Ferme le programme lorsqu'on ferme la fenêtre
         this.setSize(a, b);  ///Impose la taille selon les paramètres 
-        connexion = new JPanel();
+        setLocationRelativeTo(null); //On centre la fenêtre sur l'écran
+        setResizable(false); ///Redimensionnement impossible
 
+        
+        ///INITIALISATION DES JLABEL
         question1 = new JLabel("Dans quelle section souhaitez-vous ajouter ?");
         question2 = new JLabel("Dans quelle section souhaitez-vous supprimer ?");
         question3 = new JLabel("Dans quelle section souhaitez-vous mettre à jour une donnée ?");
@@ -135,9 +145,11 @@ public class Graphique extends JFrame implements ActionListener {
         lit = new JLabel("Lit : ");
         no_docteur = new JLabel("Numéro du docteur : ");
         no_malade2 = new JLabel("Numéro du malade : ");
+        critères_de_recherche = new JLabel("Critère de recherche : ");
+        modification = new JLabel("Modification : ");
 
-        login = new JTextField(10); ///10=taille du JTextField
-        mdp = new JTextField(10);
+        
+        ///INITIALISATION DES JTEXTFIELD
         code_t = new JTextField(15);
         nom_t = new JTextField(15);
         batiment_t = new JTextField(15);
@@ -203,7 +215,7 @@ public class Graphique extends JFrame implements ActionListener {
         no_docteur_old = new JTextField(15);
         no_malade2_old = new JTextField(15);
 
-//        service = new JTextArea();
+        ///INITIALISATION DES JPANEL + TAILLE
         pan1 = new JPanel();
         pan1.setSize(200, 600);
         pan2 = new JPanel();
@@ -215,9 +227,8 @@ public class Graphique extends JFrame implements ActionListener {
         pan5 = new JPanel();
         pan5.setSize(100, 100);
 
-//        
-        connect = new JButton("Connexion");
-        connect.addActionListener(this);
+    
+        ///INITIALISATION DES JBUTTON + AJOUT DES ECOUTEURS
         choix1 = new JButton("Ajout ");
         choix1.addActionListener(this);
         choix2 = new JButton("Supression");
@@ -370,357 +381,510 @@ public class Graphique extends JFrame implements ActionListener {
         Modifier_Hospitalisation.addActionListener(this);
         Modifier_Soignage = new JButton("Modifier");
         Modifier_Soignage.addActionListener(this);
-
         Statistiques = new JButton("Statistiques");
         Statistiques.addActionListener(this);
 
+        
+        ///INITIALISATION DES DIMENSIONS DES JBUTTONS
         d = new Dimension(190, 30);
         e = new Dimension(500, 40);
 
-//        
+        ///INITIALISATION DU JSPLITPANE
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pan1, pan2); ///Pour séparer les deux panneaux 
         split.setDividerSize(10);  ///Taille du JSplitPane
         split.setDividerLocation(200); ///Position du JSplitPane
 
+        this.setTitle("Gestion informatique d'un centre hospitalier");
         this.setVisible(true);   ///Rend la fenêtre visible
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        Connexion C;
+        try {
+            C = new Connexion("hopital", "root", "1234"); ///Connexion à la base de données grâce à la classe Connexion.java
+            if (e.getSource() == choix1) { ///=AJOUT               
+                ChoixSecteur(1);
+            }
+            if (e.getSource() == choix2) { ///=SUPRESSION
+                ChoixSecteur(2);
+            }
+            if (e.getSource() == choix3) { ///=MISE A JOUR                
+                ChoixSecteur(3);
+            }
+            if (e.getSource() == choix4) { ///=RECHERCHER
+                ChoixSecteur(4);
+            }
 
-        if (e.getSource() == connect) {
-            if (login.getText().equals("root") && (mdp.getText().equals("1234"))) {
-                System.out.println("réussi.");
-                connexion_bdd_reussie = 1;
-                try {
-                    Connexion C = new Connexion("hopital", "root", "1234");
+            if (e.getSource() == Statistiques) { ///=JFREECHART
+                System.out.println("lol4");
+            }
+            
+            ///////////////////////////////////////////////////
+            
+            if (e.getSource() == Service1) {
+                FormulaireRecherche(1, 1);
+            }
+            if (e.getSource() == Chambre1) {
+                FormulaireRecherche(2, 1);
+            }
+            if (e.getSource() == Employé1) {
+                FormulaireRecherche(3, 1);
+            }
+            if (e.getSource() == Docteur1) {
+                FormulaireRecherche(4, 1);
+            }
+            if (e.getSource() == Infirmier1) {
+                FormulaireRecherche(5, 1);
+            }
+            if (e.getSource() == Malade1) {
+                FormulaireRecherche(6, 1);
+            }
+            if (e.getSource() == Hospitalisation1) {
+                FormulaireRecherche(7, 1);
+            }
+            if (e.getSource() == Soignage1) {
+                FormulaireRecherche(8, 1);
+            }
+            /////////////////////////////////////////
 
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+            if (e.getSource() == Service2) {
+                FormulaireRecherche(1, 2);
+            }
+            if (e.getSource() == Chambre2) {
+                FormulaireRecherche(2, 2);
+            }
+            if (e.getSource() == Employé2) {
+                FormulaireRecherche(3, 2);
+            }
+            if (e.getSource() == Docteur2) {
+                FormulaireRecherche(4, 2);
+            }
+            if (e.getSource() == Infirmier2) {
+                FormulaireRecherche(5, 2);
+            }
+            if (e.getSource() == Malade2) {
+                FormulaireRecherche(6, 2);
+            }
+            if (e.getSource() == Hospitalisation2) {
+                FormulaireRecherche(7, 2);
+            }
+            if (e.getSource() == Soignage2) {
+                FormulaireRecherche(8, 2);
+            }
+            
+            ////////////////////////////////////////////////
+            
+            if (e.getSource() == Service3) {
+                FormulaireRecherche(1, 3);
+            }
+            if (e.getSource() == Chambre3) {
+                FormulaireRecherche(2, 3);
+            }
+            if (e.getSource() == Employé3) {
+                FormulaireRecherche(3, 3);
+            }
+            if (e.getSource() == Docteur3) {
+                FormulaireRecherche(4, 3);
+            }
+            if (e.getSource() == Infirmier3) {
+                FormulaireRecherche(5, 3);
+            }
+            if (e.getSource() == Malade3) {
+                FormulaireRecherche(6, 3);
+            }
+            if (e.getSource() == Hospitalisation3) {
+                FormulaireRecherche(7, 3);
+            }
+            if (e.getSource() == Soignage3) {
+                FormulaireRecherche(8, 3);
+            }
+            
+            /////////////////////////////////////////////
+            
+            if (e.getSource() == Service4) {
+                FormulaireRecherche(1, 4);
+            }
+            if (e.getSource() == Chambre4) {
+                FormulaireRecherche(2, 4);
+            }
+            if (e.getSource() == Employé4) {
+                FormulaireRecherche(3, 4);
+            }
+            if (e.getSource() == Docteur4) {
+                FormulaireRecherche(4, 4);
+            }
+            if (e.getSource() == Infirmier4) {
+                FormulaireRecherche(5, 4);
+            }
+            if (e.getSource() == Malade4) {
+                FormulaireRecherche(6, 4);
+            }
+            if (e.getSource() == Hospitalisation4) {
+                FormulaireRecherche(7, 4);
+            }
+            if (e.getSource() == Soignage4) {
+                FormulaireRecherche(8, 4);
+            }
+            
+            //////////////////////////////////////////////////////
+
+            if (e.getSource() == Ajouter_Service) {
+                String[] tab_valeurs1 = new String[4];
+                String[] tab_colonnes1 = new String[4];
+                if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs1[0] = code_t.getText();
+                    tab_valeurs1[1] = nom_t.getText();
+                    tab_valeurs1[2] = batiment_t.getText();
+                    tab_valeurs1[3] = directeur_t.getText();
+                    tab_colonnes1[0] = "code";
+                    tab_colonnes1[1] = "nom";
+                    tab_colonnes1[2] = "batiment";
+                    tab_colonnes1[3] = "directeur";
+                    ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1);
+                    System.out.println("" + ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
+                    C.executeUpdate(ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
                 }
 
-            } else {
-                System.out.println("Vous ne pouvez pas vous connecter à la base de données");
             }
-        }
-        if (e.getSource() == choix1) {
-            System.out.println("lol1");
-            ChoixSecteur(1);
-        }
-        if (e.getSource() == choix2) {
-            System.out.println("lol2");
-            ChoixSecteur(2);
-        }
-        if (e.getSource() == choix3) {
-            System.out.println("lol3");
-            ChoixSecteur(3);
-        }
-        if (e.getSource() == choix4) {
-            System.out.println("lol4");
-            ChoixSecteur(4);
-        }
 
-        if (e.getSource() == Statistiques) {
-            System.out.println("lol4");
-//            Graphes graphe= new Graphes();
-//            graphe.
-        }
+            if (e.getSource() == Ajouter_Chambre) {
+                String[] tab_valeurs2 = new String[4];
+                String[] tab_colonnes2 = new String[4];
+                if (code_service_t.getText().equals("") || no_chambre_t.getText().equals("") || surveillant_t.getText().equals("") || nb_lits_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs2[0] = code_service_t.getText();
+                    tab_valeurs2[1] = no_chambre_t.getText();
+                    tab_valeurs2[2] = surveillant_t.getText();
+                    tab_valeurs2[3] = nb_lits_t.getText();
+                    tab_colonnes2[0] = "code_service";
+                    tab_colonnes2[1] = "no_chambre";
+                    tab_colonnes2[2] = "surveillant";
+                    tab_colonnes2[3] = "nb_lits";
+                    ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
+                    System.out.println("" + ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
+                    C.executeUpdate(ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
 
-        if (e.getSource() == Service1) {
-            System.out.println("lol5");
-            FormulaireRecherche(1, 1);
-        }
-        if (e.getSource() == Chambre1) {
-            System.out.println("lol6");
-            FormulaireRecherche(2, 1);
-        }
-        if (e.getSource() == Employé1) {
-            System.out.println("lol7");
-            FormulaireRecherche(3, 1);
-        }
+                }
+            }
 
-        if (e.getSource() == Docteur1) {
-            System.out.println("lol8");
-            FormulaireRecherche(4, 1);
-        }
+            if (e.getSource() == Ajouter_Employé) {
+                String[] tab_valeurs3 = new String[5];
+                String[] tab_colonnes3 = new String[5];
+                if (numero_t.getText().equals("") || nom2_t.getText().equals("") || prenom_t.getText().equals("") || adresse_t.getText().equals("") || tel_t.getText().equals("")) {
+                    System.out.println("Un ou plusieurs de vos champs sont vides");
+                } else {
+                    tab_valeurs3[0] = numero_t.getText();
+                    tab_valeurs3[1] = nom2_t.getText();
+                    tab_valeurs3[2] = prenom_t.getText();
+                    tab_valeurs3[3] = adresse_t.getText();
+                    tab_valeurs3[4] = tel_t.getText();
+                    tab_colonnes3[0] = "numero";
+                    tab_colonnes3[1] = "nom";
+                    tab_colonnes3[2] = "prenom";
+                    tab_colonnes3[3] = "adresse";
+                    tab_colonnes3[4] = "tel";
+                    ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
+                    C.executeUpdate(ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3));
 
-        if (e.getSource() == Infirmier1) {
-            System.out.println("lol9");
-            FormulaireRecherche(5, 1);
-        }
+                }
+            }
 
-        if (e.getSource() == Malade1) {
-            System.out.println("lol10");
-            FormulaireRecherche(6, 1);
-        }
-        if (e.getSource() == Hospitalisation1) {
-            System.out.println("lol11");
-            FormulaireRecherche(7, 1);
-        }
+            if (e.getSource() == Ajouter_Docteur) {
+                String[] tab_valeurs4 = new String[2];
+                String[] tab_colonnes4 = new String[2];
+                if (numero2_t.getText().equals("") || specialité_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs4[0] = numero2_t.getText();
+                    tab_valeurs4[1] = specialité_t.getText();
+                    tab_colonnes4[0] = "numero";
+                    tab_colonnes4[1] = "specialite";
 
-        if (e.getSource() == Soignage1) {
-            System.out.println("lol12");
-            FormulaireRecherche(8, 1);
-        }
+                    ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
+                    C.executeUpdate(ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
 
-        if (e.getSource() == Service2) {
-            System.out.println("lol5");
-            FormulaireRecherche(1, 2);
-        }
-        if (e.getSource() == Chambre2) {
-            System.out.println("lol6");
-            FormulaireRecherche(2, 2);
-        }
-        if (e.getSource() == Employé2) {
-            System.out.println("lol7");
-            FormulaireRecherche(3, 2);
-        }
+                }
+            }
 
-        if (e.getSource() == Docteur2) {
-            System.out.println("lol8");
-            FormulaireRecherche(4, 2);
-        }
+            if (e.getSource() == Ajouter_Infirmier) {
+                String[] tab_valeurs5 = new String[4];
+                String[] tab_colonnes5 = new String[4];
+                if (numero3_t.getText().equals("") || code_service2_t.getText().equals("") || rotation_t.getText().equals("") || salaire_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs5[0] = numero3_t.getText();
+                    tab_valeurs5[1] = code_service2_t.getText();
+                    tab_valeurs5[2] = rotation_t.getText();
+                    tab_valeurs5[3] = salaire_t.getText();
+                    tab_colonnes5[0] = "numero";
+                    tab_colonnes5[1] = "code_service";
+                    tab_colonnes5[2] = "rotation";
+                    tab_colonnes5[3] = "salaire";
+                    ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
+                    C.executeUpdate(ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
 
-        if (e.getSource() == Infirmier2) {
-            System.out.println("lol9");
-            FormulaireRecherche(5, 2);
-        }
+                }
+            }
 
-        if (e.getSource() == Malade2) {
-            System.out.println("lol10");
-            FormulaireRecherche(6, 2);
-        }
-        if (e.getSource() == Hospitalisation2) {
-            System.out.println("lol11");
-            FormulaireRecherche(7, 2);
-        }
+            if (e.getSource() == Ajouter_Malade) {
+                String[] tab_valeurs6 = new String[6];
+                String[] tab_colonnes6 = new String[6];
+                if (numero4_t.getText().equals("") || nom3_t.getText().equals("") || prenom2_t.getText().equals("") || adresse2_t.getText().equals("") || tel2_t.getText().equals("") || mutuelle_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs6[0] = numero4_t.getText();
+                    tab_valeurs6[1] = nom3_t.getText();
+                    tab_valeurs6[2] = prenom2_t.getText();
+                    tab_valeurs6[3] = adresse2_t.getText();
+                    tab_valeurs6[4] = tel2_t.getText();
+                    tab_valeurs6[5] = mutuelle_t.getText();
+                    tab_colonnes6[0] = "numero";
+                    tab_colonnes6[1] = "nom";
+                    tab_colonnes6[2] = "prenom";
+                    tab_colonnes6[3] = "adresse";
+                    tab_colonnes6[4] = "tel";
+                    tab_colonnes6[5] = "mutuelle";
+                    ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
+                    C.executeUpdate(ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6));
 
-        if (e.getSource() == Soignage2) {
-            System.out.println("lol12");
-            FormulaireRecherche(8, 2);
-        }
+                }
+            }
 
-        if (e.getSource() == Service3) {
-            System.out.println("lol5");
-            FormulaireRecherche(1, 3);
-        }
-        if (e.getSource() == Chambre3) {
-            System.out.println("lol6");
-            FormulaireRecherche(2, 3);
-        }
-        if (e.getSource() == Employé3) {
-            System.out.println("lol7");
-            FormulaireRecherche(3, 3);
-        }
+            if (e.getSource() == Ajouter_Hospitalisation) {
+                String[] tab_valeurs7 = new String[4];
+                String[] tab_colonnes7 = new String[4];
+                if (no_malade_t.getText().equals("") || code_service3_t.getText().equals("") || no_chambre2_t.getText().equals("") || lit_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs7[0] = no_malade_t.getText();
+                    tab_valeurs7[1] = code_service3_t.getText();
+                    tab_valeurs7[2] = no_chambre2_t.getText();
+                    tab_valeurs7[3] = lit_t.getText();
+                    tab_colonnes7[0] = "no_malade";
+                    tab_colonnes7[1] = "code_service";
+                    tab_colonnes7[2] = "no_chambre";
+                    tab_colonnes7[3] = "lit";
+                    ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
+                    C.executeUpdate(ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
 
-        if (e.getSource() == Docteur3) {
-            System.out.println("lol8");
-            FormulaireRecherche(4, 3);
-        }
+                }
+            }
+            if (e.getSource() == Ajouter_Soignage) {
+                String[] tab_valeurs8 = new String[2];
+                String[] tab_colonnes8 = new String[2];
+                if (no_docteur_t.getText().equals("") || no_malade2_t.getText().equals("")) {
+                    System.out.println("Un de vos champs est vide");
+                } else {
+                    tab_valeurs8[0] = no_docteur_t.getText();
+                    tab_valeurs8[1] = no_malade2_t.getText();
+                    tab_colonnes8[0] = "no_docteur";
+                    tab_colonnes8[1] = "no_malade";
+                    ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
+                    C.executeUpdate(ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
+                }
+                
 
-        if (e.getSource() == Infirmier3) {
-            System.out.println("lol9");
-            FormulaireRecherche(5, 3);
-        }
+            }
 
-        if (e.getSource() == Malade3) {
-            System.out.println("lol10");
-            FormulaireRecherche(6, 3);
-        }
-        if (e.getSource() == Hospitalisation3) {
-            System.out.println("lol11");
-            FormulaireRecherche(7, 3);
-        }
+            if (e.getSource() == Supprimer_Service) {
+                String[] tab_valeurs1 = new String[4];
+                String[] tab_colonnes1 = new String[4];
 
-        if (e.getSource() == Soignage3) {
-            System.out.println("lol12");
-            FormulaireRecherche(8, 3);
-        }
+                if (code_t.getText().equals("")) {
+                    tab_valeurs1[0] = "";
+                } else {
+                    tab_valeurs1[0] = code_t.getText();
+                }
+                if (nom_t.getText().equals("")) {
+                    tab_valeurs1[1] = "";
+                } else {
+                    tab_valeurs1[1] = nom_t.getText();
+                }
 
-        if (e.getSource() == Service4) {
-            System.out.println("lol5");
-            FormulaireRecherche(1, 4);
-        }
-        if (e.getSource() == Chambre4) {
-            System.out.println("lol6");
-            FormulaireRecherche(2, 4);
-        }
-        if (e.getSource() == Employé4) {
-            System.out.println("lol7");
-            FormulaireRecherche(3, 4);
-        }
+                if (batiment_t.getText().equals("")) {
+                    tab_valeurs1[2] = "";
+                } else {
+                    tab_valeurs1[2] = batiment_t.getText();
+                }
 
-        if (e.getSource() == Docteur4) {
-            System.out.println("lol8");
-            FormulaireRecherche(4, 4);
-        }
-
-        if (e.getSource() == Infirmier4) {
-            System.out.println("lol9");
-            FormulaireRecherche(5, 4);
-        }
-
-        if (e.getSource() == Malade4) {
-            System.out.println("lol10");
-            FormulaireRecherche(6, 4);
-        }
-        if (e.getSource() == Hospitalisation4) {
-            System.out.println("lol11");
-            FormulaireRecherche(7, 4);
-        }
-
-        if (e.getSource() == Soignage4) {
-            System.out.println("lol12");
-            FormulaireRecherche(8, 4);
-        }
-
-        if (e.getSource() == Ajouter_Service) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[4];
-            String[] tab_colonnes1 = new String[4];
-            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
-                tab_valeurs1[0] = code_t.getText();
-                tab_valeurs1[1] = nom_t.getText();
-                tab_valeurs1[2] = batiment_t.getText();
-                tab_valeurs1[3] = directeur_t.getText();
+                if (directeur_t.getText().equals("")) {
+                    tab_valeurs1[3] = "";
+                } else {
+                    tab_valeurs1[3] = directeur_t.getText();
+                }
                 tab_colonnes1[0] = "code";
                 tab_colonnes1[1] = "nom";
                 tab_colonnes1[2] = "batiment";
                 tab_colonnes1[3] = "directeur";
-                ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1);
-                System.out.println("" + ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("service", tab_colonnes1, tab_valeurs1));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                System.out.println("" + ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
+                C.executeUpdate(ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
 
             }
 
-        }
+            if (e.getSource() == Supprimer_Chambre) {
+                String[] tab_valeurs2 = new String[4];
+                String[] tab_colonnes2 = new String[4];
+                if (code_service_t.getText().equals("")) {
+                    tab_valeurs2[0] = "";
+                } else {
+                    tab_valeurs2[0] = code_service_t.getText();
+                }
+                if (no_chambre_t.getText().equals("")) {
+                    tab_valeurs2[1] = "";
+                } else {
+                    tab_valeurs2[1] = no_chambre_t.getText();
+                }
 
-        if (e.getSource() == Ajouter_Chambre) {
-            System.out.println("lol13");
-            String[] tab_valeurs2 = new String[4];
-            String[] tab_colonnes2 = new String[4];
-            if (code_service_t.getText().equals("") || no_chambre_t.getText().equals("") || surveillant_t.getText().equals("") || nb_lits_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
-                tab_valeurs2[0] = code_service_t.getText();
-                tab_valeurs2[1] = no_chambre_t.getText();
-                tab_valeurs2[2] = surveillant_t.getText();
-                tab_valeurs2[3] = nb_lits_t.getText();
+                if (surveillant_t.getText().equals("")) {
+                    tab_valeurs2[2] = "";
+                } else {
+                    tab_valeurs2[2] = surveillant_t.getText();
+                }
+
+                if (nb_lits_t.getText().equals("")) {
+                    tab_valeurs2[3] = "";
+                } else {
+                    tab_valeurs2[3] = nb_lits_t.getText();
+                }
                 tab_colonnes2[0] = "code_service";
                 tab_colonnes2[1] = "no_chambre";
                 tab_colonnes2[2] = "surveillant";
                 tab_colonnes2[3] = "nb_lits";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
-                System.out.println("" + ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                System.out.println("" + ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
+                C.executeUpdate(ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
 
             }
-        }
 
-        if (e.getSource() == Ajouter_Employé) {
-            System.out.println("lol13");
-            String[] tab_valeurs3 = new String[5];
-            String[] tab_colonnes3 = new String[5];
-            if (numero_t.getText().equals("") || nom2_t.getText().equals("") || prenom_t.getText().equals("") || adresse_t.getText().equals("") || tel_t.getText().equals("")) {
-                System.out.println("Un ou plusieurs de vos champs sont vides");
-            } else {
-                tab_valeurs3[0] = numero_t.getText();
-                tab_valeurs3[1] = nom2_t.getText();
-                tab_valeurs3[2] = prenom_t.getText();
-                tab_valeurs3[3] = adresse_t.getText();
-                tab_valeurs3[4] = tel_t.getText();
+            if (e.getSource() == Supprimer_Employé) {
+                String[] tab_valeurs3 = new String[5];
+                String[] tab_colonnes3 = new String[5];
+                if (numero_t.getText().equals("")) {
+                    tab_valeurs3[0] = "";
+                } else {
+                    tab_valeurs3[0] = numero_t.getText();
+                }
+                if (nom2_t.getText().equals("")) {
+                    tab_valeurs3[1] = "";
+                } else {
+                    tab_valeurs3[1] = nom2_t.getText();
+                }
+
+                if (prenom_t.getText().equals("")) {
+                    tab_valeurs3[2] = "";
+                } else {
+                    tab_valeurs3[2] = prenom_t.getText();
+                }
+
+                if (adresse_t.getText().equals("")) {
+                    tab_valeurs3[3] = "";
+                } else {
+                    tab_valeurs3[3] = adresse_t.getText();
+                }
+                if (tel_t.getText().equals("")) {
+                    tab_valeurs3[4] = "";
+                } else {
+                    tab_valeurs3[4] = tel_t.getText();
+                }
+
                 tab_colonnes3[0] = "numero";
                 tab_colonnes3[1] = "nom";
                 tab_colonnes3[2] = "prenom";
                 tab_colonnes3[3] = "adresse";
                 tab_colonnes3[4] = "tel";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("employe", tab_colonnes3, tab_valeurs3));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+                C.executeUpdate(ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3));
 
-        if (e.getSource() == Ajouter_Docteur) {
-            System.out.println("lol13");
-            String[] tab_valeurs4 = new String[2];
-            String[] tab_colonnes4 = new String[2];
-            if (numero2_t.getText().equals("") || specialité_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
-                tab_valeurs4[0] = numero2_t.getText();
-                tab_valeurs4[1] = specialité_t.getText();
+            }
+
+            if (e.getSource() == Supprimer_Docteur) {
+                String[] tab_valeurs4 = new String[2];
+                String[] tab_colonnes4 = new String[2];
+                if (numero2_t.getText().equals("")) {
+                    tab_valeurs4[0] = "";
+                } else {
+                    tab_valeurs4[0] = numero2_t.getText();
+                }
+                if (specialité_t.getText().equals("")) {
+                    tab_valeurs4[1] = "";
+                } else {
+                    tab_valeurs4[1] = specialité_t.getText();
+                }
                 tab_colonnes4[0] = "numero";
                 tab_colonnes4[1] = "specialite";
 
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                C.executeUpdate(ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
 
             }
-        }
 
-        if (e.getSource() == Ajouter_Infirmier) {
-            System.out.println("lol13");
-            String[] tab_valeurs5 = new String[4];
-            String[] tab_colonnes5 = new String[4];
-            if (numero3_t.getText().equals("") || code_service2_t.getText().equals("") || rotation_t.getText().equals("") || salaire_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
-                tab_valeurs5[0] = numero3_t.getText();
-                tab_valeurs5[1] = code_service2_t.getText();
-                tab_valeurs5[2] = rotation_t.getText();
-                tab_valeurs5[3] = salaire_t.getText();
+            if (e.getSource() == Supprimer_Infirmier) {
+                String[] tab_valeurs5 = new String[4];
+                String[] tab_colonnes5 = new String[4];
+                if (numero3_t.getText().equals("")) {
+                    tab_valeurs5[0] = "";
+                } else {
+                    tab_valeurs5[0] = numero3_t.getText();
+                }
+                if (code_service2_t.getText().equals("")) {
+                    tab_valeurs5[1] = "";
+                } else {
+                    tab_valeurs5[1] = code_service2_t.getText();
+                }
+                if (rotation_t.getText().equals("")) {
+                    tab_valeurs5[2] = "";
+                } else {
+                    tab_valeurs5[2] = rotation_t.getText();
+                }
+                if (salaire_t.getText().equals("")) {
+                    tab_valeurs5[3] = "";
+                } else {
+                    tab_valeurs5[3] = salaire_t.getText();
+                }
                 tab_colonnes5[0] = "numero";
                 tab_colonnes5[1] = "code_service";
                 tab_colonnes5[2] = "rotation";
                 tab_colonnes5[3] = "salaire";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+                C.executeUpdate(ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
 
-        if (e.getSource() == Ajouter_Malade) {
-            System.out.println("lol13");
-            String[] tab_valeurs6 = new String[6];
-            String[] tab_colonnes6 = new String[6];
-            if (numero4_t.getText().equals("") || nom3_t.getText().equals("") || prenom2_t.getText().equals("") || adresse2_t.getText().equals("") || tel2_t.getText().equals("") || mutuelle_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
+            }
+
+            if (e.getSource() == Supprimer_Malade) {
+                String[] tab_valeurs6 = new String[6];
+                String[] tab_colonnes6 = new String[6];
+                if (numero4_t.getText().equals("")) {
+                    tab_valeurs6[0] = "";
+                } else {
+                    tab_valeurs6[0] = numero4_t.getText();
+                }
+                if (nom3_t.getText().equals("")) {
+                    tab_valeurs6[1] = "";
+                } else {
+                    tab_valeurs6[1] = nom3_t.getText();
+                }
+                if (prenom2_t.getText().equals("")) {
+                    tab_valeurs6[2] = "";
+                } else {
+                    tab_valeurs6[2] = prenom2_t.getText();
+                }
+                if (adresse2_t.getText().equals("")) {
+                    tab_valeurs6[3] = "";
+                } else {
+                    tab_valeurs6[3] = adresse2_t.getText();
+                }
+                if (tel2_t.getText().equals("")) {
+                    tab_valeurs6[4] = "";
+                } else {
+                    tab_valeurs6[4] = tel2_t.getText();
+                }
+                if (mutuelle_t.getText().equals("")) {
+                    tab_valeurs6[5] = "";
+                } else {
+                    tab_valeurs6[5] = mutuelle_t.getText();
+                }
+
                 tab_valeurs6[0] = numero4_t.getText();
                 tab_valeurs6[1] = nom3_t.getText();
                 tab_valeurs6[2] = prenom2_t.getText();
@@ -733,1082 +897,631 @@ public class Graphique extends JFrame implements ActionListener {
                 tab_colonnes6[3] = "adresse";
                 tab_colonnes6[4] = "tel";
                 tab_colonnes6[5] = "mutuelle";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("malade", tab_colonnes6, tab_valeurs6));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+                C.executeUpdate(ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6));
 
-        if (e.getSource() == Ajouter_Hospitalisation) {
-            System.out.println("lol13");
-            String[] tab_valeurs7 = new String[4];
-            String[] tab_colonnes7 = new String[4];
-            if (no_malade_t.getText().equals("") || code_service3_t.getText().equals("") || no_chambre2_t.getText().equals("") || lit_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
-                tab_valeurs7[0] = no_malade_t.getText();
-                tab_valeurs7[1] = code_service3_t.getText();
-                tab_valeurs7[2] = no_chambre2_t.getText();
-                tab_valeurs7[3] = lit_t.getText();
+            }
+
+            if (e.getSource() == Supprimer_Hospitalisation) {
+                String[] tab_valeurs7 = new String[4];
+                String[] tab_colonnes7 = new String[4];
+                if (no_malade_t.getText().equals("")) {
+                    tab_valeurs7[0] = "";
+                } else {
+                    tab_valeurs7[0] = no_malade_t.getText();
+                }
+                if (code_service3_t.getText().equals("")) {
+                    tab_valeurs7[1] = "";
+                } else {
+                    tab_valeurs7[1] = code_service3_t.getText();
+                }
+                if (no_chambre2_t.getText().equals("")) {
+                    tab_valeurs7[2] = "";
+                } else {
+                    tab_valeurs7[2] = no_chambre2_t.getText();
+                }
+                if (lit_t.getText().equals("")) {
+                    tab_valeurs7[3] = "";
+                } else {
+                    tab_valeurs7[3] = lit_t.getText();
+                }
                 tab_colonnes7[0] = "no_malade";
                 tab_colonnes7[1] = "code_service";
                 tab_colonnes7[2] = "no_chambre";
                 tab_colonnes7[3] = "lit";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqAjout.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                C.executeUpdate(ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
+
             }
-        }
-        if (e.getSource() == Ajouter_Soignage) {
-            System.out.println("lol13");
-            String[] tab_valeurs8 = new String[2];
-            String[] tab_colonnes8 = new String[2];
-            if (no_docteur_t.getText().equals("") || no_malade2_t.getText().equals("")) {
-                System.out.println("Un de vos champs est vide");
-            } else {
-                tab_valeurs8[0] = no_docteur_t.getText();
-                tab_valeurs8[1] = no_malade2_t.getText();
+            if (e.getSource() == Supprimer_Soignage) {
+                String[] tab_valeurs8 = new String[2];
+                String[] tab_colonnes8 = new String[2];
+                if (no_docteur_t.getText().equals("")) {
+                    tab_valeurs8[0] = "";
+                } else {
+                    tab_valeurs8[0] = no_docteur_t.getText();
+                }
+                if (no_malade2_t.getText().equals("")) {
+                    tab_valeurs8[1] = "";
+                } else {
+                    tab_valeurs8[1] = no_malade2_t.getText();
+                }
                 tab_colonnes8[0] = "no_docteur";
                 tab_colonnes8[1] = "no_malade";
-//                ReqAjout requete_ajout = new ReqAjout();
-                ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
-            }
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqAjout.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (e.getSource() == Supprimer_Service) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[4];
-            String[] tab_colonnes1 = new String[4];
-
-            if (code_t.getText().equals("")) {
-                tab_valeurs1[0] = "";
-            } else {
-                tab_valeurs1[0] = code_t.getText();
-            }
-            if (nom_t.getText().equals("")) {
-                tab_valeurs1[1] = "";
-            } else {
-                tab_valeurs1[1] = nom_t.getText();
-            }
-
-            if (batiment_t.getText().equals("")) {
-                tab_valeurs1[2] = "";
-            } else {
-                tab_valeurs1[2] = batiment_t.getText();
-            }
-
-            if (directeur_t.getText().equals("")) {
-                tab_valeurs1[3] = "";
-            } else {
-                tab_valeurs1[3] = directeur_t.getText();
-            }
-            tab_colonnes1[0] = "code";
-            tab_colonnes1[1] = "nom";
-            tab_colonnes1[2] = "batiment";
-            tab_colonnes1[3] = "directeur";
-            ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1);
-            System.out.println("" + ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (e.getSource() == Supprimer_Chambre) {
-            System.out.println("lol13");
-            String[] tab_valeurs2 = new String[4];
-            String[] tab_colonnes2 = new String[4];
-            if (code_service_t.getText().equals("")) {
-                tab_valeurs2[0] = "";
-            } else {
-                tab_valeurs2[0] = code_service_t.getText();
-            }
-            if (no_chambre_t.getText().equals("")) {
-                tab_valeurs2[1] = "";
-            } else {
-                tab_valeurs2[1] = no_chambre_t.getText();
-            }
-
-            if (surveillant_t.getText().equals("")) {
-                tab_valeurs2[2] = "";
-            } else {
-                tab_valeurs2[2] = surveillant_t.getText();
-            }
-
-            if (nb_lits_t.getText().equals("")) {
-                tab_valeurs2[3] = "";
-            } else {
-                tab_valeurs2[3] = nb_lits_t.getText();
-            }
-            tab_colonnes2[0] = "code_service";
-            tab_colonnes2[1] = "no_chambre";
-            tab_colonnes2[2] = "surveillant";
-            tab_colonnes2[3] = "nb_lits";
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2);
-            System.out.println("" + ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("chambre", tab_colonnes2, tab_valeurs2));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (e.getSource() == Supprimer_Employé) {
-            System.out.println("lol13");
-            String[] tab_valeurs3 = new String[5];
-            String[] tab_colonnes3 = new String[5];
-            if (numero_t.getText().equals("")) {
-                tab_valeurs3[0] = "";
-            } else {
-                tab_valeurs3[0] = numero_t.getText();
-            }
-            if (nom2_t.getText().equals("")) {
-                tab_valeurs3[1] = "";
-            } else {
-                tab_valeurs3[1] = nom2_t.getText();
-            }
-
-            if (prenom_t.getText().equals("")) {
-                tab_valeurs3[2] = "";
-            } else {
-                tab_valeurs3[2] = prenom_t.getText();
-            }
-
-            if (adresse_t.getText().equals("")) {
-                tab_valeurs3[3] = "";
-            } else {
-                tab_valeurs3[3] = adresse_t.getText();
-            }
-            if (tel_t.getText().equals("")) {
-                tab_valeurs3[4] = "";
-            } else {
-                tab_valeurs3[4] = tel_t.getText();
-            }
-
-            tab_colonnes3[0] = "numero";
-            tab_colonnes3[1] = "nom";
-            tab_colonnes3[2] = "prenom";
-            tab_colonnes3[3] = "adresse";
-            tab_colonnes3[4] = "tel";
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("employe", tab_colonnes3, tab_valeurs3));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (e.getSource() == Supprimer_Docteur) {
-            System.out.println("lol13");
-            String[] tab_valeurs4 = new String[2];
-            String[] tab_colonnes4 = new String[2];
-            if (numero2_t.getText().equals("")) {
-                tab_valeurs4[0] = "";
-            } else {
-                tab_valeurs4[0] = numero2_t.getText();
-            }
-            if (specialité_t.getText().equals("")) {
-                tab_valeurs4[1] = "";
-            } else {
-                tab_valeurs4[1] = specialité_t.getText();
-            }
-            tab_colonnes4[0] = "numero";
-            tab_colonnes4[1] = "specialite";
-
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("docteur", tab_colonnes4, tab_valeurs4));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (e.getSource() == Supprimer_Infirmier) {
-            System.out.println("lol13");
-            String[] tab_valeurs5 = new String[4];
-            String[] tab_colonnes5 = new String[4];
-            if (numero3_t.getText().equals("")) {
-                tab_valeurs5[0] = "";
-            } else {
-                tab_valeurs5[0] = numero3_t.getText();
-            }
-            if (code_service2_t.getText().equals("")) {
-                tab_valeurs5[1] = "";
-            } else {
-                tab_valeurs5[1] = code_service2_t.getText();
-            }
-            if (rotation_t.getText().equals("")) {
-                tab_valeurs5[2] = "";
-            } else {
-                tab_valeurs5[2] = rotation_t.getText();
-            }
-            if (salaire_t.getText().equals("")) {
-                tab_valeurs5[3] = "";
-            } else {
-                tab_valeurs5[3] = salaire_t.getText();
-            }
-            tab_colonnes5[0] = "numero";
-            tab_colonnes5[1] = "code_service";
-            tab_colonnes5[2] = "rotation";
-            tab_colonnes5[3] = "salaire";
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("infirmier", tab_colonnes5, tab_valeurs5));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (e.getSource() == Supprimer_Malade) {
-            System.out.println("lol13");
-            String[] tab_valeurs6 = new String[6];
-            String[] tab_colonnes6 = new String[6];
-            if (numero4_t.getText().equals("")) {
-                tab_valeurs6[0] = "";
-            } else {
-                tab_valeurs6[0] = numero4_t.getText();
-            }
-            if (nom3_t.getText().equals("")) {
-                tab_valeurs6[1] = "";
-            } else {
-                tab_valeurs6[1] = nom3_t.getText();
-            }
-            if (prenom2_t.getText().equals("")) {
-                tab_valeurs6[2] = "";
-            } else {
-                tab_valeurs6[2] = prenom2_t.getText();
-            }
-            if (adresse2_t.getText().equals("")) {
-                tab_valeurs6[3] = "";
-            } else {
-                tab_valeurs6[3] = adresse2_t.getText();
-            }
-            if (tel2_t.getText().equals("")) {
-                tab_valeurs6[4] = "";
-            } else {
-                tab_valeurs6[4] = tel2_t.getText();
-            }
-            if (mutuelle_t.getText().equals("")) {
-                tab_valeurs6[5] = "";
-            } else {
-                tab_valeurs6[5] = mutuelle_t.getText();
-            }
-
-            tab_valeurs6[0] = numero4_t.getText();
-            tab_valeurs6[1] = nom3_t.getText();
-            tab_valeurs6[2] = prenom2_t.getText();
-            tab_valeurs6[3] = adresse2_t.getText();
-            tab_valeurs6[4] = tel2_t.getText();
-            tab_valeurs6[5] = mutuelle_t.getText();
-            tab_colonnes6[0] = "numero";
-            tab_colonnes6[1] = "nom";
-            tab_colonnes6[2] = "prenom";
-            tab_colonnes6[3] = "adresse";
-            tab_colonnes6[4] = "tel";
-            tab_colonnes6[5] = "mutuelle";
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("malade", tab_colonnes6, tab_valeurs6));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (e.getSource() == Supprimer_Hospitalisation) {
-            System.out.println("lol13");
-            String[] tab_valeurs7 = new String[4];
-            String[] tab_colonnes7 = new String[4];
-            if (no_malade_t.getText().equals("")) {
-                tab_valeurs7[0] = "";
-            } else {
-                tab_valeurs7[0] = no_malade_t.getText();
-            }
-            if (code_service3_t.getText().equals("")) {
-                tab_valeurs7[1] = "";
-            } else {
-                tab_valeurs7[1] = code_service3_t.getText();
-            }
-            if (no_chambre2_t.getText().equals("")) {
-                tab_valeurs7[2] = "";
-            } else {
-                tab_valeurs7[2] = no_chambre2_t.getText();
-            }
-            if (lit_t.getText().equals("")) {
-                tab_valeurs7[3] = "";
-            } else {
-                tab_valeurs7[3] = lit_t.getText();
-            }
-            tab_colonnes7[0] = "no_malade";
-            tab_colonnes7[1] = "code_service";
-            tab_colonnes7[2] = "no_chambre";
-            tab_colonnes7[3] = "lit";
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
-                C.executeUpdate(ReqSupprimer.concatrequete("hospitalisation", tab_colonnes7, tab_valeurs7));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        if (e.getSource() == Supprimer_Soignage) {
-            System.out.println("lol13");
-            String[] tab_valeurs8 = new String[2];
-            String[] tab_colonnes8 = new String[2];
-            if (no_docteur_t.getText().equals("")) {
-                tab_valeurs8[0] = "";
-            } else {
-                tab_valeurs8[0] = no_docteur_t.getText();
-            }
-            if (no_malade2_t.getText().equals("")) {
-                tab_valeurs8[1] = "";
-            } else {
-                tab_valeurs8[1] = no_malade2_t.getText();
-            }
-            tab_colonnes8[0] = "no_docteur";
-            tab_colonnes8[1] = "no_malade";
-//                ReqAjout requete_ajout = new ReqAjout();
-            ReqSupprimer.concatrequete("soigne", tab_colonnes8, tab_valeurs8);
-
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 C.executeUpdate(ReqSupprimer.concatrequete("soigne", tab_colonnes8, tab_valeurs8));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        if (e.getSource() == Modifier_Service) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[4];
-            String[] tab_colonnes1 = new String[4];
-            String[] tab_valeurs1_old = new String[4];
-            String modification = null;
-            String colonne = null;
-            if (code_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = code_old.getText();
-            }
-            if (nom_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = nom_old.getText();
-            }
-            if (batiment_old.getText().equals("")) {
-                tab_valeurs1_old[2] = "";
-            } else {
-                tab_valeurs1_old[2] = batiment_old.getText();
-            }
-            if (directeur_old.getText().equals("")) {
-                tab_valeurs1_old[3] = "";
-            } else {
-                tab_valeurs1_old[3] = directeur_old.getText();
             }
 
-            if (!code_t.getText().equals("")) {
-                modification = code_t.getText();
-                colonne = "code";
-            } else if (!nom_t.getText().equals("")) {
-                modification = nom_t.getText();
-                colonne = "nom";
-            } else if (!batiment_t.getText().equals("")) {
-                modification = batiment_t.getText();
-                colonne = "batiment";
-            } else if (!directeur_t.getText().equals("")) {
-                modification = directeur_t.getText();
-                colonne = "directeur";
-            } else {
-                modification = "";
-                colonne = "";
-            }
-            tab_colonnes1[0] = "code";
-            tab_colonnes1[1] = "nom";
-            tab_colonnes1[2] = "batiment";
-            tab_colonnes1[3] = "directeur";
-            System.out.println("" + ReqUpdate.concatrequete("service", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+            if (e.getSource() == Modifier_Service) {
+                String[] tab_valeurs1 = new String[4];
+                String[] tab_colonnes1 = new String[4];
+                String[] tab_valeurs1_old = new String[4];
+                String modification = null;
+                String colonne = null;
+                if (code_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = code_old.getText();
+                }
+                if (nom_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = nom_old.getText();
+                }
+                if (batiment_old.getText().equals("")) {
+                    tab_valeurs1_old[2] = "";
+                } else {
+                    tab_valeurs1_old[2] = batiment_old.getText();
+                }
+                if (directeur_old.getText().equals("")) {
+                    tab_valeurs1_old[3] = "";
+                } else {
+                    tab_valeurs1_old[3] = directeur_old.getText();
+                }
+
+                if (!code_t.getText().equals("")) {
+                    modification = code_t.getText();
+                    colonne = "code";
+                } else if (!nom_t.getText().equals("")) {
+                    modification = nom_t.getText();
+                    colonne = "nom";
+                } else if (!batiment_t.getText().equals("")) {
+                    modification = batiment_t.getText();
+                    colonne = "batiment";
+                } else if (!directeur_t.getText().equals("")) {
+                    modification = directeur_t.getText();
+                    colonne = "directeur";
+                } else {
+                    modification = "";
+                    colonne = "";
+                }
+                tab_colonnes1[0] = "code";
+                tab_colonnes1[1] = "nom";
+                tab_colonnes1[2] = "batiment";
+                tab_colonnes1[3] = "directeur";
+                System.out.println("" + ReqUpdate.concatrequete("service", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("service", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-        }
-        //code_service_t, no_chambre_t, surveillant_t, nb_lits_t
-        if (e.getSource() == Modifier_Chambre) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[4];
-            String[] tab_colonnes1 = new String[4];
-            String[] tab_valeurs1_old = new String[4];
-            String modification = null;
-            String colonne = null;
-            if (code_service_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = code_service_old.getText();
             }
-            if (no_chambre_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = no_chambre_old.getText();
-            }
-            if (surveillant_old.getText().equals("")) {
-                tab_valeurs1_old[2] = "";
-            } else {
-                tab_valeurs1_old[2] = surveillant_old.getText();
-            }
-            if (nb_lits_old.getText().equals("")) {
-                tab_valeurs1_old[3] = "";
-            } else {
-                tab_valeurs1_old[3] = nb_lits_old.getText();
-            }
+            //code_service_t, no_chambre_t, surveillant_t, nb_lits_t
+            if (e.getSource() == Modifier_Chambre) {
+                String[] tab_valeurs1 = new String[4];
+                String[] tab_colonnes1 = new String[4];
+                String[] tab_valeurs1_old = new String[4];
+                String modification = null;
+                String colonne = null;
+                if (code_service_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = code_service_old.getText();
+                }
+                if (no_chambre_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = no_chambre_old.getText();
+                }
+                if (surveillant_old.getText().equals("")) {
+                    tab_valeurs1_old[2] = "";
+                } else {
+                    tab_valeurs1_old[2] = surveillant_old.getText();
+                }
+                if (nb_lits_old.getText().equals("")) {
+                    tab_valeurs1_old[3] = "";
+                } else {
+                    tab_valeurs1_old[3] = nb_lits_old.getText();
+                }
 
-            if (!code_service_t.getText().equals("")) {
-                modification = code_service_t.getText();
-                colonne = "code_service";
-            } else if (!no_chambre_t.getText().equals("")) {
-                modification = no_chambre_t.getText();
-                colonne = "no_chambre";
-            } else if (!surveillant_t.getText().equals("")) {
-                modification = surveillant_t.getText();
-                colonne = "surveillant";
-            } else if (!nb_lits_t.getText().equals("")) {
-                modification = nb_lits_t.getText();
-                colonne = "nb_lits";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "code_service";
-            tab_colonnes1[1] = "no_chambre";
-            tab_colonnes1[2] = "surveillant";
-            tab_colonnes1[3] = "nb_lits";
-            System.out.println("" + ReqUpdate.concatrequete("chambre", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                if (!code_service_t.getText().equals("")) {
+                    modification = code_service_t.getText();
+                    colonne = "code_service";
+                } else if (!no_chambre_t.getText().equals("")) {
+                    modification = no_chambre_t.getText();
+                    colonne = "no_chambre";
+                } else if (!surveillant_t.getText().equals("")) {
+                    modification = surveillant_t.getText();
+                    colonne = "surveillant";
+                } else if (!nb_lits_t.getText().equals("")) {
+                    modification = nb_lits_t.getText();
+                    colonne = "nb_lits";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "code_service";
+                tab_colonnes1[1] = "no_chambre";
+                tab_colonnes1[2] = "surveillant";
+                tab_colonnes1[3] = "nb_lits";
+                System.out.println("" + ReqUpdate.concatrequete("chambre", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("chambre", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Modifier_Employé) {
+                String[] tab_valeurs1 = new String[5];
+                String[] tab_colonnes1 = new String[5];
+                String[] tab_valeurs1_old = new String[5];
+                String modification = null;
+                String colonne = null;
+                if (numero_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = numero_old.getText();
+                }
+                if (nom2_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = nom2_old.getText();
+                }
+                if (prenom_old.getText().equals("")) {
+                    tab_valeurs1_old[2] = "";
+                } else {
+                    tab_valeurs1_old[2] = prenom_old.getText();
+                }
+                if (adresse_old.getText().equals("")) {
+                    tab_valeurs1_old[3] = "";
+                } else {
+                    tab_valeurs1_old[3] = adresse_old.getText();
+                }
+                if (tel_old.getText().equals("")) {
+                    tab_valeurs1_old[4] = "";
+                } else {
+                    tab_valeurs1_old[4] = tel_old.getText();
+                }
 
-        if (e.getSource() == Modifier_Employé) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[5];
-            String[] tab_colonnes1 = new String[5];
-            String[] tab_valeurs1_old = new String[5];
-            String modification = null;
-            String colonne = null;
-            if (numero_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = numero_old.getText();
-            }
-            if (nom2_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = nom2_old.getText();
-            }
-            if (prenom_old.getText().equals("")) {
-                tab_valeurs1_old[2] = "";
-            } else {
-                tab_valeurs1_old[2] = prenom_old.getText();
-            }
-            if (adresse_old.getText().equals("")) {
-                tab_valeurs1_old[3] = "";
-            } else {
-                tab_valeurs1_old[3] = adresse_old.getText();
-            }
-            if (tel_old.getText().equals("")) {
-                tab_valeurs1_old[4] = "";
-            } else {
-                tab_valeurs1_old[4] = tel_old.getText();
-            }
-
-            if (!numero_t.getText().equals("")) {
-                modification = numero_t.getText();
-                colonne = "numero";
-            } else if (!nom2_t.getText().equals("")) {
-                modification = nom2_t.getText();
-                colonne = "nom";
-            } else if (!prenom_t.getText().equals("")) {
-                modification = prenom_t.getText();
-                colonne = "prenom";
-            } else if (!adresse_t.getText().equals("")) {
-                modification = adresse_t.getText();
-                colonne = "adresse";
-            } else if (!tel_t.getText().equals("")) {
-                modification = tel_t.getText();
-                colonne = "tel";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "numero";
-            tab_colonnes1[1] = "nom";
-            tab_colonnes1[2] = "prenom";
-            tab_colonnes1[3] = "adresse";
-            tab_colonnes1[4] = "tel";
-            System.out.println("" + ReqUpdate.concatrequete("employe", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                if (!numero_t.getText().equals("")) {
+                    modification = numero_t.getText();
+                    colonne = "numero";
+                } else if (!nom2_t.getText().equals("")) {
+                    modification = nom2_t.getText();
+                    colonne = "nom";
+                } else if (!prenom_t.getText().equals("")) {
+                    modification = prenom_t.getText();
+                    colonne = "prenom";
+                } else if (!adresse_t.getText().equals("")) {
+                    modification = adresse_t.getText();
+                    colonne = "adresse";
+                } else if (!tel_t.getText().equals("")) {
+                    modification = tel_t.getText();
+                    colonne = "tel";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "numero";
+                tab_colonnes1[1] = "nom";
+                tab_colonnes1[2] = "prenom";
+                tab_colonnes1[3] = "adresse";
+                tab_colonnes1[4] = "tel";
+                System.out.println("" + ReqUpdate.concatrequete("employe", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("employe", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Modifier_Docteur) {
+                String[] tab_valeurs1 = new String[2];
+                String[] tab_colonnes1 = new String[2];
+                String[] tab_valeurs1_old = new String[2];
+                String modification = null;
+                String colonne = null;
+                if (numero2_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = numero2_old.getText();
+                }
+                if (specialité_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = specialité_old.getText();
+                }
 
-        if (e.getSource() == Modifier_Docteur) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[2];
-            String[] tab_colonnes1 = new String[2];
-            String[] tab_valeurs1_old = new String[2];
-            String modification = null;
-            String colonne = null;
-            if (numero2_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = numero2_old.getText();
-            }
-            if (specialité_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = specialité_old.getText();
-            }
+                if (!numero2_t.getText().equals("")) {
+                    modification = numero2_t.getText();
+                    colonne = "numero";
+                } else if (!specialité_t.getText().equals("")) {
+                    modification = specialité_t.getText();
+                    colonne = "specialite";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "numero";
+                tab_colonnes1[1] = "specialite";
 
-            if (!numero2_t.getText().equals("")) {
-                modification = numero2_t.getText();
-                colonne = "numero";
-            } else if (!specialité_t.getText().equals("")) {
-                modification = specialité_t.getText();
-                colonne = "specialite";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "numero";
-            tab_colonnes1[1] = "specialite";
-
-            System.out.println("" + ReqUpdate.concatrequete("docteur", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                System.out.println("" + ReqUpdate.concatrequete("docteur", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("docteur", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Modifier_Infirmier) {
+                String[] tab_valeurs1 = new String[4];
+                String[] tab_colonnes1 = new String[4];
+                String[] tab_valeurs1_old = new String[4];
+                String modification = null;
+                String colonne = null;
+                if (numero3_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = numero3_old.getText();
+                }
+                if (code_service2_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = code_service2_old.getText();
+                }
+                if (rotation_old.getText().equals("")) {
+                    tab_valeurs1_old[2] = "";
+                } else {
+                    tab_valeurs1_old[2] = rotation_old.getText();
+                }
+                if (salaire_old.getText().equals("")) {
+                    tab_valeurs1_old[3] = "";
+                } else {
+                    tab_valeurs1_old[3] = salaire_old.getText();
+                }
 
-        if (e.getSource() == Modifier_Infirmier) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[4];
-            String[] tab_colonnes1 = new String[4];
-            String[] tab_valeurs1_old = new String[4];
-            String modification = null;
-            String colonne = null;
-            if (numero3_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = numero3_old.getText();
-            }
-            if (code_service2_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = code_service2_old.getText();
-            }
-            if (rotation_old.getText().equals("")) {
-                tab_valeurs1_old[2] = "";
-            } else {
-                tab_valeurs1_old[2] = rotation_old.getText();
-            }
-            if (salaire_old.getText().equals("")) {
-                tab_valeurs1_old[3] = "";
-            } else {
-                tab_valeurs1_old[3] = salaire_old.getText();
-            }
+                if (!numero3_t.getText().equals("")) {
+                    modification = numero3_t.getText();
+                    colonne = "numero";
+                } else if (!code_service2_t.getText().equals("")) {
+                    modification = code_service2_t.getText();
+                    colonne = "code_service";
+                } else if (!rotation_t.getText().equals("")) {
+                    modification = rotation_t.getText();
+                    colonne = "rotation";
+                } else if (!salaire_t.getText().equals("")) {
+                    modification = salaire_t.getText();
+                    colonne = "salaire";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "numero";
+                tab_colonnes1[1] = "code_service";
+                tab_colonnes1[2] = "rotation";
+                tab_colonnes1[3] = "salaire";
 
-            if (!numero3_t.getText().equals("")) {
-                modification = numero3_t.getText();
-                colonne = "numero";
-            } else if (!code_service2_t.getText().equals("")) {
-                modification = code_service2_t.getText();
-                colonne = "code_service";
-            } else if (!rotation_t.getText().equals("")) {
-                modification = rotation_t.getText();
-                colonne = "rotation";
-            } else if (!salaire_t.getText().equals("")) {
-                modification = salaire_t.getText();
-                colonne = "salaire";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "numero";
-            tab_colonnes1[1] = "code_service";
-            tab_colonnes1[2] = "rotation";
-            tab_colonnes1[3] = "salaire";
-
-            System.out.println("" + ReqUpdate.concatrequete("infirmier", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                System.out.println("" + ReqUpdate.concatrequete("infirmier", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("infirmier", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Modifier_Malade) {
+                String[] tab_valeurs1 = new String[6];
+                String[] tab_colonnes1 = new String[6];
+                String[] tab_valeurs1_old = new String[6];
+                String modification = null;
+                String colonne = null;
+                if (numero4_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = numero4_old.getText();
+                }
+                if (nom3_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = nom3_old.getText();
+                }
+                if (prenom2_old.getText().equals("")) {
+                    tab_valeurs1_old[2] = "";
+                } else {
+                    tab_valeurs1_old[2] = prenom2_old.getText();
+                }
+                if (adresse2_old.getText().equals("")) {
+                    tab_valeurs1_old[3] = "";
+                } else {
+                    tab_valeurs1_old[3] = adresse2_old.getText();
+                }
+                if (tel2_old.getText().equals("")) {
+                    tab_valeurs1_old[4] = "";
+                } else {
+                    tab_valeurs1_old[4] = tel2_old.getText();
+                }
+                if (mutuelle_old.getText().equals("")) {
+                    tab_valeurs1_old[5] = "";
+                } else {
+                    tab_valeurs1_old[5] = mutuelle_old.getText();
+                }
 
-        if (e.getSource() == Modifier_Malade) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[6];
-            String[] tab_colonnes1 = new String[6];
-            String[] tab_valeurs1_old = new String[6];
-            String modification = null;
-            String colonne = null;
-            if (numero4_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = numero4_old.getText();
-            }
-            if (nom3_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = nom3_old.getText();
-            }
-            if (prenom2_old.getText().equals("")) {
-                tab_valeurs1_old[2] = "";
-            } else {
-                tab_valeurs1_old[2] = prenom2_old.getText();
-            }
-            if (adresse2_old.getText().equals("")) {
-                tab_valeurs1_old[3] = "";
-            } else {
-                tab_valeurs1_old[3] = adresse2_old.getText();
-            }
-            if (tel2_old.getText().equals("")) {
-                tab_valeurs1_old[4] = "";
-            } else {
-                tab_valeurs1_old[4] = tel2_old.getText();
-            }
-            if (mutuelle_old.getText().equals("")) {
-                tab_valeurs1_old[5] = "";
-            } else {
-                tab_valeurs1_old[5] = mutuelle_old.getText();
-            }
+                if (!numero4_t.getText().equals("")) {
+                    modification = numero4_t.getText();
+                    colonne = "numero";
+                } else if (!nom3_t.getText().equals("")) {
+                    modification = nom3_t.getText();
+                    colonne = "nom";
+                } else if (!prenom2_t.getText().equals("")) {
+                    modification = prenom2_t.getText();
+                    colonne = "prenom";
+                } else if (!adresse2_t.getText().equals("")) {
+                    modification = adresse2_t.getText();
+                    colonne = "adresse";
+                } else if (!tel2_t.getText().equals("")) {
+                    modification = tel2_t.getText();
+                    colonne = "tel";
+                } else if (!mutuelle_t.getText().equals("")) {
+                    modification = mutuelle_t.getText();
+                    colonne = "mutuelle";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "numero";
+                tab_colonnes1[1] = "nom";
+                tab_colonnes1[2] = "prenom";
+                tab_colonnes1[3] = "adresse";
+                tab_colonnes1[4] = "tel";
+                tab_colonnes1[5] = "mutuelle";
 
-            if (!numero4_t.getText().equals("")) {
-                modification = numero4_t.getText();
-                colonne = "numero";
-            } else if (!nom3_t.getText().equals("")) {
-                modification = nom3_t.getText();
-                colonne = "nom";
-            } else if (!prenom2_t.getText().equals("")) {
-                modification = prenom2_t.getText();
-                colonne = "prenom";
-            } else if (!adresse2_t.getText().equals("")) {
-                modification = adresse2_t.getText();
-                colonne = "adresse";
-            } else if (!tel2_t.getText().equals("")) {
-                modification = tel2_t.getText();
-                colonne = "tel";
-            } else if (!mutuelle_t.getText().equals("")) {
-                modification = mutuelle_t.getText();
-                colonne = "mutuelle";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "numero";
-            tab_colonnes1[1] = "nom";
-            tab_colonnes1[2] = "prenom";
-            tab_colonnes1[3] = "adresse";
-            tab_colonnes1[4] = "tel";
-            tab_colonnes1[5] = "mutuelle";
-
-            System.out.println("" + ReqUpdate.concatrequete("malade", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                System.out.println("" + ReqUpdate.concatrequete("malade", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("malade", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-        }
-        //no_malade_old, code_service3_old, no_chambre2_old, lit_old
-        if (e.getSource() == Modifier_Hospitalisation) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[4];
-            String[] tab_colonnes1 = new String[4];
-            String[] tab_valeurs1_old = new String[4];
-            String modification = null;
-            String colonne = null;
-            if (no_malade_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = no_malade_old.getText();
             }
-            if (code_service3_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = code_service3_old.getText();
-            }
-            if (no_chambre2_old.getText().equals("")) {
-                tab_valeurs1_old[2] = "";
-            } else {
-                tab_valeurs1_old[2] = no_chambre2_old.getText();
-            }
-            if (lit_old.getText().equals("")) {
-                tab_valeurs1_old[3] = "";
-            } else {
-                tab_valeurs1_old[3] = lit_old.getText();
-            }
+            
+            
+            if (e.getSource() == Modifier_Hospitalisation) {
+                String[] tab_valeurs1 = new String[4];
+                String[] tab_colonnes1 = new String[4];
+                String[] tab_valeurs1_old = new String[4];
+                String modification = null;
+                String colonne = null;
+                if (no_malade_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = no_malade_old.getText();
+                }
+                if (code_service3_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = code_service3_old.getText();
+                }
+                if (no_chambre2_old.getText().equals("")) {
+                    tab_valeurs1_old[2] = "";
+                } else {
+                    tab_valeurs1_old[2] = no_chambre2_old.getText();
+                }
+                if (lit_old.getText().equals("")) {
+                    tab_valeurs1_old[3] = "";
+                } else {
+                    tab_valeurs1_old[3] = lit_old.getText();
+                }
 
-            if (!no_malade_t.getText().equals("")) {
-                modification = no_malade_t.getText();
-                colonne = "no_malade";
-            } else if (!code_service3_t.getText().equals("")) {
-                modification = code_service3_t.getText();
-                colonne = "code_service";
-            } else if (!no_chambre2_t.getText().equals("")) {
-                modification = no_chambre2_t.getText();
-                colonne = "no_chambre";
-            } else if (!lit_t.getText().equals("")) {
-                modification = lit_t.getText();
-                colonne = "lit";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "no_malade";
-            tab_colonnes1[1] = "code_service";
-            tab_colonnes1[2] = "no_chambre";
-            tab_colonnes1[3] = "lit";
-           
+                if (!no_malade_t.getText().equals("")) {
+                    modification = no_malade_t.getText();
+                    colonne = "no_malade";
+                } else if (!code_service3_t.getText().equals("")) {
+                    modification = code_service3_t.getText();
+                    colonne = "code_service";
+                } else if (!no_chambre2_t.getText().equals("")) {
+                    modification = no_chambre2_t.getText();
+                    colonne = "no_chambre";
+                } else if (!lit_t.getText().equals("")) {
+                    modification = lit_t.getText();
+                    colonne = "lit";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "no_malade";
+                tab_colonnes1[1] = "code_service";
+                tab_colonnes1[2] = "no_chambre";
+                tab_colonnes1[3] = "lit";
 
-            System.out.println("" + ReqUpdate.concatrequete("hospitalisation", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                System.out.println("" + ReqUpdate.concatrequete("hospitalisation", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("hospitalisation", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
-        
-        if (e.getSource() == Modifier_Soignage) {
-            System.out.println("lol13");
-            String[] tab_valeurs1 = new String[2];
-            String[] tab_colonnes1 = new String[2];
-            String[] tab_valeurs1_old = new String[2];
-            String modification = null;
-            String colonne = null;
-            if (no_docteur_old.getText().equals("")) {
-                tab_valeurs1_old[0] = "";
-            } else {
-                tab_valeurs1_old[0] = no_docteur_old.getText();
-            }
-            if (no_malade2_old.getText().equals("")) {
-                tab_valeurs1_old[1] = "";
-            } else {
-                tab_valeurs1_old[1] = no_malade2_old.getText();
-            }
+            if (e.getSource() == Modifier_Soignage) {
+                String[] tab_valeurs1 = new String[2];
+                String[] tab_colonnes1 = new String[2];
+                String[] tab_valeurs1_old = new String[2];
+                String modification = null;
+                String colonne = null;
+                if (no_docteur_old.getText().equals("")) {
+                    tab_valeurs1_old[0] = "";
+                } else {
+                    tab_valeurs1_old[0] = no_docteur_old.getText();
+                }
+                if (no_malade2_old.getText().equals("")) {
+                    tab_valeurs1_old[1] = "";
+                } else {
+                    tab_valeurs1_old[1] = no_malade2_old.getText();
+                }
 
-            if (!no_docteur_t.getText().equals("")) {
-                modification = no_docteur_t.getText();
-                colonne = "no_docteur";
-            } else if (!no_malade2_t.getText().equals("")) {
-                modification = no_malade2_t.getText();
-                colonne = "no_malade";
-            } else {
-                System.out.println("Vous n'avez pas rempli le champ de modification");
-            }
-            tab_colonnes1[0] = "no_docteur";
-            tab_colonnes1[1] = "no_malade";
+                if (!no_docteur_t.getText().equals("")) {
+                    modification = no_docteur_t.getText();
+                    colonne = "no_docteur";
+                } else if (!no_malade2_t.getText().equals("")) {
+                    modification = no_malade2_t.getText();
+                    colonne = "no_malade";
+                } else {
+                    System.out.println("Vous n'avez pas rempli le champ de modification");
+                }
+                tab_colonnes1[0] = "no_docteur";
+                tab_colonnes1[1] = "no_malade";
 
-            System.out.println("" + ReqUpdate.concatrequete("soigne", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                System.out.println("" + ReqUpdate.concatrequete("soigne", colonne, tab_colonnes1, modification, tab_valeurs1_old));
                 C.executeUpdate(ReqUpdate.concatrequete("soigne", colonne, tab_colonnes1, modification, tab_valeurs1_old));
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_tout_Service) {
+                String[] tab_colonnes1 = new String[4];
+                tab_colonnes1[0] = "code";
+                tab_colonnes1[1] = "nom";
+                tab_colonnes1[2] = "batiment";
+                tab_colonnes1[3] = "directeur";
 
-        if (e.getSource() == Rechercher_tout_Service) {
-            JTextArea lol;
-            System.out.println("lol1");
-            String[] tab_colonnes1 = new String[4];
-            tab_colonnes1[0] = "code";
-            tab_colonnes1[1] = "nom";
-            tab_colonnes1[2] = "batiment";
-            tab_colonnes1[3] = "directeur";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 String affichage = "";
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("service", tab_colonnes1));
                 for (int i = 0; i < liste.size(); i++) {
-//                    System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
-
-        if (e.getSource() == Rechercher_tout_Chambre) {
-            System.out.println("lol2");
-            String[] tab_colonnes2 = new String[4];
-            tab_colonnes2[0] = "code_service";
-            tab_colonnes2[1] = "no_chambre";
-            tab_colonnes2[2] = "surveillant";
-            tab_colonnes2[3] = "nb_lits";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+            if (e.getSource() == Rechercher_tout_Chambre) {
+                String[] tab_colonnes2 = new String[4];
+                tab_colonnes2[0] = "code_service";
+                tab_colonnes2[1] = "no_chambre";
+                tab_colonnes2[2] = "surveillant";
+                tab_colonnes2[3] = "nb_lits";
 
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("chambre", tab_colonnes2));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_tout_Employé) {
+                String[] tab_colonnes3 = new String[5];
+                tab_colonnes3[0] = "numero";
+                tab_colonnes3[1] = "nom";
+                tab_colonnes3[2] = "prenom";
+                tab_colonnes3[3] = "adresse";
+                tab_colonnes3[4] = "tel";
 
-        if (e.getSource() == Rechercher_tout_Employé) {
-            System.out.println("lol3");
-            String[] tab_colonnes3 = new String[5];
-            tab_colonnes3[0] = "numero";
-            tab_colonnes3[1] = "nom";
-            tab_colonnes3[2] = "prenom";
-            tab_colonnes3[3] = "adresse";
-            tab_colonnes3[4] = "tel";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("employe", tab_colonnes3));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        if (e.getSource() == Rechercher_tout_Docteur) {
-            System.out.println("lol4");
-            String[] tab_colonnes4 = new String[2];
-            tab_colonnes4[0] = "numero";
-            tab_colonnes4[1] = "specialite";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+            }
+
+            if (e.getSource() == Rechercher_tout_Docteur) {
+                String[] tab_colonnes4 = new String[2];
+                tab_colonnes4[0] = "numero";
+                tab_colonnes4[1] = "specialite";
+
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("docteur", tab_colonnes4));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_tout_Infirmier) {
+                String[] tab_colonnes5 = new String[4];
+                tab_colonnes5[0] = "numero";
+                tab_colonnes5[1] = "code_service";
+                tab_colonnes5[2] = "rotation";
+                tab_colonnes5[3] = "salaire";
 
-        if (e.getSource() == Rechercher_tout_Infirmier) {
-            System.out.println("lol5");
-            String[] tab_colonnes5 = new String[4];
-            tab_colonnes5[0] = "numero";
-            tab_colonnes5[1] = "code_service";
-            tab_colonnes5[2] = "rotation";
-            tab_colonnes5[3] = "salaire";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("infirmier", tab_colonnes5));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        if (e.getSource() == Rechercher_tout_Malade) {
-            System.out.println("lol6");
-            String[] tab_colonnes6 = new String[6];
-            tab_colonnes6[0] = "numero";
-            tab_colonnes6[1] = "nom";
-            tab_colonnes6[2] = "prenom";
-            tab_colonnes6[3] = "adresse";
-            tab_colonnes6[4] = "tel";
-            tab_colonnes6[5] = "mutuelle";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+            }
+
+            if (e.getSource() == Rechercher_tout_Malade) {
+                String[] tab_colonnes6 = new String[6];
+                tab_colonnes6[0] = "numero";
+                tab_colonnes6[1] = "nom";
+                tab_colonnes6[2] = "prenom";
+                tab_colonnes6[3] = "adresse";
+                tab_colonnes6[4] = "tel";
+                tab_colonnes6[5] = "mutuelle";
+
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("malade", tab_colonnes6));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        if (e.getSource() == Rechercher_tout_Hospitalisation) {
-            System.out.println("lol7");
-            String[] tab_colonnes7 = new String[4];
-            tab_colonnes7[0] = "no_malade";
-            tab_colonnes7[1] = "code_service";
-            tab_colonnes7[2] = "no_chambre";
-            tab_colonnes7[3] = "lit";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+            }
+
+            if (e.getSource() == Rechercher_tout_Hospitalisation) {
+                String[] tab_colonnes7 = new String[4];
+                tab_colonnes7[0] = "no_malade";
+                tab_colonnes7[1] = "code_service";
+                tab_colonnes7[2] = "no_chambre";
+                tab_colonnes7[3] = "lit";
+
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("hospitalisation", tab_colonnes7));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        if (e.getSource() == Rechercher_tout_Soignage) {
-            System.out.println("lol8");
-            String[] tab_colonnes8 = new String[2];
-            tab_colonnes8[0] = "no_docteur";
-            tab_colonnes8[1] = "no_malade";
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+            }
+
+            if (e.getSource() == Rechercher_tout_Soignage) {
+                String[] tab_colonnes8 = new String[2];
+                tab_colonnes8[0] = "no_docteur";
+                tab_colonnes8[1] = "no_malade";
+
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(ReqLectureTable.concatrequete("soigne", tab_colonnes8));
                 String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-//                      System.out.println(liste.get(i));
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        if (e.getSource() == Rechercher_parametre_Service) {
-            System.out.println("lol12");
-            String[] tab_colonnes1 = new String[4];
-            String[] tab_valeurs1 = new String[4];
-            if (code_t.getText().equals("")) {
-                tab_valeurs1[0] = "";
-            } else {
-                tab_valeurs1[0] = code_t.getText();
-            }
-            if (nom_t.getText().equals("")) {
-                tab_valeurs1[1] = "";
-            } else {
-                tab_valeurs1[1] = nom_t.getText();
             }
 
-            if (batiment_t.getText().equals("")) {
-                tab_valeurs1[2] = "";
-            } else {
-                tab_valeurs1[2] = batiment_t.getText();
-            }
+            if (e.getSource() == Rechercher_parametre_Service) {
+                String[] tab_colonnes1 = new String[4];
+                String[] tab_valeurs1 = new String[4];
+                if (code_t.getText().equals("")) {
+                    tab_valeurs1[0] = "";
+                } else {
+                    tab_valeurs1[0] = code_t.getText();
+                }
+                if (nom_t.getText().equals("")) {
+                    tab_valeurs1[1] = "";
+                } else {
+                    tab_valeurs1[1] = nom_t.getText();
+                }
 
-            if (directeur_t.getText().equals("")) {
-                tab_valeurs1[3] = "";
-            } else {
-                tab_valeurs1[3] = directeur_t.getText();
-            }
+                if (batiment_t.getText().equals("")) {
+                    tab_valeurs1[2] = "";
+                } else {
+                    tab_valeurs1[2] = batiment_t.getText();
+                }
 
-            tab_colonnes1[0] = "code";
-            tab_colonnes1[1] = "nom";
-            tab_colonnes1[2] = "batiment";
-            tab_colonnes1[3] = "directeur";
-            Requetes requete = new Requetes(tab_valeurs1, tab_valeurs1.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
+                if (directeur_t.getText().equals("")) {
+                    tab_valeurs1[3] = "";
+                } else {
+                    tab_valeurs1[3] = directeur_t.getText();
+                }
+
+                tab_colonnes1[0] = "code";
+                tab_colonnes1[1] = "nom";
+                tab_colonnes1[2] = "batiment";
+                tab_colonnes1[3] = "directeur";
+                Requetes requete = new Requetes(tab_valeurs1, tab_valeurs1.length);
+
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs1, "service", tab_colonnes1));
                 String affichage = "";
@@ -1816,48 +1529,40 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Chambre) {
+                String[] tab_valeurs2 = new String[4];
+                String[] tab_colonnes2 = new String[4];
+                if (code_service_t.getText().equals("")) {
+                    tab_valeurs2[0] = "";
+                } else {
+                    tab_valeurs2[0] = code_service_t.getText();
+                }
+                if (no_chambre_t.getText().equals("")) {
+                    tab_valeurs2[1] = "";
+                } else {
+                    tab_valeurs2[1] = no_chambre_t.getText();
+                }
 
-        if (e.getSource() == Rechercher_parametre_Chambre) {
-            System.out.println("lol13");
-            String[] tab_valeurs2 = new String[4];
-            String[] tab_colonnes2 = new String[4];
-            if (code_service_t.getText().equals("")) {
-                tab_valeurs2[0] = "";
-            } else {
-                tab_valeurs2[0] = code_service_t.getText();
-            }
-            if (no_chambre_t.getText().equals("")) {
-                tab_valeurs2[1] = "";
-            } else {
-                tab_valeurs2[1] = no_chambre_t.getText();
-            }
+                if (surveillant_t.getText().equals("")) {
+                    tab_valeurs2[2] = "";
+                } else {
+                    tab_valeurs2[2] = surveillant_t.getText();
+                }
 
-            if (surveillant_t.getText().equals("")) {
-                tab_valeurs2[2] = "";
-            } else {
-                tab_valeurs2[2] = surveillant_t.getText();
-            }
+                if (nb_lits_t.getText().equals("")) {
+                    tab_valeurs2[3] = "";
+                } else {
+                    tab_valeurs2[3] = nb_lits_t.getText();
+                }
+                tab_colonnes2[0] = "code_service";
+                tab_colonnes2[1] = "no_chambre";
+                tab_colonnes2[2] = "surveillant";
+                tab_colonnes2[3] = "nb_lits";
+                Requetes requete = new Requetes(tab_valeurs2, tab_valeurs2.length);
 
-            if (nb_lits_t.getText().equals("")) {
-                tab_valeurs2[3] = "";
-            } else {
-                tab_valeurs2[3] = nb_lits_t.getText();
-            }
-            tab_colonnes2[0] = "code_service";
-            tab_colonnes2[1] = "no_chambre";
-            tab_colonnes2[2] = "surveillant";
-            tab_colonnes2[3] = "nb_lits";
-            Requetes requete = new Requetes(tab_valeurs2, tab_valeurs2.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs2, "chambre", tab_colonnes2));
                 String affichage = "";
@@ -1865,52 +1570,46 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Employé) {
+                String[] tab_valeurs3 = new String[5];
+                String[] tab_colonnes3 = new String[5];
+                if (numero_t.getText().equals("")) {
+                    tab_valeurs3[0] = "";
+                } else {
+                    tab_valeurs3[0] = numero_t.getText();
+                }
+                if (nom2_t.getText().equals("")) {
+                    tab_valeurs3[1] = "";
+                } else {
+                    tab_valeurs3[1] = nom2_t.getText();
+                }
 
-        if (e.getSource() == Rechercher_parametre_Employé) {
-            System.out.println("lol13");
-            String[] tab_valeurs3 = new String[5];
-            String[] tab_colonnes3 = new String[5];
-            if (numero_t.getText().equals("")) {
-                tab_valeurs3[0] = "";
-            } else {
-                tab_valeurs3[0] = numero_t.getText();
-            }
-            if (nom2_t.getText().equals("")) {
-                tab_valeurs3[1] = "";
-            } else {
-                tab_valeurs3[1] = nom2_t.getText();
-            }
+                if (prenom_t.getText().equals("")) {
+                    tab_valeurs3[2] = "";
+                } else {
+                    tab_valeurs3[2] = prenom_t.getText();
+                }
 
-            if (prenom_t.getText().equals("")) {
-                tab_valeurs3[2] = "";
-            } else {
-                tab_valeurs3[2] = prenom_t.getText();
-            }
+                if (adresse_t.getText().equals("")) {
+                    tab_valeurs3[3] = "";
+                } else {
+                    tab_valeurs3[3] = adresse_t.getText();
+                }
+                if (tel_t.getText().equals("")) {
+                    tab_valeurs3[4] = "";
+                } else {
+                    tab_valeurs3[4] = tel_t.getText();
+                }
+                tab_colonnes3[0] = "numero";
+                tab_colonnes3[1] = "nom";
+                tab_colonnes3[2] = "prenom";
+                tab_colonnes3[3] = "adresse";
+                tab_colonnes3[4] = "tel";
+                Requetes requete = new Requetes(tab_valeurs3, tab_valeurs3.length);
 
-            if (adresse_t.getText().equals("")) {
-                tab_valeurs3[3] = "";
-            } else {
-                tab_valeurs3[3] = adresse_t.getText();
-            }
-            if (tel_t.getText().equals("")) {
-                tab_valeurs3[4] = "";
-            } else {
-                tab_valeurs3[4] = tel_t.getText();
-            }
-            tab_colonnes3[0] = "numero";
-            tab_colonnes3[1] = "nom";
-            tab_colonnes3[2] = "prenom";
-            tab_colonnes3[3] = "adresse";
-            tab_colonnes3[4] = "tel";
-            Requetes requete = new Requetes(tab_valeurs3, tab_valeurs3.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs3, "employe", tab_colonnes3));
                 String affichage = "";
@@ -1918,32 +1617,26 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Docteur) {
+                String[] tab_valeurs4 = new String[2];
+                String[] tab_colonnes4 = new String[2];
+                if (numero2_t.getText().equals("")) {
+                    tab_valeurs4[0] = "";
+                } else {
+                    tab_valeurs4[0] = numero2_t.getText();
+                }
+                if (specialité_t.getText().equals("")) {
+                    tab_valeurs4[1] = "";
+                } else {
+                    tab_valeurs4[1] = specialité_t.getText();
+                }
+                tab_colonnes4[0] = "numero";
+                tab_colonnes4[1] = "specialité";
+                Requetes requete = new Requetes(tab_valeurs4, tab_valeurs4.length);
 
-        if (e.getSource() == Rechercher_parametre_Docteur) {
-            System.out.println("lol13");
-            String[] tab_valeurs4 = new String[2];
-            String[] tab_colonnes4 = new String[2];
-            if (numero2_t.getText().equals("")) {
-                tab_valeurs4[0] = "";
-            } else {
-                tab_valeurs4[0] = numero2_t.getText();
-            }
-            if (specialité_t.getText().equals("")) {
-                tab_valeurs4[1] = "";
-            } else {
-                tab_valeurs4[1] = specialité_t.getText();
-            }
-            tab_colonnes4[0] = "numero";
-            tab_colonnes4[1] = "specialité";
-            Requetes requete = new Requetes(tab_valeurs4, tab_valeurs4.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs4, "docteur", tab_colonnes4));
                 String affichage = "";
@@ -1951,44 +1644,38 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Infirmier) {
+                String[] tab_valeurs5 = new String[4];
+                String[] tab_colonnes5 = new String[4];
+                if (numero3_t.getText().equals("")) {
+                    tab_valeurs5[0] = "";
+                } else {
+                    tab_valeurs5[0] = numero3_t.getText();
+                }
+                if (code_service2_t.getText().equals("")) {
+                    tab_valeurs5[1] = "";
+                } else {
+                    tab_valeurs5[1] = code_service2_t.getText();
+                }
+                if (rotation_t.getText().equals("")) {
+                    tab_valeurs5[2] = "";
+                } else {
+                    tab_valeurs5[2] = rotation_t.getText();
+                }
+                if (salaire_t.getText().equals("")) {
+                    tab_valeurs5[3] = "";
+                } else {
+                    tab_valeurs5[3] = salaire_t.getText();
+                }
+                tab_colonnes5[0] = "numero";
+                tab_colonnes5[1] = "code_service";
+                tab_colonnes5[2] = "rotation";
+                tab_colonnes5[3] = "salaire";
+                Requetes requete = new Requetes(tab_valeurs5, tab_valeurs5.length);
 
-        if (e.getSource() == Rechercher_parametre_Infirmier) {
-            System.out.println("lol13");
-            String[] tab_valeurs5 = new String[4];
-            String[] tab_colonnes5 = new String[4];
-            if (numero3_t.getText().equals("")) {
-                tab_valeurs5[0] = "";
-            } else {
-                tab_valeurs5[0] = numero3_t.getText();
-            }
-            if (code_service2_t.getText().equals("")) {
-                tab_valeurs5[1] = "";
-            } else {
-                tab_valeurs5[1] = code_service2_t.getText();
-            }
-            if (rotation_t.getText().equals("")) {
-                tab_valeurs5[2] = "";
-            } else {
-                tab_valeurs5[2] = rotation_t.getText();
-            }
-            if (salaire_t.getText().equals("")) {
-                tab_valeurs5[3] = "";
-            } else {
-                tab_valeurs5[3] = salaire_t.getText();
-            }
-            tab_colonnes5[0] = "numero";
-            tab_colonnes5[1] = "code_service";
-            tab_colonnes5[2] = "rotation";
-            tab_colonnes5[3] = "salaire";
-            Requetes requete = new Requetes(tab_valeurs5, tab_valeurs5.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs5, "infirmier", tab_colonnes5));
                 String affichage = "";
@@ -1996,56 +1683,50 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Malade) {
+                String[] tab_valeurs6 = new String[6];
+                String[] tab_colonnes6 = new String[6];
+                if (numero4_t.getText().equals("")) {
+                    tab_valeurs6[0] = "";
+                } else {
+                    tab_valeurs6[0] = numero4_t.getText();
+                }
+                if (nom3_t.getText().equals("")) {
+                    tab_valeurs6[1] = "";
+                } else {
+                    tab_valeurs6[1] = nom3_t.getText();
+                }
+                if (prenom2_t.getText().equals("")) {
+                    tab_valeurs6[2] = "";
+                } else {
+                    tab_valeurs6[2] = prenom2_t.getText();
+                }
+                if (adresse2_t.getText().equals("")) {
+                    tab_valeurs6[3] = "";
+                } else {
+                    tab_valeurs6[3] = adresse2_t.getText();
+                }
+                if (tel2_t.getText().equals("")) {
+                    tab_valeurs6[4] = "";
+                } else {
+                    tab_valeurs6[4] = tel2_t.getText();
+                }
+                if (mutuelle_t.getText().equals("")) {
+                    tab_valeurs6[5] = "";
+                } else {
+                    tab_valeurs6[5] = mutuelle_t.getText();
+                }
+                tab_colonnes6[0] = "numero";
+                tab_colonnes6[1] = "nom";
+                tab_colonnes6[2] = "prenom";
+                tab_colonnes6[3] = "adresse";
+                tab_colonnes6[4] = "tel";
+                tab_colonnes6[5] = "mutuelle";
+                Requetes requete = new Requetes(tab_valeurs6, tab_valeurs6.length);
 
-        if (e.getSource() == Rechercher_parametre_Malade) {
-            System.out.println("lol13");
-            String[] tab_valeurs6 = new String[6];
-            String[] tab_colonnes6 = new String[6];
-            if (numero4_t.getText().equals("")) {
-                tab_valeurs6[0] = "";
-            } else {
-                tab_valeurs6[0] = numero4_t.getText();
-            }
-            if (nom3_t.getText().equals("")) {
-                tab_valeurs6[1] = "";
-            } else {
-                tab_valeurs6[1] = nom3_t.getText();
-            }
-            if (prenom2_t.getText().equals("")) {
-                tab_valeurs6[2] = "";
-            } else {
-                tab_valeurs6[2] = prenom2_t.getText();
-            }
-            if (adresse2_t.getText().equals("")) {
-                tab_valeurs6[3] = "";
-            } else {
-                tab_valeurs6[3] = adresse2_t.getText();
-            }
-            if (tel2_t.getText().equals("")) {
-                tab_valeurs6[4] = "";
-            } else {
-                tab_valeurs6[4] = tel2_t.getText();
-            }
-            if (mutuelle_t.getText().equals("")) {
-                tab_valeurs6[5] = "";
-            } else {
-                tab_valeurs6[5] = mutuelle_t.getText();
-            }
-            tab_colonnes6[0] = "numero";
-            tab_colonnes6[1] = "nom";
-            tab_colonnes6[2] = "prenom";
-            tab_colonnes6[3] = "adresse";
-            tab_colonnes6[4] = "tel";
-            tab_colonnes6[5] = "mutuelle";
-            Requetes requete = new Requetes(tab_valeurs6, tab_valeurs6.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs6, "malade", tab_colonnes6));
                 String affichage = "";
@@ -2053,44 +1734,38 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Hospitalisation) {
+                String[] tab_valeurs7 = new String[4];
+                String[] tab_colonnes7 = new String[4];
+                if (no_malade_t.getText().equals("")) {
+                    tab_valeurs7[0] = "";
+                } else {
+                    tab_valeurs7[0] = no_malade_t.getText();
+                }
+                if (code_service3_t.getText().equals("")) {
+                    tab_valeurs7[1] = "";
+                } else {
+                    tab_valeurs7[1] = code_service3_t.getText();
+                }
+                if (no_chambre2_t.getText().equals("")) {
+                    tab_valeurs7[2] = "";
+                } else {
+                    tab_valeurs7[2] = no_chambre2_t.getText();
+                }
+                if (lit_t.getText().equals("")) {
+                    tab_valeurs7[3] = "";
+                } else {
+                    tab_valeurs7[3] = lit_t.getText();
+                }
+                tab_colonnes7[0] = "no_malade";
+                tab_colonnes7[1] = "code_service";
+                tab_colonnes7[2] = "no_chambre";
+                tab_colonnes7[3] = "lit";
+                Requetes requete = new Requetes(tab_valeurs7, tab_valeurs7.length);
 
-        if (e.getSource() == Rechercher_parametre_Hospitalisation) {
-            System.out.println("lol13");
-            String[] tab_valeurs7 = new String[4];
-            String[] tab_colonnes7 = new String[4];
-            if (no_malade_t.getText().equals("")) {
-                tab_valeurs7[0] = "";
-            } else {
-                tab_valeurs7[0] = no_malade_t.getText();
-            }
-            if (code_service3_t.getText().equals("")) {
-                tab_valeurs7[1] = "";
-            } else {
-                tab_valeurs7[1] = code_service3_t.getText();
-            }
-            if (no_chambre2_t.getText().equals("")) {
-                tab_valeurs7[2] = "";
-            } else {
-                tab_valeurs7[2] = no_chambre2_t.getText();
-            }
-            if (lit_t.getText().equals("")) {
-                tab_valeurs7[3] = "";
-            } else {
-                tab_valeurs7[3] = lit_t.getText();
-            }
-            tab_colonnes7[0] = "no_malade";
-            tab_colonnes7[1] = "code_service";
-            tab_colonnes7[2] = "no_chambre";
-            tab_colonnes7[3] = "lit";
-            Requetes requete = new Requetes(tab_valeurs7, tab_valeurs7.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs7, "hospitalisation", tab_colonnes7));
                 String affichage = "";
@@ -2098,32 +1773,26 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
-        }
+            if (e.getSource() == Rechercher_parametre_Soignage) {
+                String[] tab_valeurs8 = new String[2];
+                String[] tab_colonnes8 = new String[2];
+                if (no_docteur_t.getText().equals("")) {
+                    tab_valeurs8[0] = "";
+                } else {
+                    tab_valeurs8[0] = no_docteur_t.getText();
+                }
+                if (no_malade2_t.getText().equals("")) {
+                    tab_valeurs8[1] = "";
+                } else {
+                    tab_valeurs8[1] = no_malade2_t.getText();
+                }
+                tab_colonnes8[0] = "no_docteur";
+                tab_colonnes8[1] = "no_malade";
+                Requetes requete = new Requetes(tab_valeurs8, tab_valeurs8.length);
 
-        if (e.getSource() == Rechercher_parametre_Soignage) {
-            System.out.println("lol13");
-            String[] tab_valeurs8 = new String[2];
-            String[] tab_colonnes8 = new String[2];
-            if (no_docteur_t.getText().equals("")) {
-                tab_valeurs8[0] = "";
-            } else {
-                tab_valeurs8[0] = no_docteur_t.getText();
-            }
-            if (no_malade2_t.getText().equals("")) {
-                tab_valeurs8[1] = "";
-            } else {
-                tab_valeurs8[1] = no_malade2_t.getText();
-            }
-            tab_colonnes8[0] = "no_docteur";
-            tab_colonnes8[1] = "no_malade";
-            Requetes requete = new Requetes(tab_valeurs8, tab_valeurs8.length);
-            Connexion C;
-            try {
-                C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs8, "soigne", tab_colonnes8));
                 String affichage = "";
@@ -2131,27 +1800,13 @@ public class Graphique extends JFrame implements ActionListener {
                     affichage += "" + i + ". " + liste.get(i);
                 }
                 affiche(affichage);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
+
             }
 
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    /**
-     * Méthode ConnexionBDD : Sert à afficher la fenêtre de connexion à la BDD.
-     * Met la mise en page en Flow Layout. Rend la fenêtre visible à la fin.
-     */
-    public void ConnexionBDD() {
-        this.setTitle("Connexion à la base de données");
-        connexion.setLayout(new FlowLayout());
-        this.getContentPane().add(connexion);
-        connexion.add(login);
-        connexion.add(mdp);
-        connexion.add(connect);
-
-        this.setVisible(true);
     }
 
     /**
@@ -2180,17 +1835,18 @@ public class Graphique extends JFrame implements ActionListener {
     }
 
     /**
-     * Méthode Recherche : Sert à afficher le menu de recherche pour
-     * séléctionner l'élément à rechercher à l'aide des 8 boutons. Rend la
-     * fenêtre visible à la fin
+     * Méthode ChoixSecteur : Sert à afficher les différents secteurs pour effectuer une action.
+     * Rend la fenêtre visible à la fin
      *
-     *
-     * @param action en fonction de l'action demandée : ajout, supprimer, mise à
-     * jour, rechercher
+     * @param action en fonction de l'action demandée : 1 ajout, 2 supprimer, 3 mise à
+     * jour, 4 rechercher
      */
     public void ChoixSecteur(int action) {
+        ///Effacement du panel 2 pour l'actualisation
         pan2.removeAll();
-        pan2.repaint();
+        pan2.repaint(); 
+        ///Redessine le panel 2
+        
         pan2.setLayout(new FlowLayout());
         font1 = new Font("Times New Roman", Font.BOLD, 18);
         question1.setFont(font1);
@@ -2280,7 +1936,7 @@ public class Graphique extends JFrame implements ActionListener {
     }
 
     /**
-     * Méthode formulaire de recherche Efface le panel 2, 3, 4 et 5 puis les
+     * Méthode formulaire de recherche : Efface le panel 2, 3, 4 et 5 puis les
      * redessine pour réactualiser la page. Efface aussi les JLabel pour les
      * réinitialiser
      *
@@ -2374,6 +2030,8 @@ public class Graphique extends JFrame implements ActionListener {
         pan4.setLayout(new BoxLayout(pan4, BoxLayout.PAGE_AXIS));
         pan5.setLayout(new BoxLayout(pan5, BoxLayout.PAGE_AXIS));
         font2 = new Font("Times New Roman", Font.BOLD, 16);
+        critères_de_recherche.setFont(font2);
+        modification.setFont(font2);
 
         switch (choix) {
 
@@ -2415,7 +2073,9 @@ public class Graphique extends JFrame implements ActionListener {
                     pan4.add(Supprimer_Service);
                 }
                 if (action == 3) {
-                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(Box.createRigidArea(new Dimension(0, 20)));
+                    pan4.add(critères_de_recherche);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(code_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(nom_old);
@@ -2425,7 +2085,8 @@ public class Graphique extends JFrame implements ActionListener {
                     pan4.add(directeur_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Service);
-                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(modification);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 5)));
                     pan5.add(code_t);
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan5.add(nom_t);
@@ -2490,7 +2151,9 @@ public class Graphique extends JFrame implements ActionListener {
                     pan4.add(Supprimer_Chambre);
                 }
                 if (action == 3) {
-                    pan4.add(Box.createRigidArea(new Dimension(0, 40)));
+                    pan4.add(Box.createRigidArea(new Dimension(0, 20)));
+                    pan4.add(critères_de_recherche);
+                    pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(code_service_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(no_chambre_old);
@@ -2500,7 +2163,8 @@ public class Graphique extends JFrame implements ActionListener {
                     pan4.add(nb_lits_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Chambre);
-                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+
+                    pan5.add(Box.createRigidArea(new Dimension(0, 24)));
                     pan5.add(code_service_t);
                     pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan5.add(no_chambre_t);
@@ -2993,10 +2657,6 @@ public class Graphique extends JFrame implements ActionListener {
         //pan2.add(panneau);
 
         this.setVisible(true);
-    }
-
-    public int getconnexion() {
-        return connexion_bdd_reussie;
     }
 
 }

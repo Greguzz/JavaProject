@@ -6,15 +6,15 @@
 package controleur;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import vue.Graphique;
+import vue.Identification;
 
-/**
+/** Classe contenant le main qui instancie la fenêtre de connexion à la BDD locale
+ *
  *
  * @author Manu
  */
 public class Gestion {
+    
 
     /**
      * @param args the command line arguments
@@ -22,19 +22,7 @@ public class Gestion {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-  //    Graphique connexion=new Graphique(300,400);
-//      connexion.ConnexionBDD();
-        Graphique graphique=new Graphique(800,600);
-        graphique.Menu();
-        Scanner sc = new Scanner(System.in);
-        Connexion C = new Connexion("hopital", "root", "1234");
-        String requete;
-        ArrayList<String> liste = new ArrayList<String>();
-        
-        System.out.println("1 recherche, 2 supprimer, 3 ajouter, 4 modifier");
-        int menu = sc.nextInt();
-        
-        
+        Identification connexion = new Identification() ;
     }
     
     
