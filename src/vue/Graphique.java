@@ -2637,17 +2637,19 @@ public class Graphique extends JFrame implements ActionListener {
      * Méthode affiche pour afficher les informations de la base de données
      * récupérées.
      *
-     * @param affichage
+     * @param affichage contient toutes les données récupérées de la base de données dans un String
      */
     public void affiche(String affichage) {
         pan2.removeAll();
         pan2.repaint();
-        JTextArea panneau = new JTextArea(affichage);
-        JScrollPane paneTextArea1 = new JScrollPane(panneau); ///Bug
+        
+        JTextArea panneau = new JTextArea(affichage, 33, 50);
+        
+        JScrollPane paneTextArea1 = new JScrollPane(panneau); 
         paneTextArea1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         panneau.setBackground(pan2.getBackground());
-
-        pan2.add(paneTextArea1);
+        
+        pan2.add(paneTextArea1,BorderLayout.EAST);
         this.setVisible(true);
     }
     
@@ -2667,8 +2669,6 @@ public class Graphique extends JFrame implements ActionListener {
         pan2.add(Répartition_des_malades_par_chambre);
         pan2.add(Répartition_des_docteurs_par_service);
         pan2.add(Salaires);
-        
-        
         this.setVisible(true);
     }
 
