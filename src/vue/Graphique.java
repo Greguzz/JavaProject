@@ -46,12 +46,22 @@ public class Graphique extends JFrame implements ActionListener {
     private final JTextField no_malade_t, code_service3_t, no_chambre2_t, lit_t; ///JTextField du formulaire de recherche Hospitalisation
     private final JTextField no_docteur_t, no_malade2_t; ///JTextField du formulaire de recherche Soignage
 
+    private final JTextField code_old, nom_old, batiment_old, directeur_old; ///JTextField du formulaire de recherche Service
+    private final JTextField code_service_old, no_chambre_old, surveillant_old, nb_lits_old; ///JTextField du formulaire de recherche Chambre
+    private final JTextField numero_old, nom2_old, prenom_old, adresse_old, tel_old; ///JTextField du formulaire de recherche Employé
+    private final JTextField numero2_old, specialité_old; ///JTextField du formulaire de recherche Docteur
+    private final JTextField numero3_old, code_service2_old, rotation_old, salaire_old; ///JTextField du formulaire de recherche Infirmier
+    private final JTextField numero4_old, nom3_old, prenom2_old, adresse2_old, tel2_old, mutuelle_old; ///JTextField du formulaire de recherche Malade
+    private final JTextField no_malade_old, code_service3_old, no_chambre2_old, lit_old; ///JTextField du formulaire de recherche Hospitalisation
+    private final JTextField no_docteur_old, no_malade2_old; ///JTextField du formulaire de recherche Soignage
+
     //private final JTextArea service;
     private final JButton connect;
     private final JPanel pan1;
     private final JPanel pan2;
     private final JPanel pan3;
     private final JPanel pan4;
+    private final JPanel pan5;
     private final JButton choix1;
     private final JButton choix2;
     private final JButton choix3;
@@ -159,15 +169,50 @@ public class Graphique extends JFrame implements ActionListener {
         no_docteur_t = new JTextField(15);
         no_malade2_t = new JTextField(15);
 
+        code_old = new JTextField(15);
+        code_old.setText("lel");
+        nom_old = new JTextField(15);
+        batiment_old = new JTextField(15);
+        directeur_old = new JTextField(15);
+        code_service_old = new JTextField(15);
+        no_chambre_old = new JTextField(15);
+        surveillant_old = new JTextField(15);
+        nb_lits_old = new JTextField(15);
+        numero_old = new JTextField(15);
+        nom2_old = new JTextField(15);
+        prenom_old = new JTextField(15);
+        adresse_old = new JTextField(15);
+        tel_old = new JTextField(15);
+        numero2_old = new JTextField(15);
+        specialité_old = new JTextField(15);
+        numero3_old = new JTextField(15);
+        code_service2_old = new JTextField(15);
+        rotation_old = new JTextField(15);
+        salaire_old = new JTextField(15);
+        numero4_old = new JTextField(15);
+        nom3_old = new JTextField(15);
+        prenom2_old = new JTextField(15);
+        adresse2_old = new JTextField(15);
+        tel2_old = new JTextField(15);
+        mutuelle_old = new JTextField(15);
+        no_malade_old = new JTextField(15);
+        code_service3_old = new JTextField(15);
+        no_chambre2_old = new JTextField(15);
+        lit_old = new JTextField(15);
+        no_docteur_old = new JTextField(15);
+        no_malade2_old = new JTextField(15);
+
 //        service = new JTextArea();
         pan1 = new JPanel();
         pan1.setSize(200, 600);
         pan2 = new JPanel();
         pan2.setSize(500, 500);
         pan3 = new JPanel();
-        pan3.setSize(300, 300);
+        pan3.setSize(200, 200);
         pan4 = new JPanel();
-        pan4.setSize(300, 300);
+        pan4.setSize(200, 200);
+        pan5 = new JPanel();
+        pan5.setSize(100, 100);
 
 //        
         connect = new JButton("Connexion");
@@ -752,28 +797,41 @@ public class Graphique extends JFrame implements ActionListener {
             System.out.println("lol13");
             String[] tab_valeurs1 = new String[4];
             String[] tab_colonnes1 = new String[4];
-            int nombre_champs = 4;
-            if (code_t.getText().equals("") && nom_t.getText().equals("") && batiment_t.getText().equals("") && directeur_t.getText().equals("")) {
-                System.out.println("Vos champs sont vides");
+
+            if (code_t.getText().equals("")) {
+                tab_valeurs1[0] = "";
             } else {
                 tab_valeurs1[0] = code_t.getText();
+            }
+            if (nom_t.getText().equals("")) {
+                tab_valeurs1[1] = "";
+            } else {
                 tab_valeurs1[1] = nom_t.getText();
-                tab_valeurs1[2] = batiment_t.getText();
-                tab_valeurs1[3] = directeur_t.getText();
-                tab_colonnes1[0] = "code";
-                tab_colonnes1[1] = "nom";
-                tab_colonnes1[2] = "batiment";
-                tab_colonnes1[3] = "directeur";
-                ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1);
-                System.out.println("" + ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
-                Connexion C;
-                try {
-                    C = new Connexion("hopital", "root", "1234");
-                    C.executeUpdate(ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            }
 
+            if (batiment_t.getText().equals("")) {
+                tab_valeurs1[2] = "";
+            } else {
+                tab_valeurs1[2] = batiment_t.getText();
+            }
+
+            if (directeur_t.getText().equals("")) {
+                tab_valeurs1[3] = "";
+            } else {
+                tab_valeurs1[3] = directeur_t.getText();
+            }
+            tab_colonnes1[0] = "code";
+            tab_colonnes1[1] = "nom";
+            tab_colonnes1[2] = "batiment";
+            tab_colonnes1[3] = "directeur";
+            ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1);
+            System.out.println("" + ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
+            Connexion C;
+            try {
+                C = new Connexion("hopital", "root", "1234");
+                C.executeUpdate(ReqSupprimer.concatrequete("service", tab_colonnes1, tab_valeurs1));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -972,9 +1030,7 @@ public class Graphique extends JFrame implements ActionListener {
 //            System.out.println("lol13");
 //            String[] tab_valeurs1 = new String[4];
 //            String[] tab_colonnes1 = new String[4];
-//            if (code_t.getText().equals("") || nom_t.getText().equals("") || batiment_t.getText().equals("") || directeur_t.getText().equals("")) {
-//                System.out.println("Un de vos champs est vide");
-//            } else {
+//            String[] tab_colonnes1 = new String[4];
 //                tab_valeurs1[0] = code_t.getText();
 //                tab_valeurs1[1] = nom_t.getText();
 //                tab_valeurs1[2] = batiment_t.getText();
@@ -983,8 +1039,8 @@ public class Graphique extends JFrame implements ActionListener {
 //                tab_colonnes1[1] = "nom";
 //                tab_colonnes1[2] = "batiment";
 //                tab_colonnes1[3] = "directeur";
-//                ReqUpdate.concatrequete("service", tab_colonnes1, tab_valeurs1);
-//                System.out.println("" + ReqUpdate.concatrequete("service", tab_colonnes1, tab_valeurs1));
+////                ReqUpdate.concatrequete("service", tab_colonnes1, tab_valeurs1);
+////                System.out.println("" + ReqUpdate.concatrequete("service", tab_colonnes1, tab_valeurs1));
 //                Connexion C;
 //                try {
 //                    C = new Connexion("hopital", "root", "");
@@ -993,7 +1049,7 @@ public class Graphique extends JFrame implements ActionListener {
 //                    Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //
-//            }
+//            
 //        }
         if (e.getSource() == Rechercher_tout_Service) {
             JTextArea lol;
@@ -1220,9 +1276,11 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs1, "service", tab_colonnes1));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -1267,15 +1325,17 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs2, "chambre", tab_colonnes2));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         if (e.getSource() == Rechercher_parametre_Employé) {
             System.out.println("lol13");
             String[] tab_valeurs3 = new String[5];
@@ -1318,15 +1378,17 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs3, "employe", tab_colonnes3));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         if (e.getSource() == Rechercher_parametre_Docteur) {
             System.out.println("lol13");
             String[] tab_valeurs4 = new String[2];
@@ -1349,15 +1411,17 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs4, "docteur", tab_colonnes4));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         if (e.getSource() == Rechercher_parametre_Infirmier) {
             System.out.println("lol13");
             String[] tab_valeurs5 = new String[4];
@@ -1392,15 +1456,17 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs5, "infirmier", tab_colonnes5));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         if (e.getSource() == Rechercher_parametre_Malade) {
             System.out.println("lol13");
             String[] tab_valeurs6 = new String[6];
@@ -1447,15 +1513,17 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs6, "malade", tab_colonnes6));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         if (e.getSource() == Rechercher_parametre_Hospitalisation) {
             System.out.println("lol13");
             String[] tab_valeurs7 = new String[4];
@@ -1490,9 +1558,11 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs7, "hospitalisation", tab_colonnes7));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1521,15 +1591,16 @@ public class Graphique extends JFrame implements ActionListener {
                 C = new Connexion("hopital", "root", "1234");
                 ArrayList<String> liste = new ArrayList<String>();
                 liste = C.remplirChampsRequete(requete.concatrequete(tab_valeurs8, "soigne", tab_colonnes8));
+                String affichage = "";
                 for (int i = 0; i < liste.size(); i++) {
-                    System.out.println(liste.get(i));
+                    affichage += "" + i + ". " + liste.get(i);
                 }
+                affiche(affichage);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Graphique.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
 
     }
 
@@ -1687,11 +1758,15 @@ public class Graphique extends JFrame implements ActionListener {
         pan3.repaint();
         pan4.removeAll();
         pan4.repaint();
+        pan5.removeAll();
+        pan5.repaint();
         pan2.setLayout(new FlowLayout());
         pan2.add(pan3);
         pan2.add(pan4);
+        pan2.add(pan5);
         pan3.setLayout(new BoxLayout(pan3, BoxLayout.PAGE_AXIS));
         pan4.setLayout(new BoxLayout(pan4, BoxLayout.PAGE_AXIS));
+        pan5.setLayout(new BoxLayout(pan5, BoxLayout.PAGE_AXIS));
         font2 = new Font("Times New Roman", Font.BOLD, 16);
 
         switch (choix) {
@@ -1735,15 +1810,25 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(code_t);
+                    pan4.add(code_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(nom_t);
+                    pan4.add(nom_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(batiment_t);
+                    pan4.add(batiment_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(directeur_t);
+                    pan4.add(directeur_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Service);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(code_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(nom_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(batiment_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(directeur_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+//                    pan5.add(Modifier_Service);
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -1800,15 +1885,24 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(code_service_t);
+                    pan4.add(code_service_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(no_chambre_t);
+                    pan4.add(no_chambre_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(surveillant_t);
+                    pan4.add(surveillant_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(nb_lits_t);
+                    pan4.add(nb_lits_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Chambre);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(code_service_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(no_chambre_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(surveillant_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(nb_lits_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -1871,17 +1965,28 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(numero_t);
+                    pan4.add(numero_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(nom2_t);
+                    pan4.add(nom2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(prenom_t);
+                    pan4.add(prenom_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(adresse_t);
+                    pan4.add(adresse_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(tel_t);
+                    pan4.add(tel_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Employé);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(numero_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(nom2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(prenom_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(adresse_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(tel_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -1926,11 +2031,17 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(numero2_t);
+                    pan4.add(numero2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(specialité_t);
+                    pan4.add(specialité_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Docteur);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(numero2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(specialité_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -1983,15 +2094,24 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(numero3_t);
+                    pan4.add(numero3_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(code_service2_t);
+                    pan4.add(code_service2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(rotation_t);
+                    pan4.add(rotation_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(salaire_t);
+                    pan4.add(salaire_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Infirmier);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(numero3_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(code_service2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(rotation_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(salaire_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -2062,19 +2182,32 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(numero4_t);
+                    pan4.add(numero4_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(nom3_t);
+                    pan4.add(nom3_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(prenom2_t);
+                    pan4.add(prenom2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(adresse2_t);
+                    pan4.add(adresse2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(tel2_t);
+                    pan4.add(tel2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(mutuelle_t);
+                    pan4.add(mutuelle_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Malade);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(numero4_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(nom3_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(prenom2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(adresse2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(tel2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(mutuelle_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -2134,15 +2267,25 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(no_malade_t);
+                    pan4.add(no_malade_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(code_service3_t);
+                    pan4.add(code_service3_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(no_chambre2_t);
+                    pan4.add(no_chambre2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(lit_t);
+                    pan4.add(lit_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Hospitalisation);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(no_malade_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(code_service3_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(no_chambre2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(lit_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -2184,11 +2327,17 @@ public class Graphique extends JFrame implements ActionListener {
                 }
                 if (action == 3) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 40)));
-                    pan4.add(no_docteur_t);
+                    pan4.add(no_docteur_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
-                    pan4.add(no_malade2_t);
+                    pan4.add(no_malade2_old);
                     pan4.add(Box.createRigidArea(new Dimension(0, 10)));
                     pan4.add(Modifier_Soignage);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 14)));
+                    pan5.add(no_docteur_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                    pan5.add(no_malade2_t);
+                    pan5.add(Box.createRigidArea(new Dimension(0, 10)));
+                   
                 }
                 if (action == 4) {
                     pan4.add(Box.createRigidArea(new Dimension(0, 80)));
