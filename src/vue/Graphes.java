@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -23,15 +23,17 @@ public class Graphes {
      * @param nom le nom des maladies
      * @param nbMalade le nombre de malades
      */
-    public static void maladieGraphe (String nom[], int nbMalade[]) {
-    DefaultPieDataset data = new DefaultPieDataset();
-    for (int i=0; i<nom.length; i++){
-        data.setValue(nom[i], nbMalade[i]);
-    }
-    JFreeChart chart = ChartFactory.createPieChart("Maladie", data, true, true, false);
-    ChartFrame frame = new ChartFrame("Fenetre", chart);//je savais pas trop quoi mettre a la place de fenetre
-    frame.pack();
-    frame.setVisible(true);
+    public static void chambreGraphe () {
+        String no_chambre[] = {"101", "102", "103", "104"};
+        int nbMalade[] = {12, 12, 22, 22};
+        DefaultPieDataset data = new DefaultPieDataset();
+        for (int i=0; i<no_chambre.length; i++){
+            data.setValue(no_chambre[i], nbMalade[i]);
+        }
+        JFreeChart chart = ChartFactory.createPieChart("Répartition des malades pour les chambres du premier étage", data, true, true, false);
+        ChartFrame frame = new ChartFrame("Fenetre", chart);//je savais pas trop quoi mettre a la place de fenetre
+        frame.pack();
+        frame.setVisible(true);
     }
     
     /**
@@ -40,12 +42,14 @@ public class Graphes {
      * @param service le nom des services
      * @param nbPatient le nombre de patients
      */
-    public static void patientGraphe (String service[], int nbPatient[]) {
+    public static void docteurGraphe () {
+        String service[] = {"Réanimation et Traumatologie", "Chirurgie Générale", "Cardiologie"};
+        int nbDocteur[] = {7, 8, 5};
         DefaultCategoryDataset data = new DefaultCategoryDataset();
         for (int i=0; i<service.length; i++){
-            data.addValue(nbPatient[i], service[i], "");
+            data.addValue(nbDocteur[i], service[i], "");
         }
-        JFreeChart chart = ChartFactory.createBarChart("Nombre de patient par service", "Service", "Nombre de Patient", data, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart = ChartFactory.createBarChart("Nombre de docteurs par service", "Service", "Nombre de Docteurs", data, PlotOrientation.VERTICAL, true, true, false);
         ChartFrame frame = new ChartFrame("Fenetre", chart);//je savais pas trop quoi mettre a la place de fenetre
         frame.pack();
         frame.setVisible(true);
