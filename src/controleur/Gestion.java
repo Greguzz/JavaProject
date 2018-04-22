@@ -45,7 +45,7 @@ public class Gestion {
                         String ligne[] = new String[4];
                         String tab[] = new String[4];
                         System.out.println("Code ?");
-                        tab[0]=sc.next();
+                        tab[0]=sc.nextLine();
                         ligne[0]="code";
                         
                         if(tab[0].equals("0")) {
@@ -53,21 +53,21 @@ public class Gestion {
                         }
                         
                         System.out.println("Nom ?");
-                        tab[1]=sc.next();
+                        tab[1]=sc.nextLine();
                         ligne[1] = "nom";
                         if(tab[1].equals("0")) {
                             tab[1]="";
                         }
                         
                         System.out.println("Batiment ?");
-                        tab[2]=sc.next();
+                        tab[2]=sc.nextLine();
                         ligne[2]="batiment";
                         if(tab[2].equals("0")) {
                             tab[2]="";
                         }
                         
                         System.out.println("Directeur ?");
-                        tab[3]=sc.next();
+                        tab[3]=sc.nextLine();
                         ligne[3]="directeur";
                         if(tab[3].equals("0")) {
                             tab[3]="";
