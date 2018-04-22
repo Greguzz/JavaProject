@@ -22,7 +22,7 @@ public class ReqSupprimer {
         
         int size = 0;
         for(int j = 0; j<var.length; j++){
-            if (var[j]!=""){
+            if (supp[j]!=""){
                 size++;
             }
         }
@@ -30,7 +30,7 @@ public class ReqSupprimer {
         String newsupp[] = new String[size];
         int a = 0;
         for(int k = 0; k<var.length; k++){
-            if (var[k]!=""){
+            if (supp[k]!=""){
                 newvar[a]=var[k];
                 newsupp[a]=supp[k];
                 a++;
