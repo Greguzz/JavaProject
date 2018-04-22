@@ -18,10 +18,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Graphes {
     /**
-     * Une méthode qui fait un camembert montrant la répartition des malades par maladies
+     * Une méthode qui fait un camembert montrant la répartition des malades par chambre au premier étage
      *
-     * @param nom le nom des maladies
-     * @param nbMalade le nombre de malades
+     *  no_chambre le numéro de la chambre
+     *  nbMalade le nombre de malades
      */
     public static void chambreGraphe () {
         String no_chambre[] = {"101", "102", "103", "104"};
@@ -39,8 +39,8 @@ public class Graphes {
     /**
      * Une méthode qui fait un graphes en barre pour montrer la répartition des malades par services
      *
-     * @param service le nom des services
-     * @param nbPatient le nombre de patients
+     *  service le nom des services
+     *  nbDocteur le nombre de docteurs
      */
     public static void docteurGraphe () {
         String service[] = {"Réanimation et Traumatologie", "Chirurgie Générale", "Cardiologie"};
@@ -61,7 +61,7 @@ public class Graphes {
      * @param service le nom des services
      * @param moyenne la moyenne des saliares par service
      */
-    public static void salaireGraphe (String service[], float moyenne[]) {
+    public static void salaireGraphe (String service[], float moyenne[]) {//inutile au vu des données que nous avons dans la bdd
         DefaultCategoryDataset data = new DefaultCategoryDataset();
         for (int i=0; i<service.length; i++){
             data.addValue(moyenne[i], service[i], "");
